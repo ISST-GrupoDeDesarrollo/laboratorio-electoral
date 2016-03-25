@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="utf-8">
+        <title>Laboratorio electoral</title>
+        <!-- Libs -->
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
+        <!-- App -->
+        <script type="text/javascript" src="Laboratory.js"></script>
+        <!-- Controllers -->
+        <script type="text/javascript" src="welcomePage/welcomeController.js"></script>
+        <script type="text/javascript" src="login/loginController.js"></script>
+        <script type="text/javascript" src="register/registerController.js"></script>
+        <script type="text/javascript" src="projects/projectsController.js"></script>
+        <script type="text/javascript" src="project/projectController.js"></script>
+        <script type="text/javascript" src="simulation/simulationController.js"></script>
+        <script type="text/javascript" src="result/resultController.js"></script>
+</head>
+<body ng-app="Laboratory">
+  
+    <div ng-view>
+        <!-- Here the different route views are switched -->
+    </div>
+
+
+</body>
+</html>
