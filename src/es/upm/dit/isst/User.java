@@ -16,8 +16,15 @@ public class User implements Serializable {
 	@Id
 	private String email;
 	private String name;
-	private String salt;
+	private int salt;
 	private String password;
+	
+	public User(String email, String name, int salt, String password){
+		this.email = email;
+		this.name = name;
+		this.salt = salt;
+		this.password = password;
+	}
 	
 
 }
