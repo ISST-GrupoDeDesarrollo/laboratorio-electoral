@@ -4,6 +4,7 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+
 	<servlet>
 		<servlet-name>Register</servlet-name>
 		<servlet-class>es.upm.dit.isst.RegisterServlet</servlet-class>
@@ -12,6 +13,25 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Register</servlet-name>
 		<url-pattern>/api/register</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetRegisterUrl</servlet-name>
+		<servlet-class>es.upm.dit.isst.GetRegisterUrlServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetRegisterUrl</servlet-name>
+		<url-pattern>/api/register/geturl</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetBlob</servlet-name>
+		<servlet-class>es.upm.dit.isst.GetBlobServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetBlob</servlet-name>
+		<url-pattern>/api/getblob</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

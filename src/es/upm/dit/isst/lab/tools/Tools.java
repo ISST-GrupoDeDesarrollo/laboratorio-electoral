@@ -1,8 +1,15 @@
 package es.upm.dit.isst.lab.tools;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
 
 public class Tools {
     final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
@@ -31,4 +38,13 @@ public class Tools {
         }
         return new String(hexChars);
     }
+
+	public static void sendJson(HttpServletResponse response, Object toJson, Class clazz) throws IOException{
+		response.setContentType("application/json");  
+		PrintWriter out;
+		out = response.getWriter();
+		String jsonString = new Gson().toJson(toJson,clazz);
+		out.print(jsonString);
+		out.flush();
+	}
 }

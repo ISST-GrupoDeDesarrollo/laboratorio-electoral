@@ -20,10 +20,11 @@ public class User implements Serializable {
 	private String password;
 	private String completeName;
 	private String role;
+	private String profilePicBlobKey;
 	
 	
 	
-	public User(String username, String email, int salt, String password, String completeName, String role) {
+	public User(String username, String email, int salt, String password, String completeName, String role,String profilePicBlobKey) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -31,6 +32,7 @@ public class User implements Serializable {
 		this.password = password;
 		this.completeName = completeName;
 		this.role = role;
+		this.profilePicBlobKey = profilePicBlobKey;
 	}
 	
 
