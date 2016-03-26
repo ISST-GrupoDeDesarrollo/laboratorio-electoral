@@ -14,16 +14,23 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	private String username;
 	private String email;
-	private String name;
 	private int salt;
 	private String password;
+	private String completeName;
+	private String role;
 	
-	public User(String email, String name, int salt, String password){
+	
+	
+	public User(String username, String email, int salt, String password, String completeName, String role) {
+		super();
+		this.username = username;
 		this.email = email;
-		this.name = name;
 		this.salt = salt;
 		this.password = password;
+		this.completeName = completeName;
+		this.role = role;
 	}
 	
 

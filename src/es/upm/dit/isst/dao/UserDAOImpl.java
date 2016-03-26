@@ -23,12 +23,12 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public User createUser(String email, String name, int salt, String hash) {
+	public User createUser(String username, String email, int salt, String password, String completeName, String role) {
 		// TODO Auto-generated method stub
 		User user = null;
 		EntityManager em = EMFService.get().createEntityManager();
 		//TODO Neded some logic before creation?
-		user = new User(email,name,salt,hash);
+		user = new User(username,email,salt,password,completeName,role);
 		em.persist(user);
 		em.close();
 		
@@ -36,10 +36,10 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User getUser(String email) {
+	public User getUser(String username) {
 		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("select t from User t where t.email = :email");
-		q.setParameter("email", email);
+		Query q = em.createQuery("select t from User t where t.username = :username");
+		q.setParameter("username", username);
 		User res = null;
 		List<User> users = q.getResultList();
 		if (users.size() > 0)
@@ -49,7 +49,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public boolean validateUser(String email, String password) {
+	public boolean validateUser(String username, String password) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -64,11 +64,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void deleteUser(String email) {
+	public void deleteUser(String username) {
 		// TODO Auto-generated method stub
 		EntityManager em = EMFService.get().createEntityManager();
 		try{
-			User hypUser = em.find(User.class, email);
+			User hypUser = em.find(User.class, username);
 			em.remove(hypUser);
 		} finally {
 			em.close();

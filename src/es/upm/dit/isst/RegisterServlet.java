@@ -12,6 +12,9 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import es.upm.dit.isst.dao.UserDAOImpl;
+import es.upm.dit.isst.lab.tools.Tools;
+
 @SuppressWarnings("serial")
 public class RegisterServlet extends HttpServlet {
 	
@@ -64,7 +67,15 @@ public class RegisterServlet extends HttpServlet {
 	            }
 	        }
 	        if(username!=null&&profilePic!=null&&password!=null&&completeName!=null&&role!=null&&email!=null){
-	        	
+	        	if(UserDAOImpl.getInstance().getUser(username)==null){
+	        		int salt = (int) (Math.random()*Integer.MAX_VALUE);
+	        		String hash = Tools.sha256(password+salt);
+	        		User newUser = UserDAOImpl.getInstance().createUser(username, email, salt, hash, completeName, role);
+	        		System.out.println("New user created, username: "+username);
+	        		resp.setStatus(200);
+	        	}else{
+	        		resp.sendError(403);
+	        	}
 	        }else{
 	        	resp.sendError(400);
 	        }
