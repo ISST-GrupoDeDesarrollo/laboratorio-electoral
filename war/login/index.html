@@ -1,1 +1,64 @@
-<p>{{controllerName}}</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
+   <script type="text/javascript" src="Laboratory.js"></script>
+  </head>
+  <body data-ng-app='Laboratory'>
+
+    <div data-ng-include="'/navigationBars/navigationBarOut.html'">
+    </div>
+
+    <div class="container">
+    <div class="row">
+    
+      <article class="col-xs-12 maincontent">
+      
+        <header class="page-header">
+          <h1 class="page-title">Sign in</h1>
+        </header>
+        
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h3 class="thin text-center">Accede a tu cuenta</h3>
+              <hr>
+              <form name='registroForm' class="form-horizontal" role="form">
+                <div class="top-margin" class="form-group">
+                  <label class="col-lg-2 control-label">Usuario</label>
+                  <div class="col-lg-10"> 
+                    <input type="text" class="form-control" placeholder="Introduce usuario">
+                  </div>
+                </div>
+                <br>
+                <div class="top-margin" class="form-group">
+                  <label class="col-lg-2 control-label">Contraseña</label>
+                  <div class="col-lg-10">
+                    <input type="password" class="form-control" placeholder="Introduce contraseña">
+                  </div>
+                </div>
+                <br>
+                <div class="form-group">
+                  <div class="col-sm-3 col-sm-offset-6">
+                    <button class="btn btn-action" type="submit">Sign in</button>
+                  </div>
+                </div>
+              </form>
+              <div class="top-margin">
+                <p>¿No tienes cuenta? <a data-ng-href="#/register">Regístrate</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </article>
+      
+    </div>
+    </div>
+  </body>
+</html>
