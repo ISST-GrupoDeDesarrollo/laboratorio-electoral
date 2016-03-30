@@ -38,12 +38,12 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 				'Content-Type': 'multipart/form-data'
 			},
 			data: {
-				usuario: $scope.usuario,
-				contraseña: $scope.contraseña,
-				nombreCompleto: $scope.nombreCompleto,
-				rol: $scope.rol,
+				username: $scope.usuario,
+				password: $scope.contraseña,
+				completeName: $scope.nombreCompleto,
+				role: $scope.rol,
 				email: $scope.email,
-				foto: $scope.file
+				profilePic: $scope.file
 			},
 			transformRequest: function(data, headersGetter){
 				var formData = new FormData();
