@@ -1,19 +1,3 @@
-Laboratory.directive('file', function(){
-	return {
-		scope: {
-			file: '='
-		},
-		link: function(scope, element, attrs){
-			element.bind('change', function(event){
-				var file = event.target.files[0];
-				scope.file = file ? file : undefined;
-				scope.$apply();
-			});
-		}
-	};
-});
-
-
 Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', '$location', function($scope,$http,$routeParams,$location){
 		//register controller code goes here
 		//$scope.controllerName = "registerController";
@@ -25,15 +9,14 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 	$scope.email;
 		
 	$scope.enviarRegistro = ['$scope', function($scope){
-			/*
-			$http.get("/api/register/geturl").success(function(data,status){
-				$scope.registerUrl = data.url;
-			});
-			*/
+			
+		var direccion = $http.get("/api/register/geturl").success(function(data,status){
+			$scope.registerUrl = data.url;
+		});
 			
 		$http({
 			method: 'POST',
-			url: 'direccion',
+			url: direccion,
 			headers: {
 				'Content-Type': 'multipart/form-data'
 			},

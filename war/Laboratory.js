@@ -24,3 +24,18 @@ Laboratory.config(['$routeProvider',function ($routeProvider) { //Configuro el p
         templateUrl: "result/index.html"
     });
 }]);
+
+Laboratory.directive('file', function(){
+	return {
+		scope: {
+			file: '='
+		},
+		link: function(scope, element, attrs){
+			element.bind('change', function(event){
+				var file = event.target.files[0];
+				scope.file = file ? file : undefined;
+				scope.$apply();
+			});
+		}
+	};
+});
