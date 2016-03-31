@@ -23,27 +23,38 @@ public class RegisterServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		
+		System.out.println(session.getAttribute("user"));
+		
 		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
 		List<BlobKey> blobKeys = blobs.get("profilePic");
 		
-		String profilePicKey = blobKeys.size()>0? blobKeys.get(0).getKeyString() : null;
-	
-		String username = req.getParameter("username");
-		String password = req.getParameter("password");
-		String completeName = req.getParameter("completeName");
-		String role = req.getParameter("role");
-		String email = req.getParameter("email");
-        if(username!=null&&password!=null&&completeName!=null&&role!=null&&email!=null&&profilePicKey!=null){
-        	if(UserDAOImpl.getInstance().getUser(username)==null){
-        		int salt = (int) (Math.random()*Integer.MAX_VALUE);
-        		String hash = Tools.sha256(password+salt);
-        		User newUser = UserDAOImpl.getInstance().createUser(username, email, salt, hash, completeName, role,profilePicKey);
-        		System.out.println("New user created, username: "+username);
-        		resp.setStatus(200);
-        	}else{
-        		resp.sendError(403);
-        	}
+		if(blobKeys!=null){
+			String profilePicKey = blobKeys.size()>0? blobKeys.get(0).getKeyString() : null;
+		
+			String username = req.getParameter("username");
+			String password = req.getParameter("password");
+			String completeName = req.getParameter("completeName");
+			String role = req.getParameter("role");
+			String email = req.getParameter("email");
+	        if(username!=null&&password!=null&&completeName!=null&&role!=null&&email!=null&&profilePicKey!=null){
+	        	if(UserDAOImpl.getInstance().getUser(username)==null){
+	        		int salt = (int) (Math.random()*Integer.MAX_VALUE);
+	        		String hash = Tools.sha256(password+salt);
+	        		User newUser = UserDAOImpl.getInstance().createUser(username, email, salt, hash, completeName, role,profilePicKey);
+	        		System.out.println("New user created, username: "+username);
+	        		
+	        		session.setAttribute("user", username);
+	        		
+	        		resp.setStatus(200);
+	        	}else{
+	        		resp.sendError(403);
+	        	}
+	        }else{
+	        	resp.sendError(400);
+	        }
         }else{
         	resp.sendError(400);
         }
