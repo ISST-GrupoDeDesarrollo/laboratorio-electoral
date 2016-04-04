@@ -1,10 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../favicon.ico">
+    <script type="text/javascript" src="../jquery-2.2.2.js"></script>
+    <title>Registro</title>
 
-<form action="{{registerUrl}}" method="post" enctype="multipart/form-data">
-		Username: <input type="text" name="username"/><br/>
-		File: <input type="file" name="profilePic"/><br/>
-		Password: <input type="text" name="password"/><br/>
-		Role: <input type="text" name="role"/><br/>
-		email: <input type="text" name="email"/><br/>
-		Complete name: <input type="text" name="completeName"/><br/>
-		<input type="submit" value="Submit"/>
-</form>
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- My CSS -->
+    <link href="../registroCSS.css" rel="stylesheet">
+     <script type="text/javascript">
+            function cargarFoto() {
+      $( "#imgInp" ).trigger( "click" );
+        }
+            function cargarImg(input) {
+              console.log("e");
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#fot').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    </script>
+    <style>
+     #imgInp {position:absolute;
+              top:-1000px;}
+     </style>
+  </head>
+  <body id= "formulario">
+    <!-- Fixed navbar -->
+    <div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Laboratorio Electoral</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">Registro</a></li>
+            <li><a href="#contact">Mi perfil</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Desplegable <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Log out</a></li>
+            <li><a href="../navbar-static-top/">Otra cosa...</a></li>
+            <li class="active"><a href="./">... <span class="sr-only">(current)</span></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="form-signin-heading" >x</h2>
+	
+    <div class="container" id= "campos">
+      <form class="form-signin" action="{{registerUrl}}" method="post" enctype="multipart/form-data">  
+      
+        <h2 class="form-signin-heading" id="re">Registro</h2>
+        <h3 class="form-signin-heading" id = "sub" >Información de la cuenta</h3>
+        <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-3">
+            Usuario
+          </div>
+          <div class="col-md-3">
+            <label for="usuario" class="sr-only">Nombre de usuario</label>
+            <input type="email" id="usuario" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+            <div class="col-md-3">
+            </div>
+         </div>
+
+
+         <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-3">
+            Contraseña
+          </div>
+          <div class="col-md-3">
+            <label for="contraseña" class="sr-only">Contraseña</label>
+            <input type="email" id="contraseña" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+            <div class="col-md-3">
+            </div>
+         </div>
+
+         <h3 class="form-signin-heading" id = "sub" >Información personal</h3>
+          <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-3">
+            Repita contraseña
+          </div>
+          <div class="col-md-3">
+            <label for="contraseña2" class="sr-only">Contraseña</label>
+            <input type="email" id="contraseña2" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+            <div class="col-md-3">
+            </div>
+         </div>
+
+
+         <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-3">
+            Nombre completo
+          </div>
+          <div class="col-md-3">
+            <label for="nombre" class="sr-only">Nombre y apellidos</label>
+            <input type="email" id="nombre" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+            <div class="col-md-3">
+            </div>
+         </div>
+
+         <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-3" id = "foto">
+            Foto de perfil
+            <input type='file' id="imgInp" onchange="cargarImg(this);"/>
+              
+           
+          </div>
+
+          <div class="col-md-3">
+            <img src="../ejemplo.jpg" class="img-thumbnail" onclick="cargarFoto();" id="fot">
+            </div>
+            <div class="col-md-3">
+            </div>
+         </div>
+
+         <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-3">
+            Rol
+          </div>
+          <div class="col-md-3">
+            <label for="rol" class="sr-only">Analista, manager, otro... </label>
+            <input type="email" id="rol" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+            <div class="col-md-3">
+            </div>
+         </div>
+
+         <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-3">
+            Email
+          </div>
+          <div class="col-md-3">
+            <label for="email" class="sr-only">Direccion Email</label>
+            <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+            <div class="col-md-3">
+            </div>
+         </div>
+
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+           <h2 class="form-signin-heading">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+        </h2>
+            </div>
+            <div class="col-md-4">
+            </div>
+         </div>
+       
+      </form>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>    
