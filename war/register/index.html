@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,10 +33,6 @@
         }
     }
     </script>
-    <style>
-     #imgInp {position:absolute;
-              top:-1000px;}
-     </style>
   </head>
   <body id= "formulario">
     <!-- Fixed navbar -->
@@ -90,11 +87,11 @@
 
 
 <h2 class="form-signin-heading" >x</h2>
-	
+
     <div class="container" id= "campos">
-      <form class="form-signin" action="{{registerUrl}}" method="post" enctype="multipart/form-data">  
+      <form class="form-signin" runat="server">
       
-        <h2 class="form-signin-heading" id="re">Registro</h2>
+        <h2 class="form-signin-heading" id="re"><Legend>Registro</legend></h2>
         <h3 class="form-signin-heading" id = "sub" >Información de la cuenta</h3>
         <div class="row">
           <div class="col-md-3">
@@ -161,7 +158,10 @@
           <div class="col-md-3" id = "foto">
             Foto de perfil
             <input type='file' id="imgInp" onchange="cargarImg(this);"/>
-              
+              <style>
+                #imgInp {position:absolute;
+                          top:-1000px;}
+              </style>
            
           </div>
 
@@ -217,4 +217,4 @@
     </div> <!-- /container -->
 
   </body>
-</html>    
+</html>
