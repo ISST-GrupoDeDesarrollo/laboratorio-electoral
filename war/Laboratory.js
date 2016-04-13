@@ -22,7 +22,7 @@ Laboratory.config(['$routeProvider',function ($routeProvider) { //Configuro el p
     }).when("/projects/:projectId/results/:resultId", {
         controller: "resultController",
         templateUrl: "result/index.html"
-    });
+    }).otherwise({redirectTo: '/'});
 }]);
 
 Laboratory.directive('file', function(){
