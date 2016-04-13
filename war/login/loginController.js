@@ -1,4 +1,4 @@
-angular.module('Laboratory', []).controller('loginController', ['$scope', '$http', function($scope,$http){
+Laboratory.controller('loginController', ['$scope', '$http', function($scope,$http){
   console.log("1");
 
   $scope.sendLogin = ['$scope', "$http" , function($scope, $http){
