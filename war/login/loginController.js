@@ -1,15 +1,12 @@
-angular.module('Laboratory', []).controller('loginController', ['$scope', '$http', function($scope,$http){
-  console.log("1");
-
-  $scope.sendLogin = ['$scope', "$http" , function($scope, $http){
-    console.log("2");
-
+Laboratory.controller('loginController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
+	$scope.sendLogin = function($scope, $http){
+    console.log("send");
     $http({
       method: "GET",
-      url: "adress",
+      url: "www.google.com",
       data: {
         username: $scope.usuario,
-        password: $scope.contraseña
+        password: $scope.contrasena
       }/*,
       transformRequest: function(data, headersGetter){
         var formData = new FormData();
@@ -29,5 +26,5 @@ angular.module('Laboratory', []).controller('loginController', ['$scope', '$http
     });
 
 
-  }];
+  };
 }]);

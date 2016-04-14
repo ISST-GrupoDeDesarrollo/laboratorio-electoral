@@ -1,12 +1,15 @@
 #formulario{
+	
 }
+
 #campos {
-  border-top-style: solid;
-  border-right-style: solid;
-  border-bottom-style: solid;
-  border-left-style: solid;
   clear: both;
 }
+
+#boton {
+
+}
+
 #re {
 	
 	margin-left: 1em;

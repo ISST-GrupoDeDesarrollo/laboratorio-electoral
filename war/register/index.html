@@ -1,10 +1,16 @@
+<div>  <div data-ng-include="'/navigationBars/navigationBarOut.html'">
+    </div>
+    <hr>
+    <hr>
+ <article class="col-xs-12 maincontent">
   <div id= "formulario">
-	<h2 class="form-signin-heading" >x</h2>
-
     <div class="container" id= "campos">
-      <form class="form-signin" runat="server">
-      
-        <h2 class="form-signin-heading" id="re"><Legend>Registro</legend></h2>
+        <header class="page-header">
+          <h1 class="page-title">Registro</h1>
+        </header>
+        <form class="form-signin" runat="server">
+       	<div class="panel panel-default">
+        <div class="panel-body">
         <h3 class="form-signin-heading" id = "sub" >Información de la cuenta</h3>
         <div class="row">
           <div class="col-md-3">
@@ -118,15 +124,18 @@
           </div>
           <div class="col-md-4">
            <h2 class="form-signin-heading">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
-        </h2>
+			<button type="submit" id="boton">Registrar</button>        
+			</h2>
             </div>
             <div class="col-md-4">
             </div>
          </div>
-       
+          </div>
+         </div>
       </form>
 
     </div> <!-- /container -->
 
+  </div>  
+  </article>
   </div>
