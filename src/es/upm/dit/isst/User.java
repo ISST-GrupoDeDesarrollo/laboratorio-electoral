@@ -22,8 +22,6 @@ public class User implements Serializable {
 	private String role;
 	private String profilePicBlobKey;
 	
-	
-	
 	public User(String username, String email, int salt, String password, String completeName, String role,String profilePicBlobKey) {
 		super();
 		this.username = username;
