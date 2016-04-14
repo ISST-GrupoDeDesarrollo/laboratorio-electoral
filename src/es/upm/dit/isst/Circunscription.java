@@ -25,7 +25,7 @@ public class Circunscription implements Serializable {
 	 private String localization;
 	 
 	 @OneToMany(targetEntity=VotingIntent.class,fetch=FetchType.EAGER)
-	 private Collection orders;      
+	 private Collection votingIntents;      
 	
 	
 }
