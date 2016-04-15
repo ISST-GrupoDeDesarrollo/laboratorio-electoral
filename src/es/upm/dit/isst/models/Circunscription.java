@@ -1,4 +1,4 @@
-package es.upm.dit.isst;
+package es.upm.dit.isst.models;
 
 import java.io.Serializable;
 import java.util.Collection;

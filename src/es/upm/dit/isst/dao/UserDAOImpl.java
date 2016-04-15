@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import es.upm.dit.isst.User;
+import es.upm.dit.isst.models.User;
 
 
 public class UserDAOImpl implements UserDAO {
