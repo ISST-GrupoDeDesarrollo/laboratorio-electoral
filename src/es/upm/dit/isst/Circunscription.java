@@ -2,6 +2,7 @@ package es.upm.dit.isst;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,8 +25,8 @@ public class Circunscription implements Serializable {
 	 private String name;
 	 private String localization;
 	 
-	 @OneToMany(targetEntity=VotingIntent.class,fetch=FetchType.EAGER)
-	 private Collection votingIntents;      
+	 @OneToMany(fetch=FetchType.EAGER, mappedBy="circunscription")
+	 private List<VotingIntent> votingIntents;      
 	
 	
 }

@@ -3,8 +3,11 @@ package es.upm.dit.isst;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,9 +20,14 @@ public class VotingIntent implements Serializable {
 	
 	 @Id @GeneratedValue long id; 
 	 
-     @OneToOne(optional=false)
-     private Party party;
+	 @ManyToOne(fetch=FetchType.LAZY)
+	 @JoinColumn()
+	 private Party party;
      
      private int voters;
+     
+     @ManyToOne(fetch=FetchType.LAZY)
+     @JoinColumn()
+     private Circunscription circunscription;
 	
 }
