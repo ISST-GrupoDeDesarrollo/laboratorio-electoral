@@ -57,7 +57,7 @@ public class UserDAOImpl implements UserDAO {
 		
 		String hashedPassword = res.getHashedPassword();
 		
-		if(hash == hashedPassword)
+		if(hash.equals(hashedPassword))
 			return true;
 		else
 			return false;
