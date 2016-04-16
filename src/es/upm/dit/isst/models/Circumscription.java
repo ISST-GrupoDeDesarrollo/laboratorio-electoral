@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Circunscription implements Serializable {
+public class Circumscription implements Serializable {
 
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class Circunscription implements Serializable {
 	 private String name;
 	 private String localization;
 	 
-	 @OneToMany(fetch=FetchType.EAGER, mappedBy="circunscription")
+	 @OneToMany(fetch=FetchType.EAGER, mappedBy="circumscription")
 	 private List<VotingIntent> votingIntents;      
 	
 	
