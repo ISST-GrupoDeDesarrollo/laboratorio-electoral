@@ -33,5 +33,6 @@ public class User implements Serializable {
 		this.profilePicBlobKey = profilePicBlobKey;
 	}
 	
-
+	public int getSalt(){return salt;}
+	public String getHashedPassword(){return password;}
 }
