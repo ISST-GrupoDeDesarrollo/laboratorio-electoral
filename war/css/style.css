@@ -1,3 +1,6 @@
+html{
+	background-color: #1C3950;
+}
 #formulario{
 	
 }
@@ -27,3 +30,78 @@
 	cursor: pointer;
 }
 
+.header-container{
+    background-color: #042E50;
+}
+
+#marketing-logo{
+    width: 70px;
+    height:70px;
+}
+
+
+.marketing {
+    margin:130px 0px;
+    text-align: center;
+    color:white;
+}
+
+.features-container{
+    text-align: center;
+    background-color: white;
+}
+
+.features{
+    margin:60px 0px 80px 0px;
+}
+
+.feature-box{
+    margin-top: 20px;
+}
+
+.solution-container{
+    text-align: center;
+    background-color: #085A9D;
+    color:white;
+}
+
+.solution{
+    margin:60px 0px 60px 0px;
+}
+
+.solution>hr{
+    margin-bottom: 60px;
+}
+.welcome hr{
+    border-color: white;
+    border-width: 3px;
+    max-width: 50px;
+}
+
+
+footer{
+    height: 70px;
+    font-size: 30px;
+    padding-top: 13px;
+    color:white;
+    background-color: #1C3950;
+}
+hr.blue{
+    border-color: #0A77D0;
+}
+
+#marketing-button{
+    margin-top: 20px;
+}
+#imgInp {
+	position: absolute;
+	top: -1000px;
+}
+
+#registerContainer{
+	padding-top:50px;
+}
+
+#register_button{
+	margin-bottom:30px;
+}

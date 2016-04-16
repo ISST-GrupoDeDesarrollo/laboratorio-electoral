@@ -28,6 +28,6 @@ public class VotingIntent implements Serializable {
      
      @ManyToOne(fetch=FetchType.LAZY)
      @JoinColumn()
-     private Circunscription circunscription;
+     private Circumscription circumscription;
 	
 }

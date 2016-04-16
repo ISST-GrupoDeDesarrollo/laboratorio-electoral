@@ -2,14 +2,15 @@
 <html>
 <head>
     <meta charset='UTF-8'>
-        <title>Laboratorio electoral</title>
+        <title>ElectoLab</title>
         <!-- Libs -->
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
         <!-- App -->
         <script type="text/javascript" src="Laboratory.js"></script>
         <link href="css/style.css" rel="stylesheet">
@@ -41,10 +42,17 @@
 </head>
 <body ng-app="Laboratory">
   
-    <div ng-view>
+    <div class="site_container" ng-view>
         <!-- Here the different route views are switched -->
     </div>
-
+<div class="clearfix"></div>
+<footer>
+    <div class="container">
+        <div class="col-lg-6">
+            <span class="left">© 2016 ElectoLab</span>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
