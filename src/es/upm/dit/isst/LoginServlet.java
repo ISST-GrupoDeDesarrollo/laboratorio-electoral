@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import es.upm.dit.isst.dao.UserDAOImpl;
+import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.User;
 
 public class LoginServlet extends HttpServlet {
@@ -22,10 +23,9 @@ public class LoginServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		String body = req.getParameter("body");
+		String body = Tools.readRequestAsString(req);
 		Gson json = new Gson();
-		RequestWrapper rqWrap = new RequestWrapper();
-		json.fromJson(body, (Type) rqWrap);
+		 RequestWrapper rqWrap = json.fromJson(body, RequestWrapper.class);
 		
 		String r_username = rqWrap.username;
 		String r_unhashed = rqWrap.password;
@@ -36,10 +36,10 @@ public class LoginServlet extends HttpServlet {
 				resp.setStatus(200);
 			}
 			else {
-				resp.sendError(400);
+				resp.sendError(403);
 			}
 		}	else {
-			resp.sendError(400);
+			resp.sendError(403);
 		}
 	
 	}
