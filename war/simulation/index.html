@@ -6,7 +6,7 @@
 		<article class="col-md-offset-1 col-md-10 maincontent">
 
 			<header class="page-header">
-				<h1 class="page-title">Simulación de prueba</h1>
+				<h1 class="page-title">{{simulation.simulname}}</h1>
 			</header>
 
 			<div class="form-horizontal">
@@ -14,70 +14,79 @@
 					<label class="control-label col-sm-4">Seleccionar
 						circunscripción:</label>
 					<div class="col-sm-4">
-						<select class="form-control" id="sel1">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-						</select>
+						<select class="form-control"
+							ng-options="circumscription as circumscription.name for circumscription in simulation.Circunscriptions"
+							ng-model="selectedCircumscription"></select>
 					</div>
-					<div class="btn-group col-sm-4" role="group"><button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button><button class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button></div>
+					<div class="btn-group col-sm-4" role="group">
+						<button class="btn btn-primary" ng-click="addCircumscription()">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+						<button ng-click="deleteCircumscription()" class="btn btn-danger">
+							<span class="glyphicon glyphicon-minus"></span>
+						</button>
+					</div>
 				</div>
-				
+
 				<hr class="separator" />
 				<h3>Editar circunscripción</h3>
 				<div class="form-group">
 					<label class="control-label col-sm-4">Nombre:</label>
 					<div class="col-sm-7">
 						<input class="form-control" placeholder="Nombre"
-							ng-model="circunscription.name">
+							ng-model="selectedCircumscription.name">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-4">Encuestados:</label>
 					<div class="col-sm-7">
 						<input class="form-control" placeholder="Encuestados"
-							ng-model="circunscription.polled">
+							ng-model="selectedCircumscription.polled">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-4">Poblacion:</label>
 					<div class="col-sm-7">
 						<input class="form-control" placeholder="Poblacion"
-							ng-model="circunscription.population">
+							ng-model="selectedCircumscription.population">
 					</div>
 				</div>
 				<h4>Intenciones de voto</h4>
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Partidos</th>
-							<th>Votos encuestados</th>
-							<th>Acción</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>PP</td>
-							<td>20</td>
-							<td><button class="btn btn-primary">
-									<span class="glyphicon glyphicon-minus"></span>
-								</button></td>
-						</tr>
-						<tr>
-							<td><input class="form-control" placeholder="Partido"
-								ng-model="circunscription.party"></td>
-							<td><input class="form-control"
-								placeholder="Encuestados que van a votar"
-								ng-model="circunscription.party"></td>
-							<td><button class="btn btn-primary">
-									<span class="glyphicon glyphicon-plus"></span>
-								</button></td>
-						</tr>
-					</tbody>
-				</table>
+				<div ng-form="addVotingIntentForm">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Partidos</th>
+								<th>Votos encuestados</th>
+								<th>Acción</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="votingIntent in selectedCircumscription.votingIntents">
+								<td>{{votingIntent.party.name}}</td>
+								<td>{{votingIntent.voters}}</td>
+								<td><button class="btn btn-primary"
+										ng-click="deleteVotingIntent(votingIntent)">
+										<span class="glyphicon glyphicon-minus"></span>
+									</button></td>
+							</tr>
+							<tr>
+								<td><input required class="form-control" placeholder="Partido"
+									ng-model="newVotingIntent.party.name"></td>
+								<td><input required type="number" class="form-control"
+									placeholder="Encuestados que van a votar"
+									ng-model="newVotingIntent.voters"></td>
+								<td><button class="btn btn-primary"
+										ng-click="insertVotingIntent()">
+										<span class="glyphicon glyphicon-plus"></span>
+									</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
-			<button class="btn btn-success pull-right">Guardar simulación</button>
+			<button class="btn btn-success pull-right" ng-click="saveSimulation()">Guardar
+				simulación</button>
 		</article>
 	</div>
 </div>

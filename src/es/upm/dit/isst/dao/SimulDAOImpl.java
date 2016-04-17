@@ -1,5 +1,6 @@
 package es.upm.dit.isst.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,12 +25,12 @@ public class SimulDAOImpl implements SimulDAO {
 	}
 	
 	@Override
-	public Simul createSimul(String simulname, String creator, String date, String team) {
+	public Simul createSimul(String simulname, String creator, Date createDate, String team) {
 		// TODO Auto-generated method stub
 		Simul simul = null;
 		EntityManager em = EMFService.get().createEntityManager();
 		//TODO Neded some logic before creation?
-		simul = new  Simul(simulname, creator, date, team);
+		simul = new  Simul(simulname, creator, createDate, team);
 		em.persist(simul);
 		em.close();
 		

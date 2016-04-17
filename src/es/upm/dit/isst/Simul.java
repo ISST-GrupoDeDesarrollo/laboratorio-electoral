@@ -1,6 +1,7 @@
 package es.upm.dit.isst;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,22 +21,20 @@ public class Simul implements Serializable {
 	@Id @GeneratedValue long id;
 	private String simulname;
 	private String creator;
-	private String date;
+	private Date createDate;
 	private String team;
 	
-	@OneToMany(mappedBy="simul")
+	@OneToMany(mappedBy="simulation")
     @OrderBy("name")
-    //@JoinColumn(name="simulname")
     private List<Circumscription> Circunscriptions;
 
 	
-	public Simul(String simulname, String creator, String date, String team) {
+	public Simul(String simulname, String creator, Date createDate, String team) {
 		super();
 		this.simulname = simulname;
 		this.creator = creator;
-		this.date = date;
+		this.createDate = createDate;
 		this.team = team;
-
 	}
 	
 	public String getCreator(){

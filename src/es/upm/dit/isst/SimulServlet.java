@@ -31,12 +31,11 @@ public class SimulServlet extends HttpServlet {
 			String simulname = rqWrap.simulname;
 			String creator = (String) session.getAttribute("user");
 			String team = rqWrap.team;
-			String date = getDate();
+			Date createDate = new Date();
 			
-	        if(simulname!=null&&creator!=null&&date!=null&&team!=null){
+	        if(simulname!=null&&creator!=null&&team!=null){
 	        	if(SimulDAOImpl.getInstance().getSimul(simulname)==null){
-	        		SimulDAOImpl.getInstance().createSimul(simulname,creator,date,team);
-	        		
+	        		SimulDAOImpl.getInstance().createSimul(simulname,creator,createDate,team);
 	        		resp.setStatus(200);
 	        		
 	        	}else{

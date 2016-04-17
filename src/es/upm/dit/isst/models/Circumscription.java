@@ -25,15 +25,11 @@ public class Circumscription implements Serializable {
 	 private long polled;
 	 private String name;
 	 private String localization;
+	 
 	 @ManyToOne
-	 private String Simulname;
-	 /*
-	 @OneToMany(targetEntity=VotingIntent.class,fetch=FetchType.EAGER)
-	 private Collection votingIntents;      
+	 private String simulation;  
 	 
 	 @OneToMany(fetch=FetchType.EAGER, mappedBy="circumscription")
 	 private List<VotingIntent> votingIntents;     
-	 */ 
-	
 	
 }

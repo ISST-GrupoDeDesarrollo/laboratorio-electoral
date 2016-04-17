@@ -1,4 +1,49 @@
 Laboratory.controller('simulationController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
-	//simulation controller code goes here
-	$scope.controllerName = "simulationController";
+	$scope.simulation={
+			id:$routeParams.simulationId,
+			simulname:"Simulacion de ejemplo",
+			Circunscriptions:[]
+	};
+	
+	$scope.newVotingIntent={party:{}};
+	
+	var reloadSimulation = function(){
+		$http.get("/api/simulations/"+$routeParams.simulationId).success(function(data,status){
+			$scope.simulation = data;
+		});
+	};
+
+	$scope.addCircumscription = function(){
+		var circumscription = {name:"Nueva circunscripción",polled:0,population:0,votingIntents:[]};
+		$scope.simulation.Circunscriptions.push(circumscription);
+		$scope.selectedCircumscription =circumscription;
+	};
+
+	$scope.deleteCircumscription = function(){
+		var index = $scope.simulation.Circunscriptions.indexOf($scope.selectedCircumscription );
+		if(index!=-1){
+			$scope.simulation.Circunscriptions.splice(index,1);
+			$scope.selectedCircumscription = undefined;
+		}
+	};
+
+	$scope.insertVotingIntent = function(){
+		if($scope.addVotingIntentForm.$valid){
+			$scope.selectedCircumscription.votingIntents.push($scope.newVotingIntent);
+			$scope.newVotingIntent={party:{}};
+		}
+	};
+
+	$scope.deleteVotingIntent = function(votingIntent){
+		var index = $scope.selectedCircumscription.votingIntents.indexOf(votingIntent);
+		if(index!=-1){
+			$scope.selectedCircumscription.votingIntents.splice(index,1);
+		}
+	};
+
+	$scope.saveSimulation = function(){
+		$http.post(
+	};
+
+	reloadSimulation();
 }]);
