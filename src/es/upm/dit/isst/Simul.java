@@ -38,8 +38,20 @@ public class Simul implements Serializable {
 	}
 	
 	public String getCreator(){
-	
 		return this.creator;
 	}
+	
+	public String getSimulname(){
+		return this.simulname;
+	}
+	
+	public Date getCreateDate(){
+		return this.createDate;
+	}
+	
+	public String getTeam(){
+		return this.team;
+	}
+	
 
 }
