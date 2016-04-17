@@ -27,12 +27,13 @@ public class Circumscription implements Serializable {
 	 private String localization;
 	 @ManyToOne
 	 private String Simulname;
-	 
+	 /*
 	 @OneToMany(targetEntity=VotingIntent.class,fetch=FetchType.EAGER)
 	 private Collection votingIntents;      
 	 
 	 @OneToMany(fetch=FetchType.EAGER, mappedBy="circumscription")
-	 private List<VotingIntent> votingIntents;      
+	 private List<VotingIntent> votingIntents;     
+	 */ 
 	
 	
 }

@@ -1,6 +1,7 @@
 package es.upm.dit.isst;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
 
 import javax.servlet.ServletException;
@@ -18,10 +19,6 @@ import es.upm.dit.isst.models.User;
 public class LoginServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.sendError(404);
-	}
-	
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		String body = Tools.readRequestAsString(req);
 		Gson json = new Gson();
@@ -41,6 +38,10 @@ public class LoginServlet extends HttpServlet {
 		}	else {
 			resp.sendError(403);
 		}
+	}
+	
+	protected  void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 	
 	}
 	

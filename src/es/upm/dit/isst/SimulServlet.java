@@ -16,7 +16,7 @@ public class SimulServlet extends HttpServlet {
 	
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
-			HttpSession session = req.getSession();
+			//HttpSession session = req.getSession();
 			
 			String simulname = req.getParameter("simulname");
 			String creator = req.getParameter("creator");

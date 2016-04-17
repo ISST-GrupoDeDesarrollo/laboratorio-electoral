@@ -2,18 +2,16 @@ Laboratory.controller('loginController', ['$scope', '$http','$routeParams', '$lo
 	var user = $scope.usuario;
 	var contr = $scope.contrasena;
 	
-	/*  ADD WHEN LOGIN-BACKEND BE FINISHED
+	/*
 	 var direccion = $http.get("/api/login/geturl").success(function(data,status){
 			$scope.registerUrl = data.url;
 		});
-		
-	*/
+	*/	
 	
 	$scope.sendLogin = function(){
-    console.log("send");
     return $http({
       method: 'GET',
-      url: '',
+      url: '/api/login',
       data: {
         username: user,
         password: contr
