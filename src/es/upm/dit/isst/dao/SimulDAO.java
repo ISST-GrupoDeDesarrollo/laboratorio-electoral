@@ -2,7 +2,6 @@ package es.upm.dit.isst.dao;
 
 import java.util.List;
 
-import es.upm.dit.isst.Circunscription;
 import es.upm.dit.isst.Simul;
 import es.upm.dit.isst.Team;
 

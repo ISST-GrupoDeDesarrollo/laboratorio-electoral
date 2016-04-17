@@ -1,1 +1,70 @@
-<p>{{controllerName}}</p>
+<div data-ng-include="'/navigationBars/navigationBarOut.html'"></div>
+
+<div class="container">
+
+	<article class="col-md-offset-1 col-md-10 maincontent">
+
+		<header class="page-header">
+			<h1 class="page-title">Configuracion de simulacion</h1>
+		</header>
+		
+         <div class="form-horizontal" ng-form="returnForm">
+                            <div style="padding:0px 16px;" >
+                                   <label for="singleSelect"> Selecciona circunscripcion </label><br>
+								    <select name="singleSelect" id="singleSelect" ng-model="data.singleSelect">
+								      <option value="">---Please select---</option> <!-- not selected / blank option -->
+								      <option value="{{data.option1}}">Option 1</option> <!-- interpolation -->
+								      <option value="{{data.option2}}">Option 2</option>
+								    </select><br>               
+                            </div>
+                            <hr class="separator" />
+                            <h3>Editar simulacion</h3>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Nombre:</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" placeholder="Nombre" ng-model="circunscription.name">
+                                </div>
+                                <label class="control-label col-sm-4">Encuestados:</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" placeholder="Encuestados" ng-model="circunscription.polled">
+                                </div>
+                                <label class="control-label col-sm-4">Poblacion:</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" placeholder="Poblacion" ng-model="circunscription.population">
+                                </div>
+                                 <label class="control-label col-sm-4">Intenciones de voto:</label>
+                                  <table class="table">
+								    <thead>
+								      <tr>
+								        <th>Partidos</th>
+								        <th>Votos encuestados</th>
+								        <th>Eliminar</th>
+								      </tr>
+								    </thead>
+								    <tbody>
+								      <tr>
+								        <td>PP</td>
+								        <td><input class="form-control" placeholder="Encuestados que van a votar" ng-model="circunscription.party"></td>
+								        <td><span class="glyphicon glyphicon-plus"></span></button></td>
+								      </tr>
+								      <tr>
+								        <td>PSOE</td>
+								        <td><input class="form-control" placeholder="Encuestados que van a votar" ng-model="circunscription.party"></td>
+								        <td><span class="glyphicon glyphicon-plus"></span></button></td>
+								      </tr>
+								      <tr>
+								        <td>CIUDADANOS</td>
+								        <td><input class="form-control" placeholder="Encuestados que van a votar" ng-model="circunscription.party"></button></td>
+								        <td><span class="glyphicon glyphicon-plus"></span></button></td>
+								      </tr>
+								    </tbody>
+								  </table>
+
+                            </div>
+                            <button class="btn btn-success pull-right" ng-click="saveReturn()" ng-show="isAddReturnMode()">Insert return</button>
+                        </div>
+		
+	</article>
+</div>

@@ -1,141 +1,67 @@
-<div>  <div data-ng-include="'/navigationBars/navigationBarOut.html'">
-    </div>
-    <hr>
-    <hr>
- <article class="col-xs-12 maincontent">
-  <div id= "formulario">
-    <div class="container" id= "campos">
-        <header class="page-header">
-          <h1 class="page-title">Registro</h1>
-        </header>
-        <form class="form-signin" runat="server">
-       	<div class="panel panel-default">
-        <div class="panel-body">
-        <h3 class="form-signin-heading" id = "sub" >Informaci�n de la cuenta</h3>
-        <div class="row">
-          <div class="col-md-3">
-          </div>
-          <div class="col-md-3">
-            Usuario
-          </div>
-          <div class="col-md-3">
-            <label for="usuario" class="sr-only">Nombre de usuario</label>
-            <input type="email" id="usuario" class="form-control" placeholder="Email address" required autofocus>
-            </div>
-            <div class="col-md-3">
-            </div>
-         </div>
 
+<div data-ng-include="'/navigationBars/navigationBarOut.html'"></div>
+<div class="container">
+	<div id="registerContainer"
+		class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+		<h1>Registro</h1>
+		<form class="form-horizontal" name="registerForm">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<fieldset>
+						<legend>Información de la cuenta</legend>
+						<div class="form-group">
+							<label class="control-label col-sm-4" for="username">Username:</label>
+							<div class="col-sm-7">
+								<input class="form-control" id="username" name="username"
+									placeholder="Introduce nombre de usuario" ng-model="username" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-4" for="password">Contraseña:</label>
+							<div class="col-sm-7">
+								<input type="password" class="form-control" id="password" name="password"
+									placeholder="Introduce contraseña" ng-model="password" required>
+							</div>
+						</div>
+					</fieldset>
 
-         <div class="row">
-          <div class="col-md-3">
-          </div>
-          <div class="col-md-3">
-            Contrase�a
-          </div>
-          <div class="col-md-3">
-            <label for="contrase�a" class="sr-only">Contrase�a</label>
-            <input type="email" id="contrase�a" class="form-control" placeholder="Email address" required autofocus>
-            </div>
-            <div class="col-md-3">
-            </div>
-         </div>
+					<fieldset>
+						<legend>Información personal</legend>
+						<div class="form-group">
+							<label class="control-label col-sm-4" for="name">Nombre completo:</label>
+							<div class="col-sm-7">
+								<input class="form-control" id="name" name="name"
+									placeholder="Nombre y apellidos" ng-model="completeName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label  id="foto" class="control-label col-sm-4" for="profilePic">Foto de perfil:<input file type='file' id="imgInp"
+								onchange="cargarImg(this);" /></label>
+							<div class="col-sm-7">
+									<img src="../assets/ejemplo.jpg" class="img-thumbnail"
+								onclick="cargarFoto();" id="fot">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-4" for="role">Rol:</label>
+							<div class="col-sm-7">
+								<input class="form-control" id="role" name="role"
+									placeholder="Analista, manager, otro..." ng-model="role" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-4" for="email">Email:</label>
+							<div class="col-sm-7">
+								<input class="form-control" id="email" name="email"
+									placeholder="Direccion de email" ng-model="email" required>
+							</div>
+						</div>
+					</fieldset>
 
-         <h3 class="form-signin-heading" id = "sub" >Informaci�n personal</h3>
-          <div class="row">
-          <div class="col-md-3">
-          </div>
-          <div class="col-md-3">
-            Repita contrase�a
-          </div>
-          <div class="col-md-3">
-            <label for="contrase�a2" class="sr-only">Contrase�a</label>
-            <input type="email" id="contrase�a2" class="form-control" placeholder="Email address" required autofocus>
-            </div>
-            <div class="col-md-3">
-            </div>
-         </div>
-
-
-         <div class="row">
-          <div class="col-md-3">
-          </div>
-          <div class="col-md-3">
-            Nombre completo
-          </div>
-          <div class="col-md-3">
-            <label for="nombre" class="sr-only">Nombre y apellidos</label>
-            <input type="email" id="nombre" class="form-control" placeholder="Email address" required autofocus>
-            </div>
-            <div class="col-md-3">
-            </div>
-         </div>
-
-         <div class="row">
-          <div class="col-md-3">
-          </div>
-          <div class="col-md-3" id = "foto">
-            Foto de perfil
-            <input type='file' id="imgInp" onchange="cargarImg(this);"/>
-              <style>
-                #imgInp {position:absolute;
-                          top:-1000px;}
-              </style>
-           
-          </div>
-
-          <div class="col-md-3">
-            <img src="../assets/ejemplo.jpg" class="img-thumbnail" onclick="cargarFoto();" id="fot">
-            </div>
-            <div class="col-md-3">
-            </div>
-         </div>
-
-         <div class="row">
-          <div class="col-md-3">
-          </div>
-          <div class="col-md-3">
-            Rol
-          </div>
-          <div class="col-md-3">
-            <label for="rol" class="sr-only">Analista, manager, otro... </label>
-            <input type="email" id="rol" class="form-control" placeholder="Email address" required autofocus>
-            </div>
-            <div class="col-md-3">
-            </div>
-         </div>
-
-         <div class="row">
-          <div class="col-md-3">
-          </div>
-          <div class="col-md-3">
-            Email
-          </div>
-          <div class="col-md-3">
-            <label for="email" class="sr-only">Direccion Email</label>
-            <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
-            </div>
-            <div class="col-md-3">
-            </div>
-         </div>
-
-        <div class="row">
-          <div class="col-md-4">
-          </div>
-          <div class="col-md-4">
-           <h2 class="form-signin-heading">
-			<button type="submit" id="boton">Registrar</button>        
-			</h2>
-            </div>
-            <div class="col-md-4">
-            </div>
-         </div>
-          </div>
-         </div>
-      </form>
-
-    </div> <!-- /container -->
-
-  </div>  
-  </article>
-  </div>
+				</div>
+			</div>
+		</form>
+		<button id="register_button" ng-disabled="!registerUrl" class="btn btn-primary btn-lg pull-right" ng-click="register()">Registrar</button>
+		<div class="clearfix"></div>
+	</div>
+</div>

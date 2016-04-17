@@ -1,7 +1,8 @@
-package es.upm.dit.isst;
+package es.upm.dit.isst.models;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Circunscription implements Serializable {
+public class Circumscription implements Serializable {
 
 	/**
 	 * 
@@ -24,12 +25,14 @@ public class Circunscription implements Serializable {
 	 private long polled;
 	 private String name;
 	 private String localization;
-	 
 	 @ManyToOne
 	 private String Simulname;
 	 
 	 @OneToMany(targetEntity=VotingIntent.class,fetch=FetchType.EAGER)
 	 private Collection votingIntents;      
+	 
+	 @OneToMany(fetch=FetchType.EAGER, mappedBy="circumscription")
+	 private List<VotingIntent> votingIntents;      
 	
 	
 }

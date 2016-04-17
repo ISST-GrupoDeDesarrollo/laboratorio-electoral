@@ -1,6 +1,6 @@
 package es.upm.dit.isst.dao;
 
-import es.upm.dit.isst.User;
+import es.upm.dit.isst.models.User;
 
 
 public interface UserDAO {

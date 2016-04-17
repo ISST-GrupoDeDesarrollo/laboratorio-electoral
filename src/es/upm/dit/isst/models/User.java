@@ -1,4 +1,4 @@
-package es.upm.dit.isst;
+package es.upm.dit.isst.models;
 
 import java.io.Serializable;
 
@@ -33,5 +33,6 @@ public class User implements Serializable {
 		this.profilePicBlobKey = profilePicBlobKey;
 	}
 	
-
+	public int getSalt(){return salt;}
+	public String getHashedPassword(){return password;}
 }

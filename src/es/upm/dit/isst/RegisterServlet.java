@@ -13,6 +13,7 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 import es.upm.dit.isst.dao.UserDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
+import es.upm.dit.isst.models.User;
 
 @SuppressWarnings("serial")
 public class RegisterServlet extends HttpServlet {

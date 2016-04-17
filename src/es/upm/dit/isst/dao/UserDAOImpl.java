@@ -5,7 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import es.upm.dit.isst.User;
+import es.upm.dit.isst.lab.tools.Tools;
+import es.upm.dit.isst.models.User;
 
 
 public class UserDAOImpl implements UserDAO {
@@ -50,8 +51,16 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public boolean validateUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
+		User res = getUser(username);
+		int salt = res.getSalt();
+		String hash = Tools.sha256(password+salt);
+		
+		String hashedPassword = res.getHashedPassword();
+		
+		if(hash.equals(hashedPassword))
+			return true;
+		else
+			return false;
 	}
 
 	@Override

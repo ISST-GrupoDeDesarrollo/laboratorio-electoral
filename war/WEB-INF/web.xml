@@ -6,6 +6,15 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
 	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>es.upm.dit.isst.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/api/login</url-pattern>
+	</servlet-mapping>	
+
+	<servlet>
 		<servlet-name>Register</servlet-name>
 		<servlet-class>es.upm.dit.isst.RegisterServlet</servlet-class>
 	</servlet>

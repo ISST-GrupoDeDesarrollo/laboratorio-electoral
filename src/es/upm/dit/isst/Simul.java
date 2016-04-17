@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import es.upm.dit.isst.models.Circumscription;
+
 @Entity
 public class Simul implements Serializable {
 
@@ -24,7 +26,7 @@ public class Simul implements Serializable {
 	@OneToMany(mappedBy="simul")
     @OrderBy("name")
     @JoinColumn(name="simulname")
-    private List<Circunscription> Circunscriptions;
+    private List<Circumscription> Circunscriptions;
 
 	
 	public Simul(String simulname, String creator, String date, String team) {
