@@ -41,6 +41,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/api/getblob</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>SimulServlet</servlet-name>
+		<servlet-class>es.upm.dit.isst.SimulServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SimulServlet</servlet-name>
+		<url-pattern>/api/simulations</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
