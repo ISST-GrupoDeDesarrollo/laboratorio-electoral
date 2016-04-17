@@ -11,18 +11,18 @@ import javax.servlet.http.HttpSession;
 import es.upm.dit.isst.dao.UserDAOImpl;
 
 public class GetVoteResults extends HttpServlet{
-	
+	/*
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.sendError(404);
 	}
 	
 	
-	//Se recibe el objeto JSON con los parámetros de la simulación
+	//Se recibe el objeto JSON con los parï¿½metros de la simulaciï¿½n
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
 		
-		//Se extrae la información de la petición
+		//Se extrae la informaciï¿½n de la peticiï¿½n
 		int numeroCircunscripciones = req.getParameter();
 		int numeroPartidos = req.getParameter();
 		int [][]votosPartidoPorCircuns = req.getParemeter();
@@ -35,7 +35,7 @@ public class GetVoteResults extends HttpServlet{
 		
 		
 		
-		//Se realizan los cálculos según el método de asignación de escaños
+		//Se realizan los cï¿½lculos segï¿½n el mï¿½todo de asignaciï¿½n de escaï¿½os
 		for(int k=0;k<numeroCircunscripciones;k++){
 			numeroEscaPorCircuns = asignacion(partidos, numeroEscaPorCircuns[k], 
 					votosPartidoPorCircuns[k], metodoAsigna);
@@ -47,7 +47,7 @@ public class GetVoteResults extends HttpServlet{
 		dao.guardarParametros(parametros);
 		
 		
-		//Se envían los resultados
+		//Se envï¿½an los resultados
 		session.setAttribute("resultados", resultados);
 		session.setAttribute("desviacion", desviacion);
 		resp.setStatus(200);
@@ -55,10 +55,10 @@ public class GetVoteResults extends HttpServlet{
 	
 	
 	
-	//Método D'HONT/Sainte-Laguë 
-	// se llama a este metodo una vez por circunscripción
-	// []partidos-> partidos a los que se asignan los escaños
-	// nEsca-> numero de escaños asignados a esta circunscripcion
+	//Mï¿½todo D'HONT/Sainte-Laguï¿½ 
+	// se llama a este metodo una vez por circunscripciï¿½n
+	// []partidos-> partidos a los que se asignan los escaï¿½os
+	// nEsca-> numero de escaï¿½os asignados a esta circunscripcion
 	// votosPartido-> numero votos de cada partido
 	// 
 	public static int[] asignacion(int [] partidos, int nEsca, int [] votosPartido, String metodoAsigna){
@@ -94,5 +94,5 @@ public class GetVoteResults extends HttpServlet{
 		return desviacion;
 	}
 	
-	
+	*/
 }
