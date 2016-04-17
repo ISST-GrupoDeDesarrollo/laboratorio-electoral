@@ -1,12 +1,22 @@
 Laboratory.controller('loginController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
-	$scope.sendLogin = function($scope, $http){
+	var user = $scope.usuario;
+	var contr = $scope.contrasena;
+	
+	/*  ADD WHEN LOGIN-BACKEND BE FINISHED
+	 var direccion = $http.get("/api/login/geturl").success(function(data,status){
+			$scope.registerUrl = data.url;
+		});
+		
+	*/
+	
+	$scope.sendLogin = function(){
     console.log("send");
-    $http({
-      method: "GET",
-      url: "www.google.com",
+    return $http({
+      method: 'GET',
+      url: '',
       data: {
-        username: $scope.usuario,
-        password: $scope.contrasena
+        username: user,
+        password: contr
       }/*,
       transformRequest: function(data, headersGetter){
         var formData = new FormData();
@@ -18,10 +28,10 @@ Laboratory.controller('loginController', ['$scope', '$http','$routeParams', '$lo
         return formData;
       }*/
     })
-    .success(function(data){
-
+    .success(function(response){
+   	
     })
-    .error(function(data, status){
+    .error(function(response, status){
 
     });
 
