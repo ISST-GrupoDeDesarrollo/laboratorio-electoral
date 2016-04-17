@@ -69,6 +69,6 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 			
 		
 
-	}];
+	};
 	
 }]);
