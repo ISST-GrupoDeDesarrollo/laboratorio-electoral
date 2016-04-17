@@ -19,6 +19,10 @@ import es.upm.dit.isst.models.User;
 public class LoginServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		resp.sendError(400);
+	}
+	
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		String body = Tools.readRequestAsString(req);
 		Gson json = new Gson();
@@ -26,6 +30,8 @@ public class LoginServlet extends HttpServlet {
 		
 		String r_username = rqWrap.username;
 		String r_unhashed = rqWrap.password;
+//		System.out.println(r_unhashed);
+//		System.out.println(r_username);
 		if (r_unhashed != null && r_username != null){
 			boolean logged_in = UserDAOImpl.getInstance().validateUser(r_username, r_unhashed);
 			if (logged_in){
@@ -33,15 +39,13 @@ public class LoginServlet extends HttpServlet {
 				resp.setStatus(200);
 			}
 			else {
+				System.out.println("ERROR");
 				resp.sendError(403);
 			}
 		}	else {
+			System.out.println("ERROR");
 			resp.sendError(403);
 		}
-	}
-	
-	protected  void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 	
 	}
 	

@@ -39,7 +39,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User getUser(String username) {
 		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("select t from User t where t.username = :username");
+		Query q = em.createQuery("SELECT t FROM User t WHERE t.username = :username");
 		q.setParameter("username", username);
 		User res = null;
 		List<User> users = q.getResultList();
