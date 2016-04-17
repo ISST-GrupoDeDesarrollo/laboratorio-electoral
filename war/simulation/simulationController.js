@@ -42,7 +42,6 @@ Laboratory.controller('simulationController', ['$scope', '$http','$routeParams',
 	};
 
 	$scope.saveSimulation = function(){
-		$http.post(
 	};
 
 	reloadSimulation();
