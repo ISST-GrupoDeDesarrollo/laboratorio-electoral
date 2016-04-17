@@ -25,7 +25,7 @@ public class Simul implements Serializable {
 	
 	@OneToMany(mappedBy="simul")
     @OrderBy("name")
-    @JoinColumn(name="simulname")
+    //@JoinColumn(name="simulname")
     private List<Circumscription> Circunscriptions;
 
 	

@@ -1,11 +1,11 @@
 Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', '$location', function($scope,$http,$routeParams,$location){
-		
+	/*	
 	$scope.usuario;
-	$scope.contraseña;
+	$scope.password;
 	$scope.nombreCompleto;
 	$scope.file;
 	$scope.rol;
-	$scope.email;
+	$scope.email;*/
 		
 	$scope.enviarRegistro = function(){
 			
@@ -40,7 +40,7 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 				},
 				data: {
 					username: $scope.usuario,
-					password: $scope.contraseña,
+					password: $scope.password,
 					completeName: $scope.nombreCompleto,
 					role: $scope.rol,
 					email: $scope.email,
