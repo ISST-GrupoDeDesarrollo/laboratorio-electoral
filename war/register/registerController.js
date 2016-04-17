@@ -9,28 +9,57 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 		
 	$scope.enviarRegistro = function(){
 			
-		var direccion = $http.get("/api/register/geturl").success(function(data,status){
-			$scope.registerUrl = data.url;
-			
-			
 			$http.get("/api/register/geturl").success(function(data,status){
-	            console.log("solicitada la url");
 	            $scope.registerUrl = data.url;
-	            console.log(data.url);
 	            
-	            var fd = new FormData()
-	            angular.forEach($scope.files, function(file){
-	                fd.append('file', file)
-	            })
-	            $http.post(data.url, fd, 
-	            {
-	                transformRequest: angular.identity,
-	                headers: {'Content-Type':'multipart/related'}
-	            }).success(function(d){
-	                console.log(d)
-	            })
+	            
+	            $http({
+					method: 'POST',
+					url: data.url,
+					headers: {
+						'Content-Type': 'multipart/related'
+					},
+					data: {
+						username: $scope.usuario,
+						password: $scope.password,
+						completeName: $scope.nombreCompleto,
+						role: $scope.rol,
+						email: $scope.email,
+						profilePic: $scope.file
+					},
+					transformRequest: angular.identity,
+					
+					transformRequest: function(data){
+						var formData = new FormData();
+						angular.forEach(data, function(value, key){
+							formData.append(key,value);
+						});
+
+						return formData;
+					}
+				})
+				.success(function(data){
+
+				})
+				.error(function(data, status){
+
+				});
+	            
 	        })
 			
+	        /*
+            var fd = new FormData()
+            angular.forEach($scope.files, function(file){
+                fd.append('file', file)
+            })
+            $http.post(data.url, fd, 
+            {
+                transformRequest: angular.identity,
+                headers: {'Content-Type':'multipart/related'}
+            }).success(function(d){
+                console.log(d)
+            })*/
+	        
 			/*
 			$http({
 				method: 'POST',
@@ -64,11 +93,9 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 			.error(function(data, status){
 
 			});*/
-
-		});
+	        
+	    
 			
-		
-
 	};
 	
 }]);

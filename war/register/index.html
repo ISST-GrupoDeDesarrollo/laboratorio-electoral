@@ -27,7 +27,7 @@
 							<label class="control-label col-sm-4" for="password">Repite contraseña:</label>
 							<div class="col-sm-7">
 								<input type="password" class="form-control" id="password" name="password"
-									placeholder="Repite contraseña" ng-model='contrase�a2' required>
+									placeholder="Repite contraseña" ng-model='password2' required>
 							</div>
 						</div>
 					</fieldset>
@@ -42,8 +42,8 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label  id="foto" class="control-label col-sm-4" for="profilePic">Foto de perfil:<input file type='file' id="imgInp"
-								onchange="cargarImg(this);" file-input="files"
+							<label  id="foto" class="control-label col-sm-4" for="profilePic">Foto de perfil:<input type='file' id="imgInp"
+								file-input="files" ng-model="files" onchange="cargarImg(this);" 
 								/></label><!-- file="file"  -->
 							<div class="col-sm-7">
 									<img src="../assets/ejemplo.jpg" class="img-thumbnail"
