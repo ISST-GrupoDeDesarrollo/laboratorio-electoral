@@ -25,7 +25,6 @@ public class CircumsServlet extends HttpServlet{
 		String body = Tools.readRequestAsString(req);
 		Gson json = new Gson();
 		Simul simulacion = json.fromJson(body, Simul.class);
-		
 		String simulname = simulacion.getSimulname();
 		String creator = simulacion.getCreator();
 		Date createDate = simulacion.getCreateDate();
