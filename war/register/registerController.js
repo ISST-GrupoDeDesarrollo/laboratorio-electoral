@@ -12,36 +12,23 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 			$http.get("/api/register/geturl").success(function(data,status){
 	            $scope.registerUrl = data.url;
 	            
+	            var formData = new FormData();
+	            formData.append('profilePic',$scope.file)
+        		formData.append('username', $scope.usuario)
+        		formData.append('password', $scope.password)
+        		formData.append('completeName', $scope.nombreCompleto)
+        		formData.append('role', $scope.rol)
+        		formData.append('email',$scope.email);
 	            
-	            $http({
-					method: 'POST',
-					url: data.url,
-					headers: {
-						'Content-Type': 'multipart/related'
-					},
-					data: {
-						username: $scope.usuario,
-						password: $scope.password,
-						completeName: $scope.nombreCompleto,
-						role: $scope.rol,
-						email: $scope.email,
-						profilePic: $scope.file
-					},
-					
-					transformRequest: function(data){
-						var formData = new FormData();
-						angular.forEach(data, function(value, key){
-							formData.append(key,value);
-						});
-
-						return formData;
-					}
-				})
+	            $http.post(data.url, formData, {
+	            	transformRequest: angular.identity,
+	            	headers: {'Content-Type': undefined}
+	            })
 				.success(function(data){
-
+					console.log('sent');
 				})
 				.error(function(data, status){
-
+					console.log('not sent');
 				});
 	            
 	        })
