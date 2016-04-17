@@ -27,7 +27,6 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 						email: $scope.email,
 						profilePic: $scope.file
 					},
-					transformRequest: angular.identity,
 					
 					transformRequest: function(data){
 						var formData = new FormData();
