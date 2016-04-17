@@ -25,6 +25,19 @@ Laboratory.config(['$routeProvider',function ($routeProvider) { //Configuro el p
     }).otherwise({redirectTo: '/'});
 }]);
 
+Laboratory.directive('fileInput', ['$parse', function($parse){
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs){
+            element.bind('change', function(){
+                $parse(attrs.fileInput).assign(scope,element[0].files)
+                scope.$apply();
+            });
+        }
+    };
+}]);
+
+/*
 Laboratory.directive('file', function(){
 	return {
 		scope: {
@@ -38,4 +51,4 @@ Laboratory.directive('file', function(){
 			});
 		}
 	};
-});
+});*/
