@@ -8,7 +8,7 @@ Laboratory.controller('simulationController', ['$scope', '$http','$routeParams',
 	$scope.newVotingIntent={party:{}};
 	
 	var reloadSimulation = function(){
-		$http.get("/api/simulations/"+$routeParams.simulationId).success(function(data,status){
+		$http.get("/api/simulations",{params:{id:$routeParams.simulationId}}).success(function(data,status){
 			$scope.simulation = data;
 		});
 	};
@@ -42,6 +42,9 @@ Laboratory.controller('simulationController', ['$scope', '$http','$routeParams',
 	};
 
 	$scope.saveSimulation = function(){
+		$http.post("/api/simulations",$scope.simulation).success(function(data,status){
+			console.log("Saved simulation!!! :D");
+		});
 	};
 
 	reloadSimulation();
