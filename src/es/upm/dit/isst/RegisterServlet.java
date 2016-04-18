@@ -40,6 +40,13 @@ public class RegisterServlet extends HttpServlet {
 			String completeName = req.getParameter("completeName");
 			String role = req.getParameter("role");
 			String email = req.getParameter("email");
+			
+//			System.out.println("username" + username);
+//			System.out.println("password" + password);
+//			System.out.println("completeName" + completeName);
+//			System.out.println("role" + role);
+//			System.out.println("email" + email);
+			
 	        if(username!=null&&password!=null&&completeName!=null&&role!=null&&email!=null&&profilePicKey!=null){
 	        	if(UserDAOImpl.getInstance().getUser(username)==null){
 	        		int salt = (int) (Math.random()*Integer.MAX_VALUE);

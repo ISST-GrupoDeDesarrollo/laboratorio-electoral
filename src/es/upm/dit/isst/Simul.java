@@ -1,10 +1,13 @@
 package es.upm.dit.isst;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -14,33 +17,45 @@ import es.upm.dit.isst.models.Circumscription;
 
 @Entity
 public class Simul implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue long id;
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) long id;
+	
 	private String simulname;
 	private String creator;
-	private String date;
+	private Date createDate;
 	private String team;
 	
-	@OneToMany(mappedBy="simul")
+	@OneToMany(mappedBy="simulation",cascade = CascadeType.ALL)
     @OrderBy("name")
-    //@JoinColumn(name="simulname")
     private List<Circumscription> Circunscriptions;
 
 	
-	public Simul(String simulname, String creator, String date, String team) {
+	public Simul(String simulname, String creator, Date createDate, String team) {
 		super();
 		this.simulname = simulname;
 		this.creator = creator;
-		this.date = date;
+		this.createDate = createDate;
 		this.team = team;
-
 	}
 	
 	public String getCreator(){
-	
 		return this.creator;
 	}
-
+	
+	public String getSimulname(){
+		return this.simulname;
+	}
+	
+	public Date getCreateDate(){
+		return this.createDate;
+	}
+	
+	public String getTeam(){
+		return this.team;
+	}
+	
+	public long getId(){
+		return this.id;
+	}
 }

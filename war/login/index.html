@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='UTF-8'>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
-    <script type="text/javascript" src="Laboratory.js"></script>
-  </head>
-  <body data-ng-app='Laboratory'>
-
+<div class="signIn">  
     <div data-ng-include="'/navigationBars/navigationBarOut.html'">
     </div>
 
@@ -42,7 +30,7 @@
                 <div class="top-margin" class="form-group">
                   <label class="col-lg-2 control-label" >Contraseña</label>
                   <div class="col-lg-10">
-                    <input ng-model="contrasena" type="password"  class="form-control" placeholder="Introduce contraseña">
+                    <input ng-model="contrasena" type="password"  class="form-control" placeholder="Introduce contrase馻">
                   </div>
                 </div>
                 <br>
@@ -50,12 +38,12 @@
                 <br>
                 <div class="form-group">
                   <div class="col-sm-3 col-sm-offset-5">
-                    <button class="btn btn-action" type="submit" ng-click="sendLogin()">Sign in</button>
+                    <button class="btn btn-action" ng-click="sendLogin()">Sign in</button>
                   </div>
                 </div>
               </form>
               <div class="top-margin">
-                <p>¿No tienes cuenta? <a data-ng-href="#/register">Regístrate</a></p>
+                <p>No tienes cuenta? <a data-ng-href="#/register">Registrate</a></p>
               </div>
             </div>
           </div>
@@ -65,5 +53,4 @@
       
     </div>
     </div>
-  </body>
-</html>
+</div>  
