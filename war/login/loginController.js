@@ -27,6 +27,8 @@ Laboratory.controller('loginController', ['$scope', '$http','$routeParams', '$lo
       }*/
     })
     .success(function(response){
+    	
+    	$location.path("/#/projects")
    	
     })
     .error(function(response, status){
