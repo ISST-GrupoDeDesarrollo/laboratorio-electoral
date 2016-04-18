@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.datanucleus.annotations.Unowned;
 
 @Entity
 public class VotingIntent implements Serializable {
@@ -23,18 +24,22 @@ public class VotingIntent implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key key;   
+    @GeneratedValue()
+    private Long id;   
 	 
-	 @ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-	 @JoinColumn()
+	 @ManyToOne(cascade = CascadeType.ALL)
+	 @Unowned
 	 private Party party;
      
      private int voters;
      
-     @ManyToOne(fetch=FetchType.LAZY)
-     @JoinColumn()
+     @ManyToOne()
+	 @Unowned
      private Circumscription circumscription;
+
+	public Long getId() {
+		return id;
+	}
 	
      
 }

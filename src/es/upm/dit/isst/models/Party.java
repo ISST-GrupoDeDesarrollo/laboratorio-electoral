@@ -17,8 +17,8 @@ public class Party  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key key;   
+    @GeneratedValue()
+    private Long id;   
 	  
 	private String name;
 

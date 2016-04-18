@@ -6,8 +6,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import es.upm.dit.isst.models.Circumscription;
 import es.upm.dit.isst.models.Simulation;
 import es.upm.dit.isst.models.Team;
+import es.upm.dit.isst.models.VotingIntent;
 
 
 public class SimulationDAOImpl implements SimulationDAO {
@@ -43,16 +45,23 @@ public class SimulationDAOImpl implements SimulationDAO {
 		List<Simulation> simuls = q.getResultList();
 		if (simuls.size() > 0)
 			res = (Simulation)(simuls.get(0));
+		if(res!=null){
+			List<Circumscription> circumscriptions = res.getCircunscriptions();
+			for(Circumscription circumscription:circumscriptions){
+				circumscription.getVotingIntents();
+			}
+		}
 		em.close();
 		return res;
 	}
+	
 
 	@Override
 	public Simulation updateSimulation(Simulation simul) {
 		EntityManager em = EMFService.get().createEntityManager();
-		Simulation res = em.merge(simul);
+		Simulation managed = em.merge(simul);
 		em.close();
-		return res;
+		return managed;
 	}
 
 	@Override

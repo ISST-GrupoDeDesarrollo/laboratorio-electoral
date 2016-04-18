@@ -25,6 +25,29 @@ Laboratory.config(['$routeProvider',function ($routeProvider) { //Configuro el p
     }).otherwise({redirectTo: '/'});
 }]);
 
+Laboratory.run(['$rootScope',function($rootScope){
+    $rootScope.cleanObjectFromDatabase = function(obj){
+        for(attr in obj){
+            if(attr === "jdoDetachedState"){
+                obj[attr] = undefined;
+            }
+            var child = obj[attr];
+            if(child!==null && child!==undefined){
+                if(child instanceof Array){
+                    for (var i = child.length - 1; i >= 0; i--) {
+                        var elem = child[i];
+                        $rootScope.cleanObjectFromDatabase(elem);
+                    }
+                }else{
+                    if(typeof child === 'object'){
+                        $rootScope.cleanObjectFromDatabase(child);
+                    }
+                }
+            }
+        }
+    }
+}]);
+
 Laboratory.directive('fileInput', ['$parse', function($parse){
     return {
         restrict: 'A',

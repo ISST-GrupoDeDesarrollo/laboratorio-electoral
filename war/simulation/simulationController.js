@@ -9,7 +9,9 @@ Laboratory.controller('simulationController', ['$scope', '$http','$routeParams',
 	
 	var reloadSimulation = function(){
 		$http.get("/api/simulations",{params:{id:$routeParams.simulationId}}).success(function(data,status){
+			$scope.cleanObjectFromDatabase(data);
 			$scope.simulation = data;
+			console.log($scope.simulation);
 		});
 	};
 
