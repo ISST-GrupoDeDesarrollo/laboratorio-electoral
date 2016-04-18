@@ -1,1 +1,15 @@
-<p>{{controllerName}}</p>
+<div data-ng-include="'/navigationBars/navigationBarIn.html'"></div>
+
+<div class="container">
+	<div class="projects">
+		<article class="col-md-offset-1 col-md-10 maincontent">
+			<div class="row center-block">
+				<input ng-model='projects' ng-trim='false'/> 
+				<button type="button" class="btn btn-default">
+		    		<span class="fa fa-plus fa-3"></span>
+		  		</button>
+			</div>
+			<hr>
+		</article>
+	</div>
+</div>
