@@ -1,4 +1,4 @@
-package es.upm.dit.isst;
+package es.upm.dit.isst.models;
 
 import java.io.Serializable;
 
@@ -14,7 +14,7 @@ public class Team  implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue long id; 
+	@Id @GeneratedValue Long id; 
 	  
 	private String name;
 

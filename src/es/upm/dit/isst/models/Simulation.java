@@ -1,4 +1,4 @@
-package es.upm.dit.isst;
+package es.upm.dit.isst.models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,15 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
-import es.upm.dit.isst.models.Circumscription;
-
 @Entity
-public class Simul implements Serializable {
+public class Simulation implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) long id;
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 	
-	private String simulname;
+	private String name;
 	private String creator;
 	private Date createDate;
 	private String team;
@@ -31,9 +29,9 @@ public class Simul implements Serializable {
     private List<Circumscription> Circunscriptions;
 
 	
-	public Simul(String simulname, String creator, Date createDate, String team) {
+	public Simulation(String simulname, String creator, Date createDate, String team) {
 		super();
-		this.simulname = simulname;
+		this.name = simulname;
 		this.creator = creator;
 		this.createDate = createDate;
 		this.team = team;
@@ -43,8 +41,8 @@ public class Simul implements Serializable {
 		return this.creator;
 	}
 	
-	public String getSimulname(){
-		return this.simulname;
+	public String getName(){
+		return this.name;
 	}
 	
 	public Date getCreateDate(){

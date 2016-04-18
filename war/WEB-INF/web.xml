@@ -42,11 +42,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>SimulServlet</servlet-name>
-		<servlet-class>es.upm.dit.isst.SimulServlet</servlet-class>
+		<servlet-name>SimulationServlet</servlet-name>
+		<servlet-class>es.upm.dit.isst.SimulationServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>SimulServlet</servlet-name>
+		<servlet-name>SimulationServlet</servlet-name>
 		<url-pattern>/api/simulations</url-pattern>
 	</servlet-mapping>
 	

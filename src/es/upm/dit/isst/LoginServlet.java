@@ -26,25 +26,23 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		String body = Tools.readRequestAsString(req);
 		Gson json = new Gson();
-		 RequestWrapper rqWrap = json.fromJson(body, RequestWrapper.class);
+		RequestWrapper rqWrap = json.fromJson(body, RequestWrapper.class);
 		
 		String r_username = rqWrap.username;
 		String r_unhashed = rqWrap.password;
-//		System.out.println(r_unhashed);
-//		System.out.println(r_username);
+
 		if (r_unhashed != null && r_username != null){
 			boolean logged_in = UserDAOImpl.getInstance().validateUser(r_username, r_unhashed);
 			if (logged_in){
+				System.out.println("User logged in, username: "+r_username);
 				session.setAttribute("user", r_username);
 				resp.setStatus(200);
-			}
-			else {
-				System.out.println("ERROR");
+			}else {
+				System.out.println("Wrong user or password");
 				resp.sendError(403);
 			}
 		}	else {
-			System.out.println("ERROR");
-			resp.sendError(403);
+			resp.sendError(400);
 		}
 	
 	}

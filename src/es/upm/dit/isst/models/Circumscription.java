@@ -15,8 +15,6 @@ import javax.persistence.OneToMany;
 
 import com.google.appengine.api.datastore.Key;
 
-import es.upm.dit.isst.Simul;
-
 @Entity
 public class Circumscription implements Serializable {
 
@@ -35,7 +33,7 @@ public class Circumscription implements Serializable {
 	 private String localization;
 	 
 	 @ManyToOne
-	 private Simul simulation;  
+	 private Simulation simulation;  
 	 
 	 @OneToMany(fetch=FetchType.EAGER, mappedBy="circumscription",cascade = CascadeType.ALL)
 	 private List<VotingIntent> votingIntents;     
