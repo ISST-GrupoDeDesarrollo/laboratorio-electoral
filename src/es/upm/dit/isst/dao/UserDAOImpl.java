@@ -52,6 +52,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public boolean validateUser(String username, String password) {
 		User res = getUser(username);
+		if (res == null)
+			return false;
 		int salt = res.getSalt();
 		String hash = Tools.sha256(password+salt);
 		
