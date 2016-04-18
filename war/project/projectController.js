@@ -12,11 +12,22 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 		modalInstance.result.then(function (simulation) {
 			$location.path("/projects/"+$routeParams.projectId+"/simulations/"+simulation.id);
 		}, function () {
-			$log.info('Modal dismissed at: ' + new Date());
+			console.log('Modal dismissed at: ' + new Date());
 		});
 	};
+
+
 }]);
 
-Laboratory.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
-	
-});
+Laboratory.controller('CreateSimulationController', ['$scope', '$http', '$uibModalInstance',  function ($scope, $http, $uibModalInstance) {
+
+	$scope.ok = function(){
+		$http.put("/api/simulations",{team:"TODO",simulname:$scope.simulname}).success(function(data,status){
+					$uibModalInstance.close(data);
+				});
+	};
+
+	$scope.cancel = function(){
+		$uibModalInstance.dismiss('cancel');
+	};
+}]);

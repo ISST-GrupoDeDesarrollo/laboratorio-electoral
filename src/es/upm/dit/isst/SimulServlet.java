@@ -35,9 +35,9 @@ public class SimulServlet extends HttpServlet {
 			
 	        if(simulname!=null&&creator!=null&&team!=null){
 	        	if(SimulDAOImpl.getInstance().getSimul(simulname)==null){
-	        		SimulDAOImpl.getInstance().createSimul(simulname,creator,createDate,team);
+	        		Simul simulation = SimulDAOImpl.getInstance().createSimul(simulname,creator,createDate,team);
 	        		resp.setStatus(200);
-	        		
+	        		Tools.sendJson(resp, simulation, Simul.class);
 	        	}else{
 	        		resp.sendError(403);
 	        	}
@@ -46,37 +46,18 @@ public class SimulServlet extends HttpServlet {
 	        	resp.sendError(400);
 	        }
 	}
-/* Cambiar nombre
+	
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
-		HttpSession session = req.getSession();
 		String body = Tools.readRequestAsString(req);
 		Gson json = new Gson();
-		RequestWrapper rqWrap = json.fromJson(body, RequestWrapper.class);
+		Simul simulacion = json.fromJson(body, Simul.class);
 		
-
-			String simulname = rqWrap.simulname;
-			String creator = (String) session.getAttribute("user");
-			String team = rqWrap.team;
-			String date = getDate();
-
-
-        if(simulname!=null&&creator!=null&&date!=null&&team!=null&&newSimulname!=null){
-        	if(SimulDAOImpl.getInstance().getSimul(simulname)!=null){
-        		Simul newsimul = SimulDAOImpl.getInstance().getSimul(simulname).setName(newSimulname);
-        		SimulDAOImpl.getInstance().updateSimul(newsimul);
-        		
-        		
-        		resp.setStatus(200);
-        		
-        	}else{
-        		resp.sendError(403);
-        	}
-        }else{
-        	
-        	resp.sendError(400);
-        }
-}
-	*/
+		SimulDAOImpl dao = SimulDAOImpl.getInstance();
+		dao.updateSimul(simulacion);
+		System.out.println("YASSSS");
+	}
+	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
 		HttpSession session = req.getSession();

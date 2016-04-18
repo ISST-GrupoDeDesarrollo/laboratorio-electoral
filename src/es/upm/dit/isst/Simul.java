@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -15,16 +17,16 @@ import es.upm.dit.isst.models.Circumscription;
 
 @Entity
 public class Simul implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue long id;
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) long id;
+	
 	private String simulname;
 	private String creator;
 	private Date createDate;
 	private String team;
 	
-	@OneToMany(mappedBy="simulation")
+	@OneToMany(mappedBy="simulation",cascade = CascadeType.ALL)
     @OrderBy("name")
     private List<Circumscription> Circunscriptions;
 
@@ -53,5 +55,7 @@ public class Simul implements Serializable {
 		return this.team;
 	}
 	
-
+	public long getId(){
+		return this.id;
+	}
 }
