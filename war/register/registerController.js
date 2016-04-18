@@ -1,14 +1,6 @@
 Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', '$location', function($scope,$http,$routeParams,$location){
-	/*	
-	$scope.usuario;
-	$scope.password;
-	$scope.nombreCompleto;
-	$scope.file;
-	$scope.rol;
-	$scope.email;*/
 		
 	$scope.enviarRegistro = function(){
-			
 			$http.get("/api/register/geturl").success(function(data,status){
 	            $scope.registerUrl = data.url;
 	            
@@ -25,16 +17,13 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 	            	headers: {'Content-Type': undefined}
 	            })
 				.success(function(data){
-					console.log('sent');
-				})
-				.error(function(data, status){
-					console.log('not sent');
-				});
-	            
+					alert("Registered");
+				}).error(function(data, status){
+					if(status===403){
+						alert("The username is in use");
+					}
+				}); 
 	        });
-	        
-	    
-			
 	};
 	
 }]);

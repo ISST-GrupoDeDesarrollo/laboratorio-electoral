@@ -4,14 +4,11 @@ Laboratory.controller('loginController', ['$scope', '$http','$routeParams', '$lo
 		$http.post('/api/login',{
 			username: $scope.usuario,
 			password: $scope.contrasena
-		}
-	)
-	.success(function(response){
-	
-	})
-	.error(function(response, status){
-	
-	});
+		}).success(function(data){
+			alert("Logged in");
+		}).error(function(data, status){
+			alert("Wrong username or password");
+		});
 	};
   
 }]);

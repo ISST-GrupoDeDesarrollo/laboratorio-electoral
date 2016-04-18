@@ -1,7 +1,7 @@
 Laboratory.controller('simulationController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
 	$scope.simulation={
 			id:$routeParams.simulationId,
-			simulname:"Simulacion de ejemplo",
+			name:"Simulacion de ejemplo",
 			Circunscriptions:[]
 	};
 	
