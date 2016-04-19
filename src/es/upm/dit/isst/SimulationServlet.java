@@ -33,7 +33,7 @@ public class SimulationServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		String body = Tools.readRequestAsString(req);
 		Gson json = new Gson();
@@ -50,20 +50,23 @@ public class SimulationServlet extends HttpServlet {
 			resp.setStatus(200);
 			Tools.sendJson(resp, simulation, Simulation.class);
 		} else {
-
 			resp.sendError(400);
 		}
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String body = Tools.readRequestAsString(req);
 		Gson json = new Gson();
 		Simulation simulacion = json.fromJson(body, Simulation.class);
-
-		SimulationDAOImpl dao = SimulationDAOImpl.getInstance();
-		dao.updateSimulation(simulacion);
-		System.out.println("YASSSS");
+		if(simulacion!=null && simulacion.getId()!=null){
+			SimulationDAOImpl dao = SimulationDAOImpl.getInstance();
+			dao.updateSimulation(simulacion);
+			System.out.println("Updated simulation with id: "+simulacion.getId());
+			resp.setStatus(200);
+		}else{
+			resp.sendError(400);
+		}
 	}
 
 	public static class RequestWrapper {

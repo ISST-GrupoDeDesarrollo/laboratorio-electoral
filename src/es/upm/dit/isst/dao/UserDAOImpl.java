@@ -8,7 +8,6 @@ import javax.persistence.Query;
 import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.User;
 
-
 public class UserDAOImpl implements UserDAO {
 	
 	private static UserDAOImpl instance;
@@ -30,7 +29,9 @@ public class UserDAOImpl implements UserDAO {
 		EntityManager em = EMFService.get().createEntityManager();
 		//TODO Neded some logic before creation?
 		user = new User(username,email,salt,password,completeName,role,profilePicBlobKey);
+		em.getTransaction().begin();
 		em.persist(user);
+		em.getTransaction().commit();
 		em.close();
 		
 		return user;
@@ -64,12 +65,14 @@ public class UserDAOImpl implements UserDAO {
 		else
 			return false;
 	}
-
+	
 	@Override
 	public User updateUser(User user) {
 		// TODO Auto-generated method stub
 		EntityManager em = EMFService.get().createEntityManager();
+		em.getTransaction().begin();
 		User res = em.merge(user);
+		em.getTransaction().commit();
 		em.close();
 		return res;
 	}
@@ -80,7 +83,9 @@ public class UserDAOImpl implements UserDAO {
 		EntityManager em = EMFService.get().createEntityManager();
 		try{
 			User hypUser = em.find(User.class, username);
+			em.getTransaction().begin();
 			em.remove(hypUser);
+			em.getTransaction().commit();
 		} finally {
 			em.close();
 		}

@@ -59,7 +59,7 @@ public class Simulation implements Serializable {
 		return this.team;
 	}
 	
-	public long getId(){
+	public Long getId(){
 		return this.id;
 	}
 

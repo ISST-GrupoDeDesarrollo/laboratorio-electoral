@@ -3,6 +3,7 @@ package es.upm.dit.isst.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.jdo.annotations.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -24,13 +25,16 @@ public class SimulationDAOImpl implements SimulationDAO {
 			return instance;
 	}
 	
+	@Transactional
 	@Override
 	public Simulation createSimulation(String simulname, String creator, Date createDate, String team) {
 		Simulation simul = null;
 		EntityManager em = EMFService.get().createEntityManager();
 		//TODO Neded some logic before creation?
 		simul = new  Simulation(simulname, creator, createDate, team);
+		em.getTransaction().begin();
 		em.persist(simul);
+		em.getTransaction().commit();
 		em.close();
 		
 		return simul;
@@ -55,21 +59,26 @@ public class SimulationDAOImpl implements SimulationDAO {
 		return res;
 	}
 	
-
+	@Transactional
 	@Override
 	public Simulation updateSimulation(Simulation simul) {
 		EntityManager em = EMFService.get().createEntityManager();
+		em.getTransaction().begin();
 		Simulation managed = em.merge(simul);
+		em.getTransaction().commit();
 		em.close();
 		return managed;
 	}
 
+	@Transactional
 	@Override
 	public void deleteSimulation(String simulname) {
 		EntityManager em = EMFService.get().createEntityManager();
 		try{
 			Simulation hypSimul = em.find(Simulation.class, simulname);
+			em.getTransaction().begin();
 			em.remove(hypSimul);
+			em.getTransaction().commit();
 		} finally {
 			em.close();
 		}

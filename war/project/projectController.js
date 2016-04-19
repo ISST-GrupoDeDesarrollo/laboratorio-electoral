@@ -22,7 +22,7 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 Laboratory.controller('CreateSimulationController', ['$scope', '$http', '$uibModalInstance',  function ($scope, $http, $uibModalInstance) {
 
 	$scope.ok = function(){
-		$http.put("/api/simulations",{team:"TODO",name:$scope.name}).success(function(data,status){
+		$http.post("/api/simulations",{team:"TODO",name:$scope.name}).success(function(data,status){
 			$uibModalInstance.close(data);
 		});
 	};

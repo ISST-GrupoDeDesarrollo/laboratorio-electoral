@@ -16,7 +16,7 @@ Laboratory.controller('simulationController', ['$scope', '$http','$routeParams',
 	};
 
 	$scope.addCircumscription = function(){
-		var circumscription = {name:"Nueva circunscripción",polled:0,population:0,votingIntents:[]};
+		var circumscription = {name:"Nueva circunscripcion",polled:0,population:0,votingIntents:[]};
 		$scope.simulation.Circunscriptions.push(circumscription);
 		$scope.selectedCircumscription =circumscription;
 	};
@@ -44,8 +44,8 @@ Laboratory.controller('simulationController', ['$scope', '$http','$routeParams',
 	};
 
 	$scope.saveSimulation = function(){
-		$http.post("/api/simulations",$scope.simulation).success(function(data,status){
-			console.log("Saved simulation!!! :D");
+		$http.put("/api/simulations",$scope.simulation).success(function(data,status){
+			alert("Simulacion actualizada");
 		});
 	};
 
