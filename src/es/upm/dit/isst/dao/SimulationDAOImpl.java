@@ -25,7 +25,6 @@ public class SimulationDAOImpl implements SimulationDAO {
 			return instance;
 	}
 	
-	@Transactional
 	@Override
 	public Simulation createSimulation(String simulname, String creator, Date createDate, String team) {
 		Simulation simul = null;
@@ -59,7 +58,6 @@ public class SimulationDAOImpl implements SimulationDAO {
 		return res;
 	}
 	
-	@Transactional
 	@Override
 	public Simulation updateSimulation(Simulation simul) {
 		EntityManager em = EMFService.get().createEntityManager();
@@ -70,7 +68,6 @@ public class SimulationDAOImpl implements SimulationDAO {
 		return managed;
 	}
 
-	@Transactional
 	@Override
 	public void deleteSimulation(String simulname) {
 		EntityManager em = EMFService.get().createEntityManager();
