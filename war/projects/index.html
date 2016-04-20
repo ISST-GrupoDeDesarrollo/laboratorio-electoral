@@ -4,15 +4,19 @@
 
 			<div class="text-center">
 			<h1>Projects</h1>
-				<input ng-model='projects' ng-trim='false'/> 
-				<button type="button" class="btn btn-default">
-		    		<span class="fa fa-plus fa-3"></span>
-		  		</button>
+				<div class="input-group col-centered small-input">
+				  <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
+				  <input type="text" class="reasonable-size-for-input form-control" placeholder="Filter by" aria-describedby="basic-addon1">
+				  <button type="button" class="btn btn-default" style="float:left;">
+	    			<span class="fa fa-plus fa-3"></span>
+	  			  </button>
+				</div>
+				
 			</div>
 			<hr>
 
 			<div class="list-container list-group">
-				<table class="table table-bordered">
+				<table class="table table-striped table-bordered">
 					<thead>
 				      <tr>
 				        <th>
@@ -42,7 +46,7 @@
 							<td>{{projects.name}}</td>
 							<td>{{projects.date}}</td>
 							<td>{{projects.workGroup}}</td>
-							<td><span class="fa fa-cross fa-3"></span></td>
+							<td align="center"><i class="glyphicon glyphicon-remove text-center"></i></td>
 						</tr>
 					</tbody>		
 				</table>

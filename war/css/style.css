@@ -9,6 +9,10 @@ html{
   width: 90%;
   margin: 0 auto;
 }
+.col-centered{
+	float:none;
+	margin:0 auto;
+}
 
 #campos {
   clear: both;
@@ -111,6 +115,13 @@ hr.blue{
 	margin-bottom:30px;
 }
 
+.reasonable-size-for-input{
+	width:150px !important;
+}
+
+.small-input{
+	width:230px !important;
+}
 .simulation{
 	padding-top:50px;
 }
