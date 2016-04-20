@@ -69,10 +69,10 @@ public class SimulationDAOImpl implements SimulationDAO {
 	}
 
 	@Override
-	public void deleteSimulation(String simulname) {
+	public void deleteSimulation(long id) {
 		EntityManager em = EMFService.get().createEntityManager();
 		try{
-			Simulation hypSimul = em.find(Simulation.class, simulname);
+			Simulation hypSimul = em.find(Simulation.class, id);
 			em.getTransaction().begin();
 			em.remove(hypSimul);
 			em.getTransaction().commit();

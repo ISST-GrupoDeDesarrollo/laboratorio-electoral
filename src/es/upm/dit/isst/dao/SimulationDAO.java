@@ -12,7 +12,7 @@ public interface SimulationDAO {
 	public Simulation createSimulation(String simulname, String creator, Date createDate, String team);
 	public Simulation getSimulation(long id);
 	public Simulation updateSimulation(Simulation simul);
-	public void deleteSimulation(String simulname);
+	public void deleteSimulation(long id);
 	public List<Simulation> getByCreator(String creator);
 	public List<Simulation> getByTeam(Team team);
 	

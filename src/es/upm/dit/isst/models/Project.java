@@ -40,6 +40,15 @@ public class Project implements Serializable {
 	public Long getId() {
 		return id;
 	}
+
+	public List<Simulation> getSimulations() {
+		return simulations;
+	}
+
+	public void setSimulations(List<Simulation> simulations) {
+		this.simulations = simulations;
+	}
+	
 	
      
 }
