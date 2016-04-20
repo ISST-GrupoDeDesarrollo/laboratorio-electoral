@@ -12,7 +12,7 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 }]);
 
 
-Laboratory.directive('modal', function(){
+/*Laboratory.directive('modal', function(){
 	return{
 		template: '/proyects/createProyectModal.html',
 		restrict: 'E',
@@ -44,3 +44,4 @@ Laboratory.directive('modal', function(){
 		}
 	}
 });
+*/
