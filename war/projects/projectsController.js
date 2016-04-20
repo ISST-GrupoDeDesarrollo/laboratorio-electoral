@@ -1,4 +1,7 @@
 Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
+	$scope.orderByField = 'name';
+	$scope.reverseSort = false;
+	
 	$scope.showModal = false;
 	$scope.toggleModal = function(){
 		$scope.showModal = !$scope.showModal;

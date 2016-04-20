@@ -1,17 +1,53 @@
 <div data-ng-include="'/navigationBars/navigationBarIn.html'"></div>
 
-<div class="container">
-	<div class="projects">
-		<article class="col-md-offset-1 col-md-10 maincontent">
-			<div class="row center-block">
+<div ng-controller="projectsController" class="generic-container projects">
+
+			<div class="text-center">
+			<h1>Projects</h1>
 				<input ng-model='projects' ng-trim='false'/> 
 				<button type="button" class="btn btn-default">
 		    		<span class="fa fa-plus fa-3"></span>
 		  		</button>
 			</div>
 			<hr>
-		</article>
-	</div>
+
+			<div class="list-container list-group">
+				<table class="table table-bordered">
+					<thead>
+				      <tr>
+				        <th>
+				          <a  ng-click="orderByField='firstName'; reverseSort = !reverseSort">
+				          Name <span ng-show="orderByField == 'name'"></span></span>
+				          </a>
+				        </th>
+				        <th>
+				          <a  ng-click="orderByField='lastName'; reverseSort = !reverseSort">
+				            Date <span ng-show="orderByField == 'date'"></span></span>
+				          </a>
+				        </th>
+				        <th>
+				          <a  ng-click="orderByField='date'; reverseSort = !reverseSort">
+				          WorkGroup <span ng-show="orderByField == 'workGroup'"></span></span>
+				          </a>
+				        </th>
+				        <th>
+				          <a >
+				          Action</span>
+				          </a>
+				        </th>
+				      </tr>
+				    </thead>
+				    <tbody>
+						<tr ng-repeat='x in projects'>
+							<td>{{projects.name}}</td>
+							<td>{{projects.date}}</td>
+							<td>{{projects.workGroup}}</td>
+							<td><span class="fa fa-cross fa-3"></span></td>
+						</tr>
+					</tbody>		
+				</table>
+			</div>
+
 </div>
 
 <modal></modal>

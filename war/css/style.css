@@ -5,6 +5,11 @@ html{
 	
 }
 
+.generic-container{
+  width: 90%;
+  margin: 0 auto;
+}
+
 #campos {
   clear: both;
 }
