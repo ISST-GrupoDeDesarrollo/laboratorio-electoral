@@ -27,34 +27,37 @@ public class Circumscription implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-    @GeneratedValue()
-    private Long id;   
-	
-	 private long population;
-	 private long polled;
-	 private String name;
-	 private String localization;
+	@GeneratedValue()
+	private Long id;   
+		
+	private long population;
+	private long polled;
+	private String name;
+	private String localization;
 	 
-	 @ManyToOne
-	 @Unowned
-	 private Simulation simulation;  
+	@ManyToOne
+	@Unowned
+	private Simulation simulation;  
 	 
 	@OneToMany(cascade = CascadeType.ALL)
 	@Unowned
 	 private List<VotingIntent> votingIntents = new ArrayList<VotingIntent>();
-
+	
 	public List<VotingIntent> getVotingIntents() {
 		return votingIntents;
 	}
-
+	
 	public void setVotingIntents(List<VotingIntent> votingIntents) {
 		this.votingIntents = votingIntents;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
 	
-	
+	public String getLocalization(){
+		return localization;
+	};
+
 	
 }

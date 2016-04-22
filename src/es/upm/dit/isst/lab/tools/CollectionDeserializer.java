@@ -11,10 +11,22 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonParseException;
 
 public class CollectionDeserializer implements JsonDeserializer<Collection<?>> {
 
+	public boolean validateJson(String toValidate){
+		JsonParser parser = new JsonParser();
+		 try {
+			  parser.parse(toValidate);
+	          return true;
+	      } catch(com.google.gson.JsonSyntaxException ex) { 
+	          return false;
+	      }
+		
+	}
+	
     @Override
     public Collection<?> deserialize(JsonElement json, Type typeOfT,
             JsonDeserializationContext context) throws JsonParseException {
