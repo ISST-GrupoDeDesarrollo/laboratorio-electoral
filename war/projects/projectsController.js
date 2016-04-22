@@ -1,14 +1,41 @@
 Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '$location', '$uibModal',
                                              function($scope,$http,$routeParams,$location,$uibModal){
+	
 	$scope.orderByField = 'name';
 	$scope.reverseSort = false;
 	
+	$scope.animationsEnabled = true;
 	$scope.newProject = function(){
-		$uibModal.open({
-			templateUrl: '/projects/createProjectModal.html'
+		var modalInstance = $uibModal.open({
+			animation: $scope.animationsEnabled,
+			templateUrl: 'modalView.html',
+			controller: 'modalController'
 		});
+		
+		modalInstance.result.then(
+			function(nombrePro){
+				console.log("enviado");
+				console.log(nombrePro);
+			}, function(){
+				console.log("cancelado");
+			}
+		);
 	}
 	
+}]);
+
+
+
+
+Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance', function($scope, $http, $uibModalInstance){
 	
+	$scope.ok = function () {
+	   //Enviar peticion http
+	   $uibModalInstance.close($scope.nombreProyecto);
+	};
+
+	$scope.cancel = function () {
+	   $uibModalInstance.dismiss("cancelado");
+	};
 	
 }]);
