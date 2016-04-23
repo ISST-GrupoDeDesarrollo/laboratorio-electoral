@@ -1,6 +1,7 @@
 package es.upm.dit.isst;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,29 +12,30 @@ import es.upm.dit.isst.dao.UserDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.Project;
 import es.upm.dit.isst.models.User;
+import es.upm.dit.isst.models.Workgroup;
 
 
 public class ProjectsServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		/*
+		
 		if(req.getParameter("id") == null || req.getParameter("id").isEmpty()){
 			
 			try{
 				
 				String username = (String) req.getSession().getAttribute("user");
-				
 				User user = UserDAOImpl.getInstance().getUser(username);
+				List<Workgroup> workgroupArray = user.getWorkgroups(); 
 				
-				List<Workgroups> workgroupArray = user.GetWorkgroups(); 
-				
-				List<projects> projects = workgroupArray.get(0).getProjects;
-				
-				for(int x = 1; x < workgroupArray.length(); x++){
-				
-					List<Project> projectsAx = workgroupArray.get(x).getProjects;
+				if(workgroupArray != null && !workgroupArray.isEmpty()){
 					
-					projects = ListUtils.union(projects,projectsAx);
+				List<Project> projects = workgroupArray.get(0).getProjects();
+				
+				for(int x = 1; x < workgroupArray.size(); x++){
+				
+					List<Project> projectsAx = workgroupArray.get(x).getProjects();
+					projects.addAll(projectsAx);
+					
 				}
 				
 				if(projects!=null){
@@ -41,12 +43,14 @@ public class ProjectsServlet extends HttpServlet {
 				}else{
 					resp.sendError(404);
 				}
+				}else{
+					resp.sendError(404);
+				}
 			}catch(NumberFormatException e){
 				resp.sendError(400);
 			}
 			
-		}*/
-		
+		}
 	}
 	
 	
