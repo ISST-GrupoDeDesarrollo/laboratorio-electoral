@@ -51,8 +51,12 @@ Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance'
 			data: data
 		}).success(function(dataReturned){
 			$uibModalInstance.close(dataReturned);
-		}).error(function(){
-			
+		}).error(function(status){
+			if(status == 401){
+				alert("Acceso denegado sin sesión");
+			}else if(status == 400){
+				alert("Complete todos los campos");
+			}
 		});
 	};
 
