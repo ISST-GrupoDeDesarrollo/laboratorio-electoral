@@ -1,9 +1,14 @@
 package es.upm.dit.isst.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.google.appengine.datanucleus.annotations.Unowned;
 
 @Entity
 public class User implements Serializable {
@@ -21,6 +26,10 @@ public class User implements Serializable {
 	private String completeName;
 	private String role;
 	private String profilePicBlobKey;
+	
+	@ManyToMany()
+	@Unowned
+    private List<Workgroup> workgroups= new ArrayList<Workgroup>();      
 	
 	public User(String username, String email, int salt, String password, String completeName, String role,String profilePicBlobKey) {
 		super();
