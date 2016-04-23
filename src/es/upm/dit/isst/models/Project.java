@@ -49,6 +49,13 @@ public class Project implements Serializable {
 		this.simulations = simulations;
 	}
 	
+	public String getName(){
+		return this.name;
+	}
+	
+	public String getDescription(){
+		return this.description;
+	}
 	
      
 }
