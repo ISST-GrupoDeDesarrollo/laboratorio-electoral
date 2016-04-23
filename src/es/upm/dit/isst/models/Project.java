@@ -24,10 +24,10 @@ public class Project implements Serializable {
 	
 	private String description;
 	
-	/*
+	
 	@ManyToOne()
 	@Unowned
-	private Workgroup workgroup;*/
+	private Workgroup workgroup;
 	 
 	private String party;
      

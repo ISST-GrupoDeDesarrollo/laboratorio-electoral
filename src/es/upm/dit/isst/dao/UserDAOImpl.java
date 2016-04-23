@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.User;
+import es.upm.dit.isst.models.Workgroup;
 
 public class UserDAOImpl implements UserDAO {
 	
@@ -46,6 +47,12 @@ public class UserDAOImpl implements UserDAO {
 		List<User> users = q.getResultList();
 		if (users.size() > 0)
 			res = (User)(q.getResultList().get(0));
+		if(res!=null){
+			for(Workgroup workgroup : res.getWorkgroups()){
+				workgroup.getProjects(); //Fill the projects and members data of the workgroup
+				workgroup.getMembers();
+			}
+		}
 		em.close();
 		return res;
 	}
