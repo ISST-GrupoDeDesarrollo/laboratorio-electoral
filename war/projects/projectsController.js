@@ -7,7 +7,7 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 		$scope.cleanObjectFromDatabase(data);
 		$scope.projects = data;
         
-		});
+	});
 	
 	$scope.orderByField = 'name';
 	$scope.reverseSort = false;
@@ -21,9 +21,10 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 		});
 		
 		modalInstance.result.then(
-			function(nombrePro){
+			function(dataReturned){
 				console.log("enviado");
-				console.log(nombrePro);
+				console.log(dataReturned.nombreProyecto);
+				//$scope.projects = dataReturned
 			}, function(){
 				console.log("cancelado");
 			}
@@ -37,9 +38,22 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 
 Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance', function($scope, $http, $uibModalInstance){
 	
+	var data = {
+			nombreProyecto: $scope.nombreProyecto,
+			nombreTrabajo: $scope.nombreTrabajo,
+			descripcion: $scope.descripcion
+	}
+	
 	$scope.ok = function () {
-	   //Enviar peticion http
-	   $uibModalInstance.close($scope.nombreProyecto);
+		$http({
+			method: 'Post',
+			url: '/api/projects',
+			data: data
+		}).success(function(dataReturned){
+			$uibModalInstance.close(dataReturned);
+		}).error(function(){
+			
+		});
 	};
 
 	$scope.cancel = function () {
