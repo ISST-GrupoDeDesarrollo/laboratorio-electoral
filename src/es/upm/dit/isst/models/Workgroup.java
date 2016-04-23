@@ -18,8 +18,7 @@ import com.google.appengine.datanucleus.annotations.Unowned;
 public class Workgroup implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue() Long id;
-	
+	@Id 
 	private String name;
 	
 	@ManyToOne
