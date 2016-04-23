@@ -1,4 +1,4 @@
-Laboratory.controller('navigationController', ['$scope', '$http', '$routeParams', '$location', function($scope,$http,$routeParams,$location){
+/*Laboratory.controller('navigationController', ['$scope', '$http', '$routeParams', '$location', function($scope,$http,$routeParams,$location){
 
 	      $http.get('/checkLoginServlet').success(function(data) {
 	        
@@ -20,4 +20,4 @@ Laboratory.controller('navigationController', ['$scope', '$http', '$routeParams'
 	        });
 	        
 	    }]);
-	
+	*/

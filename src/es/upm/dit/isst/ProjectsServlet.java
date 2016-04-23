@@ -60,15 +60,18 @@ public class ProjectsServlet extends HttpServlet {
 	
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		
+		System.out.println("entrando en doPost");
 		HttpSession session = req.getSession();
 		if(session == null){
 			//Status code (401) SC_UNAUTHORIZED 
 			resp.sendError(401);
 		}else{
 			String body = Tools.readRequestAsString(req);
+			System.out.println(body);
 			Gson gson = new Gson();
 			Project newProject = gson.fromJson(body, Project.class);
+			System.out.println(newProject.getName());
+			System.out.println(newProject.getDescription());
 			
 			if(newProject.getName() != null && newProject.getDescription() != null){
 				Project projectDevuelto = ProjectDAOImpl.getInstance().createProject(newProject);
