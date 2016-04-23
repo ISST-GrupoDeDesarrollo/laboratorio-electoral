@@ -9,7 +9,15 @@ import es.upm.dit.isst.models.Project;
 import es.upm.dit.isst.models.Simulation;
 
 public class ProjectDAOImpl implements ProjectDAO {
-
+	
+	private static ProjectDAOImpl instance;
+	
+	public static ProjectDAOImpl getInstance(){
+		if(instance == null)
+			instance = new ProjectDAOImpl();
+		return instance;
+}
+	
 	@Override
 	public Project createProject(Project project) {
 		EntityManager em = EMFService.get().createEntityManager();

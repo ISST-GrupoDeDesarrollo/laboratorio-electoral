@@ -1,6 +1,14 @@
 Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '$location', '$uibModal',
                                              function($scope,$http,$routeParams,$location,$uibModal){
 	
+
+	$http.get("/api/projects").success(function(data,status){
+			
+		$scope.cleanObjectFromDatabase(data);
+		$scope.projects = data;
+        
+		});
+	
 	$scope.orderByField = 'name';
 	$scope.reverseSort = false;
 	
