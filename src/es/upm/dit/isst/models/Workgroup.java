@@ -40,12 +40,6 @@ public class Workgroup implements Serializable {
 		this.creator = creator;
 	}
 
-
-	public Long getId() {
-		return id;
-	}
-
-
 	public String getName() {
 		return name;
 	}
