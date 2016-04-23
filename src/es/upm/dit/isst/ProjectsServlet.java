@@ -44,7 +44,8 @@ public class ProjectsServlet extends HttpServlet {
 					resp.sendError(404);
 				}
 				}else{
-					resp.sendError(404);
+					
+					resp.sendError(499);
 				}
 			}catch(NumberFormatException e){
 				resp.sendError(400);

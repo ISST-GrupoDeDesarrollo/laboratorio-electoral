@@ -59,6 +59,24 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/api/projects</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>WorkgroupsServlet</servlet-name>
+		<servlet-class>es.upm.dit.isst.WorkgroupsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WorkgroupsServlet</servlet-name>
+		<url-pattern>/api/Workgroups</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>checkLoginServlet</servlet-name>
+		<servlet-class>es.upm.dit.isst.checkLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>checkLoginServlet</servlet-name>
+		<url-pattern>checkLoginServlet</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
