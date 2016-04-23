@@ -44,4 +44,14 @@ public class User implements Serializable {
 	
 	public int getSalt(){return salt;}
 	public String getHashedPassword(){return password;}
+
+	public List<Workgroup> getWorkgroups() {
+		return workgroups;
+	}
+
+	public void setWorkgroups(List<Workgroup> workgroups) {
+		this.workgroups = workgroups;
+	}
+	
+	
 }
