@@ -23,11 +23,6 @@ public class Project implements Serializable {
 	private String name;
 	
 	private String description;
-	
-	
-	@ManyToOne()
-	@Unowned
-	private Workgroup workgroup;
      
     @OneToMany(cascade = CascadeType.REMOVE)
 	@Unowned
@@ -51,10 +46,6 @@ public class Project implements Serializable {
 	
 	public String getDescription(){
 		return this.description;
-	}
-	
-	public Workgroup getWorkgroup(){
-		return this.workgroup;
 	}
 	
      

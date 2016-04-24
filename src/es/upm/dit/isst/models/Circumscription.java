@@ -36,10 +36,6 @@ public class Circumscription implements Serializable {
 	private String localization;
 	private String localizationFilename;
 	 
-	@ManyToOne
-	@Unowned
-	private Simulation simulation;  
-	 
 	@OneToMany(cascade = CascadeType.ALL)
 	@Unowned
 	 private List<VotingIntent> votingIntents = new ArrayList<VotingIntent>();

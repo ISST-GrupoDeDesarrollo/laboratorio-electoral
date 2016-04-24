@@ -24,7 +24,15 @@ public class WorkgroupsServlet extends HttpServlet {
 		String username = (String) req.getSession().getAttribute("user");
 		User user = UserDAOImpl.getInstance().getUser(username);
 		if(user!=null){
-			Tools.sendJson(resp,user.getWorkgroups(),new TypeToken<List<Workgroup>>() {
+			List<Workgroup> workgroups = user.getWorkgroups();
+			for(Workgroup group : workgroups){
+				//Cleanup!
+				for(User member: group.getMembers()){
+					member.setWorkgroups(null);
+				}
+				group.getCreator().setWorkgroups(null);
+			}
+			Tools.sendJson(resp,workgroups,new TypeToken<List<Workgroup>>() {
 			}.getType());
 		}else{
 			resp.sendError(403);
