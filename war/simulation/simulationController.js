@@ -57,6 +57,12 @@ Laboratory.controller('simulationController', ['$scope', '$http','$routeParams',
 			$scope.selectedCircumscription = undefined;
 		}
 	};
+	
+	$scope.deleteTopojson = function(selectedCircumscription){
+		selectedCircumscription.localization = null;
+		selectedCircumscription.localizationFilename = null;
+		$("#topojson").val('');
+	};
 
 	$scope.insertVotingIntent = function(){
 		if($scope.addVotingIntentForm.$valid){
