@@ -23,8 +23,8 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 		modalInstance.result.then(
 			function(dataReturned){
 				console.log("enviado");
-				console.log(dataReturned.name);
-				//$scope.projects = dataReturned
+				console.log(dataReturned);
+				// ir a project creado
 			}, function(){
 				console.log("cancelado");
 			}
