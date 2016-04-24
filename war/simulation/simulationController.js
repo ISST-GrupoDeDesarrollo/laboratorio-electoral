@@ -14,7 +14,28 @@ Laboratory.controller('simulationController', ['$scope', '$http','$routeParams',
 			console.log($scope.simulation);
 		});
 	};
-
+	
+	var isJsonFile = function(file, onLoadCallback){
+		if( file != undefined){
+			fr = new FileReader();
+			fr.readAsText(file[0]);
+			fr.onloadend = onLoadCallback;
+		}
+	};
+	
+	$scope.$watchCollection("files",function(newValue){
+		isJsonFile(newValue, function(e){
+			try {
+				var json = JSON.parse(e.target.result);
+				//e.target.result es el string ya parseado y que es un json si JSON.parse no de excepción
+			} catch(e){
+				$("#topojson").val('');
+				alert("It is not a JSON File");
+				//si no fallta pues se elimina y listo
+			}
+		});
+	});
+	
 	$scope.addCircumscription = function(){
 		var circumscription = {name:"Nueva circunscripcion",polled:0,population:0,votingIntents:[]};
 		$scope.simulation.Circunscriptions.push(circumscription);
