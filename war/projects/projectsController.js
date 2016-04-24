@@ -47,7 +47,8 @@ Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance'
 			url: '/api/projects',
 			data: JSON.stringify({
 				name: $scope.nombreProyecto,
-				description: $scope.descripcion
+				description: $scope.descripcion,
+				workgroup: $scope.grupoTrabajo
 			}),
 			headers: {'Content-Type': 'application/json'}
 		}).success(function(dataReturned){
