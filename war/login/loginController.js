@@ -5,7 +5,7 @@ Laboratory.controller('loginController', ['$scope', '$http','$routeParams', '$lo
 			username: $scope.usuario,
 			password: $scope.contrasena
 		}).success(function(data){
-			alert("Logged in");
+			$location.path("/projects");
 		}).error(function(data, status){
 			alert("Wrong username or password");
 		});

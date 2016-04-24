@@ -17,7 +17,7 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 	            	headers: {'Content-Type': undefined}
 	            })
 				.success(function(data){
-					alert("Registered");
+					$location.path("/projects");
 				}).error(function(data, status){
 					if(status===403){
 						alert("The username is in use");
