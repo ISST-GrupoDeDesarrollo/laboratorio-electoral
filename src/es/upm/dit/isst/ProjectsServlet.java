@@ -73,7 +73,7 @@ public class ProjectsServlet extends HttpServlet {
 			System.out.println(newProject.getName());
 			System.out.println(newProject.getDescription());
 			
-			if(newProject.getName() != null && newProject.getDescription() != null){
+			if(newProject.getName() != null && newProject.getDescription() != null && newProject.getWorkgroup() != null){
 				Project projectDevuelto = ProjectDAOImpl.getInstance().createProject(newProject);
 				
 				String jsonRespuesta = gson.toJson(projectDevuelto, Project.class);

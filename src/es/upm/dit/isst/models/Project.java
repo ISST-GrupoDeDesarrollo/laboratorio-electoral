@@ -53,5 +53,9 @@ public class Project implements Serializable {
 		return this.description;
 	}
 	
+	public Workgroup getWorkgroup(){
+		return this.workgroup;
+	}
+	
      
 }
