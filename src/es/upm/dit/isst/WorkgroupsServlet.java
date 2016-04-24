@@ -10,10 +10,12 @@ import javax.servlet.http.*;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.gson.reflect.TypeToken;
 
 import es.upm.dit.isst.dao.UserDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.User;
+import es.upm.dit.isst.models.Workgroup;
 
 @SuppressWarnings("serial")
 public class WorkgroupsServlet extends HttpServlet {
@@ -22,7 +24,8 @@ public class WorkgroupsServlet extends HttpServlet {
 		String username = (String) req.getSession().getAttribute("user");
 		User user = UserDAOImpl.getInstance().getUser(username);
 		if(user!=null){
-			Tools.sendJson(resp,user.getWorkgroups());
+			Tools.sendJson(resp,user.getWorkgroups(),new TypeToken<List<Workgroup>>() {
+			}.getType());
 		}else{
 			resp.sendError(403);
 		}

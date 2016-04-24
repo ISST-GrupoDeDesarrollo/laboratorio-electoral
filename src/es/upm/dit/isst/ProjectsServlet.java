@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import es.upm.dit.isst.dao.ProjectDAOImpl;
 import es.upm.dit.isst.dao.UserDAOImpl;
@@ -43,7 +44,8 @@ public class ProjectsServlet extends HttpServlet {
 				}
 				
 				if(projects!=null){
-					Tools.sendJson(resp, projects);
+					Tools.sendJson(resp, projects,new TypeToken<List<Project>>() {
+					}.getType());
 				}else{
 					resp.sendError(404);
 				}

@@ -65,7 +65,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>WorkgroupsServlet</servlet-name>
-		<url-pattern>/api/Workgroups</url-pattern>
+		<url-pattern>/api/workgroups</url-pattern>
 	</servlet-mapping>
 	
 		<servlet>

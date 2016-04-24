@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -40,11 +41,11 @@ public class Tools {
 		return new String(hexChars);
 	}
 	
-	public static void sendJson(HttpServletResponse response, Object toJson) throws IOException {
+	public static void sendJson(HttpServletResponse response, Object toJson,Type type) throws IOException {
 		response.setContentType("application/json");
 		PrintWriter out;
 		out = response.getWriter();
-		String jsonString = new Gson().toJson(toJson);
+		String jsonString = new Gson().toJson(toJson,type);
 		out.print(jsonString);
 		out.flush();
 	}
