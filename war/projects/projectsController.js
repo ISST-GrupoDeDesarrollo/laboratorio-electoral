@@ -38,6 +38,15 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 
 Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance', function($scope, $http, $uibModalInstance){
 	
+	$http.get("/api/workgroups").success(function(data,status){
+		
+		$scope.cleanObjectFromDatabase(data);
+		$scope.workgroups = data;
+		$scope.workgroup = $scope.workgroups[0];
+		
+        
+		});
+	
 	$scope.ok = function () {
 		console.log($scope.nombreProyecto);
 		console.log($scope.descripcion);
@@ -52,6 +61,7 @@ Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance'
 			}),
 			headers: {'Content-Type': 'application/json'}
 		}).success(function(dataReturned){
+			$scope.cleanObjectFromDatabase(dataReturned);
 			$uibModalInstance.close(dataReturned);
 		}).error(function(data, status){
 			if(status == 401){
