@@ -10,6 +10,9 @@ Laboratory.config(['$routeProvider',function ($routeProvider) { //Configuro el p
     }).when("/register", {
         controller: "registerController",
         templateUrl: "register/index.html"
+    }).when("/workgroups", {
+        controller: "workgroupsController",
+        templateUrl: "workgroups/index.html"
     }).when("/projects", {
         controller: "projectsController",
         templateUrl: "projects/index.html"

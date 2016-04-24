@@ -1,11 +1,15 @@
 package es.upm.dit.isst;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import es.upm.dit.isst.dao.ProjectDAOImpl;
 import es.upm.dit.isst.dao.UserDAOImpl;
@@ -44,7 +48,8 @@ public class ProjectsServlet extends HttpServlet {
 					resp.sendError(404);
 				}
 				}else{
-					resp.sendError(404);
+					
+					resp.sendError(499);
 				}
 			}catch(NumberFormatException e){
 				resp.sendError(400);
@@ -55,6 +60,35 @@ public class ProjectsServlet extends HttpServlet {
 	
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-	
+		System.out.println("entrando en doPost");
+		HttpSession session = req.getSession();
+		if(session == null){
+			//Status code (401) SC_UNAUTHORIZED 
+			resp.sendError(401);
+		}else{
+			String body = Tools.readRequestAsString(req);
+			System.out.println(body);
+			Gson gson = new Gson();
+			Project newProject = gson.fromJson(body, Project.class);
+			System.out.println(newProject.getName());
+			System.out.println(newProject.getDescription());
+			
+			if(newProject.getName() != null && newProject.getDescription() != null){
+				Project projectDevuelto = ProjectDAOImpl.getInstance().createProject(newProject);
+				
+				String jsonRespuesta = gson.toJson(projectDevuelto, Project.class);
+				
+				resp.setContentType("application/json");
+				resp.setCharacterEncoding("UTF-8");
+				PrintWriter out = resp.getWriter();
+				out.print(jsonRespuesta);
+				out.flush();
+			}else{
+				//Status code (400) SC_BAD_REQUEST
+				resp.sendError(400);
+			}
+		}
+		
+		
 	}
 }
