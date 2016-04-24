@@ -28,10 +28,6 @@ public class Project implements Serializable {
 	@ManyToOne()
 	@Unowned
 	private Workgroup workgroup;
-	 
-	private String party;
-     
-    private int voters;
      
     @OneToMany(cascade = CascadeType.REMOVE)
 	@Unowned
