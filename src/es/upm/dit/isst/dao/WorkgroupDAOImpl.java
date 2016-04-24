@@ -31,10 +31,10 @@ public class WorkgroupDAOImpl implements WorkgroupDAO{
 	}
 
 	@Override
-	public Workgroup getWorkgroup(String name) {
+	public Workgroup getWorkgroup(long id) {
 		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("select t from Workgroup t where t.name = :name");
-		q.setParameter("name", name);
+		Query q = em.createQuery("select t from Workgroup t where t.id = :id");
+		q.setParameter("id", id);
 		Workgroup workgroup = null;
 		List<Workgroup> workgroups = q.getResultList();
 		if (workgroups.size() > 0)
@@ -58,10 +58,10 @@ public class WorkgroupDAOImpl implements WorkgroupDAO{
 	}
 
 	@Override
-	public void deleteWorkgroup(String name) {
+	public void deleteWorkgroup(long id) {
 		EntityManager em = EMFService.get().createEntityManager();
 		try{
-			Workgroup hypWorkgroup = em.find(Workgroup.class, name);
+			Workgroup hypWorkgroup = em.find(Workgroup.class, id);
 			em.getTransaction().begin();
 			em.remove(hypWorkgroup);
 			em.getTransaction().commit();

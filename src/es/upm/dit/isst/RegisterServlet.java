@@ -12,8 +12,11 @@ import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 import es.upm.dit.isst.dao.UserDAOImpl;
+import es.upm.dit.isst.dao.WorkgroupDAO;
+import es.upm.dit.isst.dao.WorkgroupDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.User;
+import es.upm.dit.isst.models.Workgroup;
 
 @SuppressWarnings("serial")
 public class RegisterServlet extends HttpServlet {
@@ -46,6 +49,11 @@ public class RegisterServlet extends HttpServlet {
 	        		int salt = (int) (Math.random()*Integer.MAX_VALUE);
 	        		String hash = Tools.sha256(password+salt);
 	        		User newUser = UserDAOImpl.getInstance().createUser(username, email, salt, hash, completeName, role,profilePicKey);
+	        		Workgroup personal = new Workgroup("Proyectos personales", newUser, true);
+	        		newUser.getWorkgroups().add(personal);
+	        		personal.getMembers().add(newUser);
+	         		WorkgroupDAOImpl.getInstance().createWorkgroup(personal);
+	        		UserDAOImpl.getInstance().updateUser(newUser);
 	        		System.out.println("New user created, username: "+username);
 	        		
 	        		session.setAttribute("user", username);

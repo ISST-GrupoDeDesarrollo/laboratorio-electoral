@@ -28,12 +28,20 @@ Laboratory.controller('simulationController', ['$scope', '$http','$routeParams',
 			try {
 				var json = JSON.parse(e.target.result);
 				//e.target.result es el string ya parseado y que es un json si JSON.parse no de excepción
+				$scope.selectedCircumscription.localization = e.target.result;
+				$scope.selectedCircumscription.localizationFilename = newValue[0].name;
+				$scope.$apply();
 			} catch(e){
 				$("#topojson").val('');
+				$scope.$apply();
 				alert("It is not a JSON File");
 				//si no fallta pues se elimina y listo
 			}
 		});
+	});
+	
+	$scope.$watch("selectedCircumscription",function(newValue){
+		$("#topojson").val('');
 	});
 	
 	$scope.addCircumscription = function(){
