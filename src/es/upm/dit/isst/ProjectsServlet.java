@@ -43,7 +43,7 @@ public class ProjectsServlet extends HttpServlet {
 				}
 				
 				if(projects!=null){
-					Tools.sendJson(resp, projects, Project.class);
+					Tools.sendJson(resp, projects);
 				}else{
 					resp.sendError(404);
 				}
