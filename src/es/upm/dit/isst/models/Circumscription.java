@@ -34,6 +34,7 @@ public class Circumscription implements Serializable {
 	private long polled;
 	private String name;
 	private String localization;
+	private String localizationFilename;
 	 
 	@ManyToOne
 	@Unowned
