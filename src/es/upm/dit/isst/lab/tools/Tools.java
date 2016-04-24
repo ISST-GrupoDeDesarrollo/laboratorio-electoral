@@ -39,6 +39,16 @@ public class Tools {
 		}
 		return new String(hexChars);
 	}
+	
+	public static void sendJson(HttpServletResponse response, Object toJson) throws IOException {
+		response.setContentType("application/json");
+		PrintWriter out;
+		out = response.getWriter();
+		String jsonString = new Gson().toJson(toJson);
+		out.print(jsonString);
+		out.flush();
+	}
+
 
 	public static void sendJson(HttpServletResponse response, Object toJson, Class clazz) throws IOException {
 		response.setContentType("application/json");
