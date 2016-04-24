@@ -1,6 +1,14 @@
 Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '$location', '$uibModal',
                                              function($scope,$http,$routeParams,$location,$uibModal){
 	
+	
+	$http.get("/api/projects").success(function(data,status){
+			
+		$scope.cleanObjectFromDatabase(data);
+		$scope.projects = data;
+        
+	});
+	
 	$scope.orderByField = 'name';
 	$scope.reverseSort = false;
 	
@@ -13,9 +21,10 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 		});
 		
 		modalInstance.result.then(
-			function(nombrePro){
+			function(dataReturned){
 				console.log("enviado");
-				console.log(nombrePro);
+				console.log(dataReturned);
+				// ir a project creado
 			}, function(){
 				console.log("cancelado");
 			}
@@ -30,8 +39,26 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance', function($scope, $http, $uibModalInstance){
 	
 	$scope.ok = function () {
-	   //Enviar peticion http
-	   $uibModalInstance.close($scope.nombreProyecto);
+		console.log($scope.nombreProyecto);
+		console.log($scope.descripcion);
+		// Enviar workgroup
+		$http({
+			method: 'POST',
+			url: '/api/projects',
+			data: JSON.stringify({
+				name: $scope.nombreProyecto,
+				description: $scope.descripcion
+			}),
+			headers: {'Content-Type': 'application/json'}
+		}).success(function(dataReturned){
+			$uibModalInstance.close(dataReturned);
+		}).error(function(data, status){
+			if(status == 401){
+				alert("Acceso denegado sin sesión");
+			}else if(status == 400){
+				alert("Complete todos los campos");
+			}
+		});
 	};
 
 	$scope.cancel = function () {

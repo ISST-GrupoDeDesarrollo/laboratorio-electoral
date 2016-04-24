@@ -12,7 +12,7 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 @SuppressWarnings("serial")
 public class GetRegisterUrlServlet extends HttpServlet {
-	
+
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 		ResponseWrapper response = new ResponseWrapper();

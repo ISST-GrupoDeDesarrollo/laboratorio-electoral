@@ -1,0 +1,30 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container" ng-controller = "navigationController">
+        
+            <div class="navbar-header">
+                <a class="navbar-brand" data-ng-href="#/">Laboratorio Electoral</a>
+            </div>
+            
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a data-ng-href="#/">Home</a>
+                    </li>
+                     <li>
+                        <a data-ng-href="#/register" data-ng-show="loggedOut" >Registro</a>
+                    </li>
+                    <li>
+                        <a data-ng-href="#/login" data-ng-show="loggedOut">Login</a>
+                    </li>
+                    <li>
+                        <a data-ng-href="#/projects" data-ng-show="loggedIn">Projects</a>
+                    </li>
+                    <li>
+                        <a data-ng-href="#/workgroups" data-ng-show="loggedIn">Work Groups</a>
+                    </li>
+                    
+                </ul>
+            </div>
+  
+        </div>
+ </nav>

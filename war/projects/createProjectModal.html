@@ -1,4 +1,4 @@
-<div ng-controller="proyectsController">
+<div ng-controller="createProjectController">
         <div class="modal-header">
             <h3 class="modal-title">Crear proyeto</h3>
         </div>
@@ -7,7 +7,7 @@
 
              <div class="form-group">
             <label>Seleccionar grupo de trabajo</label>
-            <select class="form-control" ng-model="grupoTrabajo" ></select>
+            <select class="form-control" ng-model="workgroup" ng-options="f for f in workgroups" ></select>
             </div>
             
             <div class="form-group">
