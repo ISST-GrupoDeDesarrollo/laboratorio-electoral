@@ -19,7 +19,13 @@ import es.upm.dit.isst.models.User;
 public class WorkgroupsServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.sendError(404);
+		String username = (String) req.getSession().getAttribute("user");
+		User user = UserDAOImpl.getInstance().getUser(username);
+		if(user!=null){
+			Tools.sendJson(resp,user.getWorkgroups());
+		}else{
+			resp.sendError(403);
+		}
 	}
 	
 	@Override
