@@ -64,7 +64,7 @@
  					<div class="form-group">
    	        			<label>Seleccionar grupo de trabajo</label>
      	    			<select class="form-control" ng-model="workgroup" 
-								ng-options="f for f in workgroups" ></select>
+								ng-options="workgroup as workgroup.name for workgroup in workgroups" ></select>
          			</div>
 
 

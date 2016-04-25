@@ -1,0 +1,20 @@
+<!-- La servlet se activa cada dia a las 00:00 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+	<url>/limpiaTFGs</url>
+	<description>Borra los TFG obsoletos</description>
+	<schedule>every day 00:00</schedule>
+  </cron>
+</cronentries>
+<!-- Controla el acceso a la servlet -->
+<security-constraint>
+  	<web-resource-collection>
+        	<web-resource-name>cron</web-resource-name>
+        	<url-pattern>/departamentos</url-pattern>
+  	</web-resource-collection>
+  	<auth-constraint>
+        	<role-name>admin</role-name>
+  	</auth-constraint>
+</security-constraint>
+
