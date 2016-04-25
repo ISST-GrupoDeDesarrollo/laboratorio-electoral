@@ -69,13 +69,14 @@ public class ProjectsServlet extends HttpServlet {
 			resp.sendError(401);
 		}else{
 			String body = Tools.readRequestAsString(req);
+			Long idWorkgroup = req.getParameter()
 			System.out.println(body);
 			Gson gson = new Gson();
 			Project newProject = gson.fromJson(body, Project.class);
 			System.out.println(newProject.getName());
 			System.out.println(newProject.getDescription());
 			
-			if(newProject.getName() != null && newProject.getDescription() != null && newProject.getWorkgroup() != null){
+			if(newProject.getName() != null && newProject.getDescription() != null /*&& newProject.getWorkgroup() != null*/){
 				Project projectDevuelto = ProjectDAOImpl.getInstance().createProject(newProject);
 				
 				String jsonRespuesta = gson.toJson(projectDevuelto, Project.class);
