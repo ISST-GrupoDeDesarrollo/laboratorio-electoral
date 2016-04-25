@@ -39,13 +39,10 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance', function($scope, $http, $uibModalInstance){
 	
 	$http.get("/api/workgroups").success(function(data,status){
-		
 		$scope.cleanObjectFromDatabase(data);
 		$scope.workgroups = data;
-		$scope.workgroup = $scope.workgroups[0];
-		
-        
-		});
+		$scope.workgroup = $scope.workgroups[0];    
+	});
 	
 	$scope.ok = function () {
 		console.log($scope.nombreProyecto);
@@ -53,13 +50,13 @@ Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance'
 		// Enviar workgroup
 		$http({
 			method: 'POST',
-			url: '/api/projects',
+			url: '/api/projects/' + workgroup_id,
 			data: JSON.stringify({
 				name: $scope.nombreProyecto,
-				description: $scope.descripcion,
-				workgroup: $scope.workgroup
+				description: $scope.descripcion
 			}),
-			headers: {'Content-Type': 'application/json'}
+			headers: {'Content-Type': 'application/json'},
+			params: {workgroupId: $workgroup.id}
 		}).success(function(dataReturned){
 			$scope.cleanObjectFromDatabase(dataReturned);
 			$uibModalInstance.close(dataReturned);
