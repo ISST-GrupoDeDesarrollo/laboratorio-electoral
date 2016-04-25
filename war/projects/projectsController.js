@@ -51,13 +51,13 @@ Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance'
 		// Enviar workgroup
 		$http({
 			method: 'POST',
-			url: '/api/projects/' + workgroupId,
+			url: '/api/projects',
 			data: JSON.stringify({
 				name: $scope.nombreProyecto,
 				description: $scope.descripcion
 			}),
 			headers: {'Content-Type': 'application/json'},
-			params: {workgroupId: $workgroup.id}
+			params: {workgroupId: $scope.workgroup.id}
 		}).success(function(dataReturned){
 			$scope.cleanObjectFromDatabase(dataReturned);
 			$uibModalInstance.close(dataReturned);
