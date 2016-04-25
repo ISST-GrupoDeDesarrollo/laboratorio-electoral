@@ -78,15 +78,16 @@ public class ProjectsServlet extends HttpServlet {
 			
 			Gson gson = new Gson();
 			Project newProject = gson.fromJson(body, Project.class);
+			newProject.setDateNow();
 			System.out.println(newProject.getName());
 			System.out.println(newProject.getDescription());
 			
 			workgroupSelected.getProjects().add(newProject);
+			groupDao.updateWorkgroup(workgroupSelected);
 			
 			if(newProject.getName() != null && newProject.getDescription() != null /*&& workgroupSelected != null*/){
-				Project projectDevuelto = ProjectDAOImpl.getInstance().createProject(newProject);
 				
-				String jsonRespuesta = gson.toJson(projectDevuelto, Project.class);
+				String jsonRespuesta = gson.toJson(newProject, Project.class);
 				
 				resp.setContentType("application/json");
 				resp.setCharacterEncoding("UTF-8");
