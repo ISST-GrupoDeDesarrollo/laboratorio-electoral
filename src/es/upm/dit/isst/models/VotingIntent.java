@@ -33,9 +33,6 @@ public class VotingIntent implements Serializable {
      
      private int voters;
      
-     @ManyToOne()
-	 @Unowned
-     private Circumscription circumscription;
 
 	public Long getId() {
 		return id;

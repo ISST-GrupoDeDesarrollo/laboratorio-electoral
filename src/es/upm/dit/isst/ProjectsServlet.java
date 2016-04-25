@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import es.upm.dit.isst.dao.ProjectDAOImpl;
 import es.upm.dit.isst.dao.UserDAOImpl;
@@ -43,7 +44,8 @@ public class ProjectsServlet extends HttpServlet {
 				}
 				
 				if(projects!=null){
-					Tools.sendJson(resp, projects, Project.class);
+					Tools.sendJson(resp, projects,new TypeToken<List<Project>>() {
+					}.getType());
 				}else{
 					resp.sendError(404);
 				}
@@ -60,17 +62,20 @@ public class ProjectsServlet extends HttpServlet {
 	
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		
+		System.out.println("entrando en doPost");
 		HttpSession session = req.getSession();
 		if(session == null){
 			//Status code (401) SC_UNAUTHORIZED 
 			resp.sendError(401);
 		}else{
 			String body = Tools.readRequestAsString(req);
+			System.out.println(body);
 			Gson gson = new Gson();
 			Project newProject = gson.fromJson(body, Project.class);
+			System.out.println(newProject.getName());
+			System.out.println(newProject.getDescription());
 			
-			if(newProject.getName() != null && newProject.getDescription() != null){
+			if(newProject.getName() != null && newProject.getDescription() != null && newProject.getWorkgroup() != null){
 				Project projectDevuelto = ProjectDAOImpl.getInstance().createProject(newProject);
 				
 				String jsonRespuesta = gson.toJson(projectDevuelto, Project.class);

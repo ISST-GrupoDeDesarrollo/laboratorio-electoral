@@ -1,7 +1,7 @@
 Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '$location', '$uibModal',
                                              function($scope,$http,$routeParams,$location,$uibModal){
 	
-
+	
 	$http.get("/api/projects").success(function(data,status){
 			
 		$scope.cleanObjectFromDatabase(data);
@@ -23,8 +23,8 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 		modalInstance.result.then(
 			function(dataReturned){
 				console.log("enviado");
-				console.log(dataReturned.nombreProyecto);
-				//$scope.projects = dataReturned
+				console.log(dataReturned);
+				// ir a project creado
 			}, function(){
 				console.log("cancelado");
 			}
@@ -38,20 +38,32 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 
 Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance', function($scope, $http, $uibModalInstance){
 	
-	var data = {
-			nombreProyecto: $scope.nombreProyecto,
-			nombreTrabajo: $scope.nombreTrabajo,
-			descripcion: $scope.descripcion
-	}
+	$http.get("/api/workgroups").success(function(data,status){
+		
+		$scope.cleanObjectFromDatabase(data);
+		$scope.workgroups = data;
+		$scope.workgroup = $scope.workgroups[0];
+		
+        
+		});
 	
 	$scope.ok = function () {
+		console.log($scope.nombreProyecto);
+		console.log($scope.descripcion);
+		// Enviar workgroup
 		$http({
-			method: 'Post',
+			method: 'POST',
 			url: '/api/projects',
-			data: data
+			data: JSON.stringify({
+				name: $scope.nombreProyecto,
+				description: $scope.descripcion,
+				workgroup: $scope.workgroup
+			}),
+			headers: {'Content-Type': 'application/json'}
 		}).success(function(dataReturned){
+			$scope.cleanObjectFromDatabase(dataReturned);
 			$uibModalInstance.close(dataReturned);
-		}).error(function(status){
+		}).error(function(data, status){
 			if(status == 401){
 				alert("Acceso denegado sin sesión");
 			}else if(status == 400){

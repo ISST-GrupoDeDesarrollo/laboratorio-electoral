@@ -5,8 +5,8 @@ import es.upm.dit.isst.models.Workgroup;
 public interface WorkgroupDAO {
 	
 	public Workgroup createWorkgroup(Workgroup workgroup);
-	public Workgroup getWorkgroup(String name);
+	public Workgroup getWorkgroup(long id);
 	public Workgroup updateWorkgroup(Workgroup workgroup);
-	public void deleteWorkgroup(String name);
+	public void deleteWorkgroup(long id);
 
 }

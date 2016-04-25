@@ -26,8 +26,8 @@
 						</button>
 					</div>
 				</div>
-
 				<hr class="separator" />
+				<div ng-show="selectedCircumscription">
 				<h3>Editar circunscripción</h3>
 				<div class="form-group">
 					<label class="control-label col-sm-4">Nombre:</label>
@@ -48,6 +48,17 @@
 					<div class="col-sm-7">
 						<input class="form-control" placeholder="Poblacion"
 							ng-model="selectedCircumscription.population">
+					</div>
+				</div>
+				<div class="form-group" ng-show="!selectedCircumscription.localization">
+					<label class="control-label col-sm-4">Subir TopoJson:</label>
+					<input file-input="files" id="topojson" type="file"/>
+				</div>
+					<div class="form-group" ng-show="selectedCircumscription.localization">
+					<label class="control-label col-sm-4">Topojson subido:</label>
+					<div class="col-sm-8">
+					{{selectedCircumscription.localizationFilename}}
+						<button class="btn btn-danger" ng-click="deleteTopojson(selectedCircumscription)">Borrar</button>
 					</div>
 				</div>
 				<h4>Intenciones de voto</h4>
@@ -83,6 +94,7 @@
 						</tbody>
 					</table>
 				</div>
+			</div>
 			</div>
 			<button class="btn btn-success pull-right" ng-click="saveSimulation()">Guardar
 				simulación</button>

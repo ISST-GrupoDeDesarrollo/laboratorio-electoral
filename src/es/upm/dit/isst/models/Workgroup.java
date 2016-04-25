@@ -19,6 +19,9 @@ public class Workgroup implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id 
+    @GeneratedValue()
+	private Long id;
+	
 	private String name;
 	
 	@ManyToOne
@@ -31,13 +34,17 @@ public class Workgroup implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@Unowned
-    private List<Project> projects= new ArrayList<Project>();     
+    private List<Project> projects= new ArrayList<Project>();    
+	
+	
+	private boolean isPersonal;
 
 	
-	public Workgroup(String name, User creator) {
+	public Workgroup(String name, User creator,boolean isPersonal) {
 		super();
 		this.name = name;
 		this.creator = creator;
+		this.isPersonal = isPersonal;
 	}
 
 	public String getName() {
@@ -57,6 +64,14 @@ public class Workgroup implements Serializable {
 
 	public List<Project> getProjects() {
 		return projects;
+	}
+
+	public boolean isPersonal() {
+		return isPersonal;
+	}
+
+	public void setPersonal(boolean isPersonal) {
+		this.isPersonal = isPersonal;
 	}
 	
 
