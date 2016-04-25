@@ -14,6 +14,8 @@ import com.google.gson.reflect.TypeToken;
 
 import es.upm.dit.isst.dao.ProjectDAOImpl;
 import es.upm.dit.isst.dao.UserDAOImpl;
+import es.upm.dit.isst.dao.WorkgroupDAO;
+import es.upm.dit.isst.dao.WorkgroupDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.Project;
 import es.upm.dit.isst.models.User;
@@ -69,14 +71,19 @@ public class ProjectsServlet extends HttpServlet {
 			resp.sendError(401);
 		}else{
 			String body = Tools.readRequestAsString(req);
-			Long idWorkgroup = req.getParameter()
+			Long idWorkgroup = Long.parseLong(req.getParameter("workgroupId"));
+			WorkgroupDAO groupDao = WorkgroupDAOImpl.getInstance();
+			Workgroup workgroupSelected = groupDao.getWorkgroup(idWorkgroup);
 			System.out.println(body);
+			
 			Gson gson = new Gson();
 			Project newProject = gson.fromJson(body, Project.class);
 			System.out.println(newProject.getName());
 			System.out.println(newProject.getDescription());
 			
-			if(newProject.getName() != null && newProject.getDescription() != null /*&& newProject.getWorkgroup() != null*/){
+			workgroupSelected.getProjects().add(newProject);
+			
+			if(newProject.getName() != null && newProject.getDescription() != null /*&& workgroupSelected != null*/){
 				Project projectDevuelto = ProjectDAOImpl.getInstance().createProject(newProject);
 				
 				String jsonRespuesta = gson.toJson(projectDevuelto, Project.class);
