@@ -42,7 +42,7 @@
 				    </thead>
 				    <tbody ng-repeat='project in projects | filter:searchProject'>
 						<tr>
-							<td>{{project.name}}</td>
+							<td href="javascript:void(0)" ng-click="goToProject(project)">{{project.name}}</td>
 							<td>{{project.date}}</td>
 							<td>{{project.workGroup}}</td>
 							<td align="center"><i class="glyphicon glyphicon-remove text-center"></i></td>
