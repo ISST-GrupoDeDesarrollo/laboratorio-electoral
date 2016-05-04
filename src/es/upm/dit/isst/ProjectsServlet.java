@@ -13,11 +13,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import es.upm.dit.isst.dao.ProjectDAOImpl;
+import es.upm.dit.isst.dao.SimulationDAOImpl;
 import es.upm.dit.isst.dao.UserDAOImpl;
 import es.upm.dit.isst.dao.WorkgroupDAO;
 import es.upm.dit.isst.dao.WorkgroupDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.Project;
+import es.upm.dit.isst.models.Simulation;
 import es.upm.dit.isst.models.User;
 import es.upm.dit.isst.models.Workgroup;
 
@@ -59,6 +61,22 @@ public class ProjectsServlet extends HttpServlet {
 				resp.sendError(400);
 			}
 			
+		}
+		
+		
+		if(req.getParameter("id") != null && !req.getParameter("id").isEmpty()){
+			
+			try{
+				long id = Long.parseLong(req.getParameter("id"));
+				Project project = ProjectDAOImpl.getInstance().getProject(id);
+				if(project!=null){
+					Tools.sendJson(resp, project, Project.class);
+				}else{
+					resp.sendError(404);
+				}
+			}catch(NumberFormatException e){
+				resp.sendError(400);
+			}
 		}
 	}
 	

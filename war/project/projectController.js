@@ -1,5 +1,16 @@
 Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$location','$uibModal', function($scope,$http,$routeParams,$location,$uibModal){
 	
+	$http({
+		method: 'GET',
+		url: '/api/projects',
+		headers: {'Content-Type': 'application/json'},
+		params: {id: $routeParams.projectId}
+	}).success(function(dataReturned){
+		$scope.cleanObjectFromDatabase(dataReturned);
+		$scope.project = dataReturned;
+	}).error(function(data, status){
+	});
+	
 	$scope.createSimulation=function(){
 		var modalInstance = $uibModal.open({
 			animation: $scope.animationsEnabled,
