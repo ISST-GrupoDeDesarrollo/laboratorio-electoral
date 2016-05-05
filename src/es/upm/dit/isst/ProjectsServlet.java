@@ -23,101 +23,98 @@ import es.upm.dit.isst.models.Simulation;
 import es.upm.dit.isst.models.User;
 import es.upm.dit.isst.models.Workgroup;
 
-
 public class ProjectsServlet extends HttpServlet {
-	
+
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		
-		if(req.getParameter("id") == null || req.getParameter("id").isEmpty()){
-			
-			try{
-				
+
+		if (req.getParameter("id") == null || req.getParameter("id").isEmpty()) {
+
+			try {
+
 				String username = (String) req.getSession().getAttribute("user");
 				User user = UserDAOImpl.getInstance().getUser(username);
-				List<Workgroup> workgroupArray = user.getWorkgroups(); 
-				
-				if(workgroupArray != null && !workgroupArray.isEmpty()){
-					
-				List<Project> projects = workgroupArray.get(0).getProjects();
-				
-				for(int x = 1; x < workgroupArray.size(); x++){
-				
-					List<Project> projectsAx = workgroupArray.get(x).getProjects();
-					projects.addAll(projectsAx);
-					
+				List<Workgroup> workgroupArray = user.getWorkgroups();
+
+				if (workgroupArray != null ) {
+
+					List<Project> projects = workgroupArray.get(0).getProjects();
+
+					for (int x = 1; x < workgroupArray.size(); x++) {
+
+						List<Project> projectsAx = workgroupArray.get(x).getProjects();
+						projects.addAll(projectsAx);
+
+					}
+
+					if (projects != null) {
+						Tools.sendJson(resp, projects, new TypeToken<List<Project>>() {
+						}.getType());
+					} else {
+						resp.sendError(404);
+					}
+				} else {
+
+					resp.sendError(500);
 				}
-				
-				if(projects!=null){
-					Tools.sendJson(resp, projects,new TypeToken<List<Project>>() {
-					}.getType());
-				}else{
-					resp.sendError(404);
-				}
-				}else{
-					
-					resp.sendError(499);
-				}
-			}catch(NumberFormatException e){
+			} catch (NumberFormatException e) {
 				resp.sendError(400);
 			}
-			
+
 		}
-		
-		
-		if(req.getParameter("id") != null && !req.getParameter("id").isEmpty()){
-			
-			try{
+
+		if (req.getParameter("id") != null && !req.getParameter("id").isEmpty()) {
+
+			try {
 				long id = Long.parseLong(req.getParameter("id"));
 				Project project = ProjectDAOImpl.getInstance().getProject(id);
-				if(project!=null){
+				if (project != null) {
 					Tools.sendJson(resp, project, Project.class);
-				}else{
+				} else {
 					resp.sendError(404);
 				}
-			}catch(NumberFormatException e){
+			} catch (NumberFormatException e) {
 				resp.sendError(400);
 			}
 		}
 	}
-	
-	
+
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		System.out.println("entrando en doPost");
 		HttpSession session = req.getSession();
-		if(session == null){
-			//Status code (401) SC_UNAUTHORIZED 
+		if (session == null) {
+			// Status code (401) SC_UNAUTHORIZED
 			resp.sendError(401);
-		}else{
+		} else {
 			String body = Tools.readRequestAsString(req);
 			Long idWorkgroup = Long.parseLong(req.getParameter("workgroupId"));
 			WorkgroupDAO groupDao = WorkgroupDAOImpl.getInstance();
 			Workgroup workgroupSelected = groupDao.getWorkgroup(idWorkgroup);
 			System.out.println(body);
-			
+
 			Gson gson = new Gson();
 			Project newProject = gson.fromJson(body, Project.class);
 			newProject.setDateNow();
 			System.out.println(newProject.getName());
 			System.out.println(newProject.getDescription());
-			
+
 			workgroupSelected.getProjects().add(newProject);
 			groupDao.updateWorkgroup(workgroupSelected);
-			
-			if(newProject.getName() != null && newProject.getDescription() != null /*&& workgroupSelected != null*/){
-				
+
+			if (newProject.getName() != null && newProject
+					.getDescription() != null /* && workgroupSelected != null */) {
+
 				String jsonRespuesta = gson.toJson(newProject, Project.class);
-				
+
 				resp.setContentType("application/json");
 				resp.setCharacterEncoding("UTF-8");
 				PrintWriter out = resp.getWriter();
 				out.print(jsonRespuesta);
 				out.flush();
-			}else{
-				//Status code (400) SC_BAD_REQUEST
+			} else {
+				// Status code (400) SC_BAD_REQUEST
 				resp.sendError(400);
 			}
 		}
-		
-		
+
 	}
 }

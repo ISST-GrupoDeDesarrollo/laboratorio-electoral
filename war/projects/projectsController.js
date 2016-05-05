@@ -16,8 +16,8 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 	$scope.newProject = function(){
 		var modalInstance = $uibModal.open({
 			animation: $scope.animationsEnabled,
-			templateUrl: 'modalView.html',
-			controller: 'modalController'
+			templateUrl: 'createProjectModal.html',
+			controller: 'createProjectController'
 		});
 		
 		modalInstance.result.then(
@@ -39,7 +39,7 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 
 
 
-Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance', function($scope, $http, $uibModalInstance){
+Laboratory.controller('createProjectController', ['$scope', '$http', '$uibModalInstance', function($scope, $http, $uibModalInstance){
 	
 	$http.get("/api/workgroups").success(function(data,status){
 		
