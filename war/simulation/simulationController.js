@@ -16,7 +16,7 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 		});
 	};
 	
-	var isJsonFile = function(file, onLoadCallback){
+	var canReadFile = function(file, onLoadCallback){
 		if( file != undefined){
 			fr = new FileReader();
 			fr.readAsText(file[0]);
@@ -24,14 +24,36 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 		}
 	};
 	
+	var tryParseJSON = function (jsonString){
+	    try {
+	        var o = JSON.parse(jsonString);
+
+	        if (o && typeof o === "object" && o !== null) {
+	            return o;
+	        }
+	    }
+	    catch (e) { }
+
+	    return false;
+	};
+	
+	var isGEOJson = function(geoJson){
+		if (geoJson.id != undefined && geoJson.type != undefined && geoJson.geometry != undefined){
+			return true;
+		}
+		return false;
+	};
+	
 	$scope.$watchCollection("files",function(newValue){
-		isJsonFile(newValue, function(e){
+		canReadFile(newValue, function(e){
 			try {
 				var json = JSON.parse(e.target.result);
+				if(tryParseJSON(json) && isGEOJson(json)){
 				//e.target.result es el string ya parseado y que es un json si JSON.parse no de excepción
-				$scope.selectedCircumscription.localization = e.target.result;
-				$scope.selectedCircumscription.localizationFilename = newValue[0].name;
-				$scope.$apply();
+					$scope.selectedCircumscription.localization = e.target.result;
+					$scope.selectedCircumscription.localizationFilename = newValue[0].name;
+					$scope.$apply();
+				}
 			} catch(e){
 				$("#topojson").val('');
 				$scope.$apply();
