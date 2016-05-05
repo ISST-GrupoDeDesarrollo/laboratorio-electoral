@@ -36,7 +36,7 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 				$("#topojson").val('');
 				$scope.$apply();
 				alert("It is not a JSON File");
-				//si no fallta pues se elimina y listo
+				//si no falta pues se elimina y listo
 			}
 		});
 	});
