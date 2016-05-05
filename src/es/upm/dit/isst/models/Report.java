@@ -18,9 +18,7 @@ public class Report {
 	
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@Unowned
-	private List<Congress> congresses = new ArrayList<Congress>();
+	private Congress congress;
 	
 	
 	public Report(String name){
@@ -49,13 +47,13 @@ public class Report {
 	}
 
 
-	public List<Congress> getCongresses() {
-		return congresses;
+	public Congress getCongress() {
+		return congress;
 	}
 
 
-	public void setCongresses(List<Congress> congresses) {
-		this.congresses = congresses;
+	public void setCongress(Congress congress) {
+		this.congress = congress;
 	}
 	
 	

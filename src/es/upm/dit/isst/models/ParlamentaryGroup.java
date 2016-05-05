@@ -12,8 +12,7 @@ public class ParlamentaryGroup {
 	private String name;
 	private int deputies;
 	
-	@OneToOne
-	private Party party;
+	private String party;
 	
 	public ParlamentaryGroup(String name, int deputies){
 		this.name = name;
@@ -44,11 +43,11 @@ public class ParlamentaryGroup {
 		this.deputies = deputies;
 	}
 
-	public Party getParty() {
+	public String getParty() {
 		return party;
 	}
 
-	public void setParty(Party party) {
+	public void setParty(String party) {
 		this.party = party;
 	}
 	

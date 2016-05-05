@@ -70,4 +70,8 @@ public class Tools {
 		}
 		return sb.toString();
 	}
+	
+	public static boolean validString(String unsafe){
+		return unsafe!=null && !unsafe.isEmpty();
+	}
 }

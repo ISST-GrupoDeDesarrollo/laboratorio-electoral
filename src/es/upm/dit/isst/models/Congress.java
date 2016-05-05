@@ -16,20 +16,11 @@ public class Congress {
 	@GeneratedValue()
 	private long id;
 	
-	private String name;
-	private double probability;
-	
 	@OneToMany(cascade = CascadeType.ALL)
 	@Unowned
 	private List<ParlamentaryGroup> parlamentaryGroup = new ArrayList<ParlamentaryGroup>();
 	
 	
-	public Congress(String name, double probability){
-		this.name = name;
-		this.probability = probability;
-	}
-
-
 	public long getId() {
 		return id;
 	}
@@ -40,34 +31,8 @@ public class Congress {
 	}
 
 
-	public String getName() {
-		return name;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public double getProbability() {
-		return probability;
-	}
-
-
-	public void setProbability(double probability) {
-		this.probability = probability;
-	}
-
-
 	public List<ParlamentaryGroup> getParlamentaryGroup() {
 		return parlamentaryGroup;
 	}
 
-
-	public void setParlamentaryGroup(List<ParlamentaryGroup> parlamentaryGroup) {
-		this.parlamentaryGroup = parlamentaryGroup;
-	}
-	
-	
 }

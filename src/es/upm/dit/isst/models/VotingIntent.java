@@ -33,11 +33,42 @@ public class VotingIntent implements Serializable {
      
      private int voters;
      
+     public VotingIntent(){}
+
+	public VotingIntent(Party party, int voters) {
+		super();
+		this.party = party;
+		this.voters = voters;
+	}
+
+
+
 
 	public Long getId() {
 		return id;
 	}
+
+
+	public Party getParty() {
+		return party;
+	}
+
+
+	public void setParty(Party party) {
+		this.party = party;
+	}
+
+
+	public int getVoters() {
+		return voters;
+	}
+
+
+	public void setVoters(int voters) {
+		this.voters = voters;
+	}
 	
-     
+    
+	
 }
 
