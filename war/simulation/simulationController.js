@@ -54,10 +54,15 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 					$scope.selectedCircumscription.localizationFilename = newValue[0].name;
 					$scope.$apply();
 				}
+				else {
+					$("#topojson").val('');
+					$scope.$apply();
+					alert("It is not a geoJson File.");
+				}
 			} catch(e){
 				$("#topojson").val('');
 				$scope.$apply();
-				alert("It is not a JSON File");
+				alert("It is not even a text File");
 				//si no falta pues se elimina y listo
 			}
 		});
