@@ -1,4 +1,5 @@
-Laboratory.controller('simulationController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
+Laboratory.controller('simulationController',['$scope', '$http','$routeParams', '$location', '$uibModal',
+                                              function($scope,$http,$routeParams,$location,$uibModal){
 	$scope.simulation={
 			id:$routeParams.simulationId,
 			name:"Simulacion de ejemplo",
@@ -85,4 +86,52 @@ Laboratory.controller('simulationController', ['$scope', '$http','$routeParams',
 	};
 
 	reloadSimulation();
+	
+	$scope.animationsEnabled = true;
+	$scope.createReport = function(){
+		var modalInstance = $uibModal.open({
+			animation: $scope.animationsEnabled,
+			templateUrl: 'modalView.html',
+			controller: 'modalController'
+		});
+	
+	
+	modalInstance.result.then(
+			function(resultCreated){
+				$location.path("/projects/"+$routeParams.projectId+"/results/"+resultCreated.id);
+			}
+		);
+	
+	}
+}]);
+
+
+Laboratory.controller('modalController',['$scope', '$http','$routeParams', '$location', '$uibModal', '$uibModalInstance',
+                                         function($scope,$http,$routeParams,$location,$uibModal, $uibModalInstance){
+	$scope.ok = function (simulation) {
+		$http({
+			method: 'POST',
+			url: '/api/reports',
+			data: JSON.stringify({
+				name: $scope.nameReport,
+			}),
+			headers: {'Content-Type': 'application/json'},
+			params: {simulation: $routeParams.simulationId}
+			
+		}).success(function(dataReturned){
+			$scope.cleanObjectFromDatabase(dataReturned);
+			$uibModalInstance.close(dataReturned);
+			}).error(function(data, status){
+			if(status == 401){
+				alert("Acceso denegado sin sesión");
+			}else if(status == 400){
+				alert("Complete todos los campos");
+			}
+		});
+	};
+
+	$scope.cancel = function () {
+	   $uibModalInstance.dismiss("cancelado");
+	};
+	
 }]);

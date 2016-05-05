@@ -5,7 +5,7 @@
 			<h1>Projects</h1>
 				<div class="input-group col-centered small-input">
 				  <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-				  <input type="text" class="reasonable-size-for-input form-control" placeholder="Filter by" aria-describedby="basic-addon1">
+				  <input ng-model="searchProject" type="text" class="reasonable-size-for-input form-control" placeholder="Filter by" aria-describedby="basic-addon1">
 				  <button  ng-click="newProject()" type="button" class="btn btn-default" style="float:left;">
 	    			<span class="fa fa-plus fa-3"></span>
 	  			  </button>
@@ -42,7 +42,7 @@
 				    </thead>
 				    <tbody ng-repeat='project in projects | filter:searchProject'>
 						<tr>
-							<td>{{project.name}}</td>
+							<td href="javascript:void(0)" ng-click="goToProject(project)">{{project.name}}</td>
 							<td>{{project.date}}</td>
 							<td>{{project.workGroup}}</td>
 							<td align="center"><i class="glyphicon glyphicon-remove text-center"></i></td>

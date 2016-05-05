@@ -21,14 +21,17 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 		});
 		
 		modalInstance.result.then(
-			function(dataReturned){
-				console.log("enviado");
-				console.log(dataReturned);
-				// ir a project creado
+			function(projectCreated){
+				$scope.goToProject(projectCreated)
 			}, function(){
 				console.log("cancelado");
 			}
 		);
+	}
+	
+	
+	$scope.goToProject = function(projectSelected){
+		$location.path("/projects/" + projectSelected.id);
 	}
 	
 }]);
@@ -46,18 +49,15 @@ Laboratory.controller('modalController', ['$scope', '$http', '$uibModalInstance'
 	});
 	
 	$scope.ok = function () {
-		console.log($scope.nombreProyecto);
-		console.log($scope.descripcion);
-		// Enviar workgroup
 		$http({
 			method: 'POST',
-			url: '/api/projects/' + workgroupId,
+			url: '/api/projects',
 			data: JSON.stringify({
 				name: $scope.nombreProyecto,
 				description: $scope.descripcion
 			}),
 			headers: {'Content-Type': 'application/json'},
-			params: {workgroupId: $workgroup.id}
+			params: {workgroupId: $scope.workgroup.id}
 		}).success(function(dataReturned){
 			$scope.cleanObjectFromDatabase(dataReturned);
 			$uibModalInstance.close(dataReturned);

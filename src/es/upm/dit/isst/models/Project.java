@@ -2,6 +2,7 @@ package es.upm.dit.isst.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -27,7 +28,9 @@ public class Project implements Serializable {
     @OneToMany(cascade = CascadeType.REMOVE)
 	@Unowned
     private List<Simulation> simulations = new ArrayList<>();
-
+    
+    private Date creationDate;
+    
 	public Long getId() {
 		return id;
 	}
@@ -46,6 +49,14 @@ public class Project implements Serializable {
 	
 	public String getDescription(){
 		return this.description;
+	}
+
+	public void setDateNow(){
+		this.creationDate = new Date();
+	}
+	
+	public void setDate(Date date){
+		this.creationDate = date;
 	}
 	
 }
