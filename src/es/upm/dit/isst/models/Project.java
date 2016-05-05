@@ -48,5 +48,4 @@ public class Project implements Serializable {
 		return this.description;
 	}
 	
-     
 }
