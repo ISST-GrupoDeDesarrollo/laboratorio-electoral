@@ -58,6 +58,7 @@ public class SimulationServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String body = Tools.readRequestAsString(req);
 		Gson json = new Gson();
+		
 		Simulation simulacion = json.fromJson(body, Simulation.class);
 		if(simulacion!=null && simulacion.getId()!=null){
 			SimulationDAOImpl dao = SimulationDAOImpl.getInstance();

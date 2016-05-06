@@ -35,8 +35,8 @@ public class ProjectsServlet extends HttpServlet {
 				User user = UserDAOImpl.getInstance().getUser(username);
 				List<Workgroup> workgroupArray = user.getWorkgroups();
 
-				if (workgroupArray != null ) {
-
+				if (workgroupArray != null && workgroupArray.size() != 0) {
+					
 					List<Project> projects = workgroupArray.get(0).getProjects();
 
 					for (int x = 1; x < workgroupArray.size(); x++) {

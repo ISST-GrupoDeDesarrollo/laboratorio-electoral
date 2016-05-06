@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Text;
 import com.google.appengine.datanucleus.annotations.Unowned;
 
 @Entity
@@ -56,7 +57,7 @@ public class Circumscription implements Serializable {
 	}
 	
 	public String getLocalization(){
-		return localization;
+		return localization; // No lo he probado si funciona
 	}
 
 	public long getPolled() {

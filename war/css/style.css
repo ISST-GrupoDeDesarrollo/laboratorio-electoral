@@ -1,8 +1,9 @@
 html{
 	background-color: #1C3950;
 }
-#formulario{
-	
+
+.alone-button{
+    padding: 50px 40%;
 }
 
 .generic-container{

@@ -24,12 +24,12 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 		}
 	};
 	
-	var tryParseJSON = function (jsonString){
+	var isJSON = function (jsonString){
 	    try {
 	        var o = JSON.parse(jsonString);
 
 	        if (o && typeof o === "object" && o !== null) {
-	            return o;
+	            return true;
 	        }
 	    }
 	    catch (e) { }
@@ -44,28 +44,39 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 		return false;
 	};
 	
+	//This method basically watches the file input, and checks if input file is a GeoJSON
 	$scope.$watchCollection("files",function(newValue){
-		canReadFile(newValue, function(e){
-			try {
-				var json = JSON.parse(e.target.result);
-				if(tryParseJSON(json) && isGEOJson(json)){
-				//e.target.result es el string ya parseado y que es un json si JSON.parse no de excepción
-					$scope.selectedCircumscription.localization = e.target.result;
-					$scope.selectedCircumscription.localizationFilename = newValue[0].name;
-					$scope.$apply();
-				}
-				else {
+		if(newValue.length != 0){
+			canReadFile(newValue, function(e){
+				try {
+
+					if(isJSON(e.target.result)){
+						
+						var json = JSON.parse(e.target.result);
+						
+						if (isGEOJson(json)){
+							$scope.selectedCircumscription.localization = e.target.result;
+							$scope.selectedCircumscription.localizationFilename = newValue[0].name;
+							$scope.$apply();
+						} else {
+							$("#topojson").val('');
+							$scope.$apply();
+							alert("It is not a GEOJson File.");
+						}
+
+					} else {
+						$("#topojson").val('');
+						$scope.$apply();
+						alert("It is not a Json File.");
+					}
+				} catch(e){
 					$("#topojson").val('');
 					$scope.$apply();
-					alert("It is not a geoJson File.");
+					alert("It is not a text File");
+					//si no falta pues se elimina y listo
 				}
-			} catch(e){
-				$("#topojson").val('');
-				$scope.$apply();
-				alert("It is not even a text File");
-				//si no falta pues se elimina y listo
-			}
-		});
+			});
+		}
 	});
 	
 	$scope.$watch("selectedCircumscription",function(newValue){
