@@ -29,6 +29,14 @@ public class Circumscription implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
+	public class TextString{
+		public Text data;
+		public TextString(String s){
+			this.data = new Text(s);
+		} 
+		
+	}
 	@Id
 	@GeneratedValue()
 	private Long id;   
@@ -36,7 +44,7 @@ public class Circumscription implements Serializable {
 	private long population;
 	private long polled;
 	private String name;
-	private String localization;
+	private TextString localization;
 	private String localizationFilename;
 	private long seats;
 	 
@@ -56,9 +64,6 @@ public class Circumscription implements Serializable {
 		return id;
 	}
 	
-	public String getLocalization(){
-		return localization; // No lo he probado si funciona
-	}
 
 	public long getPolled() {
 		return polled;

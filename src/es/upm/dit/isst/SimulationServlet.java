@@ -58,7 +58,7 @@ public class SimulationServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String body = Tools.readRequestAsString(req);
 		Gson json = new Gson();
-		
+		// http://stackoverflow.com/questions/18567719/gson-deserializing-nested-objects-with-instancecreator
 		Simulation simulacion = json.fromJson(body, Simulation.class);
 		if(simulacion!=null && simulacion.getId()!=null){
 			SimulationDAOImpl dao = SimulationDAOImpl.getInstance();
