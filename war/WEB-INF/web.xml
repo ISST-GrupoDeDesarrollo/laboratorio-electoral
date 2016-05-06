@@ -74,7 +74,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>checkLoginServlet</servlet-name>
-		<url-pattern>checkLoginServlet</url-pattern>
+		<url-pattern>/checkLoginServlet</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
