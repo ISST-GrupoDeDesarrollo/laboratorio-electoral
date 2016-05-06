@@ -1,13 +1,25 @@
 Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '$location', '$uibModal',
                                              function($scope,$http,$routeParams,$location,$uibModal){
 	
+	$scope.projects = [];
 	
-	$http.get("/api/projects").success(function(data,status){
-			
+	$http.get("/api/workgroups").success(function(data,status){
 		$scope.cleanObjectFromDatabase(data);
-		$scope.projects = data;
-        
+		$scope.workgroupsRecibidos = data;
+		for(i in $scope.workgroupsRecibidos){
+			var workgroupSelec = $scope.workgroupsRecibidos[i];
+			for(j in workgroupSelec.projects){
+				var project = workgroupSelec.projects[j];
+				$scope.projects.push({
+					name: project.name,
+					date: project.creationDate,
+					workGroup: workgroupSelec.name
+				});
+			}
+		}
 	});
+	
+	
 	
 	$scope.orderByField = 'name';
 	$scope.reverseSort = false;
