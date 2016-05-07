@@ -1,2 +1,81 @@
 <div data-ng-include="'/navigationBars/navigationBar.html'"></div>
-<h1>Work groups</h1>
+<div class="container">
+	<div class="workgroups">
+
+		<article class="col-md-offset-1 col-md-10 maincontent">
+
+			<header class="page-header">
+				<h1>Workgroups</h1>
+			</header>
+
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-4">Select workgroup:</label>
+					<div class="col-sm-4">
+						<select class="form-control"
+							ng-options="workgroup as workgroup.name for workgroup in workgroups"
+							ng-model="selectedWorkgroup"></select>
+					</div>
+					<div class="btn-group col-sm-4" role="group">
+						<button class="btn btn-primary" ng-click="addWorkgroup()">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+						<button ng-if="selectedWorkgroup" ng-click="removeUser(selectedWorkgroup,appUser)" class="btn btn-danger">
+							<span class="glyphicon glyphicon-minus"></span>
+						</button>
+					</div>
+				</div>
+				<hr class="separator" />
+				<div ng-show="selectedWorkgroup">
+				<div class="row">
+				<div class="col-md-4">
+					<div class="panel panel-info " ng-repeat="user in selectedWorkgroup.members | exclude:appUser:'username'">
+                        <div class="panel-heading">
+                            {{user.completeName}} {{user.username===selectedWorkgroup.creator.username?"(Creator)":""}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-xs-6"><img class="img-responsive" ng-src="/api/getblob?blobkey={{user.profilePicBlobKey}}"></div>
+                            <div class="col-xs-6">
+                            	<p>{{user.username}}</p>
+                            	<p>{{user.role}}</p>
+                            </div>
+                        </div>
+                         <div class="panel-footer" ng-show="selectedWorkgroup.creator.username===appUser.username">
+                            <button class="pull-right btn btn-danger" ng-click="removeUser(selectedWorkgroup,user)">Remove</button>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    </div>
+				</div>
+				<button class="pull-right btn btn-success">Add member</button>
+			</div>
+			</div>
+		</article>
+	</div>
+</div>
+
+<script type="text/ng-template" id="createWorkgroupModal.html">
+ 				<div>
+
+         		<div class="modal-header">
+             		<h3 class="modal-title">Create workgroup</h3>
+         		</div>
+ 
+
+         		<div class="modal-body">
+             <form class="" name="createWorkgroup">
+             		<div class="form-group">
+             			<label>Workgroup name:</label>
+             			<input type="text" ng-model="workgroup.name" class="form-control" required>
+             		</div>
+         
+         		</div>
+ </form>
+
+         		<div class="modal-footer">
+             		<button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!createWorkgroup.$valid">Create</button>
+             		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+         		</div>
+ 			
+				</div>
+ 			</script>	
