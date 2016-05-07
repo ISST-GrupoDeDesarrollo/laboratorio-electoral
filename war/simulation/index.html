@@ -10,8 +10,7 @@
 
 			<div class="form-horizontal">
 				<div class="form-group">
-					<label class="control-label col-sm-4">Seleccionar
-						circunscripción:</label>
+					<label class="control-label col-sm-4">Select circunscription:</label>
 					<div class="col-sm-4">
 						<select class="form-control"
 							ng-options="circumscription as circumscription.name for circumscription in simulation.Circunscriptions"
@@ -28,47 +27,47 @@
 				</div>
 				<hr class="separator" />
 				<div ng-show="selectedCircumscription">
-				<h3>Editar circunscripción</h3>
+				<h3>Edit circunscription</h3>
 				<div class="form-group">
-					<label class="control-label col-sm-4">Nombre:</label>
+					<label class="control-label col-sm-4">Name:</label>
 					<div class="col-sm-7">
 						<input class="form-control" placeholder="Nombre"
 							ng-model="selectedCircumscription.name">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-4">Poblacion:</label>
+					<label class="control-label col-sm-4">Population:</label>
 					<div class="col-sm-7">
-						<input class="form-control" placeholder="Poblacion"
+						<input class="form-control" placeholder="Population"
 							ng-model="selectedCircumscription.population">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-4">Escaños:</label>
+					<label class="control-label col-sm-4">Seats:</label>
 					<div class="col-sm-7">
 						<input class="form-control" placeholder="Poblacion"
 							ng-model="selectedCircumscription.seats">
 					</div>
 				</div>
 				<div class="form-group" ng-show="!selectedCircumscription.localization">
-					<label class="control-label col-sm-4">Subir GeoJson:</label>
+					<label class="control-label col-sm-4">Upload GeoJSON:</label>
 					<input file-input="files" id="topojson" type="file"/>
 				</div>
 					<div class="form-group" ng-show="selectedCircumscription.localization">
-					<label class="control-label col-sm-4">GeoJson subido:</label>
+					<label class="control-label col-sm-4">GeoJSON uploaded:</label>
 					<div class="col-sm-8">
 					{{selectedCircumscription.localizationFilename}}
-						<button class="btn btn-danger" ng-click="deleteTopojson(selectedCircumscription)">Borrar</button>
+						<button class="btn btn-danger" ng-click="deleteTopojson(selectedCircumscription)">Delete</button>
 					</div>
 				</div>
-				<h4>Intenciones de voto</h4>
+				<h4>Votes</h4>
 				<div ng-form="addVotingIntentForm">
 					<table class="table">
 						<thead>
 							<tr>
-								<th>Partidos</th>
-								<th>Votos</th>
-								<th>Acción</th>
+								<th>Parties</th>
+								<th>Votes</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -81,11 +80,9 @@
 									</button></td>
 							</tr>
 							<tr>
-								<td><input required class="form-control" placeholder="Partido"
+								<td><input required class="form-control" placeholder="Party"
 									ng-model="newVotingIntent.party.name"></td>
-								<td><input required type="number" class="form-control"
-									placeholder="Gente que va a votar"
-									ng-model="newVotingIntent.voters"></td>
+								<td><input required type="number" class="form-control" placeholder="Voters"	ng-model="newVotingIntent.voters"></td>
 								<td><button class="btn btn-primary"
 										ng-click="insertVotingIntent()">
 										<span class="glyphicon glyphicon-plus"></span>
@@ -96,24 +93,23 @@
 				</div>
 			</div>
 			</div>
-			<button class="btn btn-success pull-right" ng-click="createReport()">Generar reporte</button>
-			<button class="btn btn-success pull-right" ng-click="saveSimulation()">Guardar
-				simulación</button>
+			<button class="btn btn-success pull-right" ng-click="createReport()">Save Report</button>
+			<button class="btn btn-success pull-right" ng-click="saveSimulation()">Save simulation</button>
 		</article>
 	</div>
 	
-					<script type="text/ng-template" id="modalView.html">
+	<script type="text/ng-template" id="modalView.html">
  				<div>
 
          		<div class="modal-header">
-             		<h3 class="modal-title">Generar resultados</h3>
+             		<h3 class="modal-title">Generate results</h3>
          		</div>
  
 
          		<div class="modal-body">      
              		<div class="form-group">
-             			<label>Nombre del report:</label>
-             			<input type="text" ng-model="nameReport" class="form-control">
+             			<label>Name of the report:</label>
+             			<input type="text" ng-model="nameReport" class="form-control"/>
              		</div>
          		</div>
  

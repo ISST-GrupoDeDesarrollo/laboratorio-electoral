@@ -49,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
 	        		int salt = (int) (Math.random()*Integer.MAX_VALUE);
 	        		String hash = Tools.sha256(password+salt);
 	        		User newUser = UserDAOImpl.getInstance().createUser(username, email, salt, hash, completeName, role,profilePicKey);
-	        		Workgroup personal = new Workgroup("Proyectos personales", newUser, true);
+	        		Workgroup personal = new Workgroup("My own projects", newUser, true);
 	        		newUser.getWorkgroups().add(personal);
 	        		personal.getMembers().add(newUser);
 	         		WorkgroupDAOImpl.getInstance().createWorkgroup(personal);

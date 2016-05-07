@@ -84,7 +84,7 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 	});
 	
 	$scope.addCircumscription = function(){
-		var circumscription = {name:"Nueva circunscripcion",polled:0,population:0,votingIntents:[]};
+		var circumscription = {name:"New circunscription",polled:0,population:0,votingIntents:[]};
 		$scope.simulation.Circunscriptions.push(circumscription);
 		$scope.selectedCircumscription =circumscription;
 	};
@@ -119,7 +119,7 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 
 	$scope.saveSimulation = function(){
 		$http.put("/api/simulations",$scope.simulation).success(function(data,status){
-			alert("Simulacion actualizada");
+			alert("Simulation updated");
 		});
 	};
 
@@ -146,30 +146,29 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 
 Laboratory.controller('modalController',['$scope', '$http','$routeParams', '$location', '$uibModal', '$uibModalInstance',
                                          function($scope,$http,$routeParams,$location,$uibModal, $uibModalInstance){
+	
 	$scope.ok = function (simulation) {
+		console.log("Name obtained " + $scope.nameReport)
 		$http({
 			method: 'POST',
 			url: '/api/reports',
-			data: JSON.stringify({
-				name: $scope.nameReport,
-			}),
+			data:{ name: $scope.nameReport },
 			headers: {'Content-Type': 'application/json'},
 			params: {simulation: $routeParams.simulationId}
-			
 		}).success(function(dataReturned){
 			$scope.cleanObjectFromDatabase(dataReturned);
 			$uibModalInstance.close(dataReturned);
 			}).error(function(data, status){
 			if(status == 401){
-				alert("Acceso denegado sin sesión");
+				alert("Denied access without session");
 			}else if(status == 400){
-				alert("Complete todos los campos");
+				alert("Complete all the fields");
 			}
 		});
 	};
 
 	$scope.cancel = function () {
-	   $uibModalInstance.dismiss("cancelado");
+	   $uibModalInstance.dismiss("Canceled");
 	};
 	
 }]);
