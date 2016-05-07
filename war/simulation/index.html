@@ -36,17 +36,17 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-4">Polled:</label>
+					<label class="control-label col-sm-4">Population:</label>
 					<div class="col-sm-7">
-						<input class="form-control" placeholder="Encuestados"
-							ng-model="selectedCircumscription.polled">
+						<input class="form-control" placeholder="Population"
+							ng-model="selectedCircumscription.population">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-4">Population:</label>
+					<label class="control-label col-sm-4">Seats:</label>
 					<div class="col-sm-7">
-						<input class="form-control" placeholder="Poblacion"
-							ng-model="selectedCircumscription.population">
+						<input class="form-control" placeholder="Seats"
+							ng-model="selectedCircumscription.seats">
 					</div>
 				</div>
 				<div class="form-group" ng-show="!selectedCircumscription.localization">
@@ -66,7 +66,7 @@
 						<thead>
 							<tr>
 								<th>Parties</th>
-								<th>Polled votes</th>
+								<th>Votes</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -82,9 +82,7 @@
 							<tr>
 								<td><input required class="form-control" placeholder="Party"
 									ng-model="newVotingIntent.party.name"></td>
-								<td><input required type="number" class="form-control"
-									placeholder="Polled in favor"
-									ng-model="newVotingIntent.voters"></td>
+								<td><input required type="number" class="form-control" placeholder="Voters"	ng-model="newVotingIntent.voters"></td>
 								<td><button class="btn btn-primary"
 										ng-click="insertVotingIntent()">
 										<span class="glyphicon glyphicon-plus"></span>

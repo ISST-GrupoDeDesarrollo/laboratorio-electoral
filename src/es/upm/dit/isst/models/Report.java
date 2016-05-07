@@ -20,6 +20,9 @@ public class Report {
 	
 	private Congress congress;
 	
+	private long voters;
+	
+	private long population;
 	
 	public Report(String name){
 		super();
@@ -54,6 +57,26 @@ public class Report {
 
 	public void setCongress(Congress congress) {
 		this.congress = congress;
+	}
+
+
+	public long getVoters() {
+		return voters;
+	}
+
+
+	public void setVoters(long voters) {
+		this.voters = voters;
+	}
+
+
+	public long getPopulation() {
+		return population;
+	}
+
+
+	public void setPopulation(long population) {
+		this.population = population;
 	}
 	
 	

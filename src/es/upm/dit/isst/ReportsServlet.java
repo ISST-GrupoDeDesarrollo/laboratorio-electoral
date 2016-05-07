@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
+import es.upm.dit.isst.dao.ReportDAOImpl;
 import es.upm.dit.isst.dao.SimulationDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.Report;
@@ -47,8 +48,15 @@ public class ReportsServlet extends HttpServlet{
 		try {
 			JSONObject json = new JSONObject(sb.toString());
 			String resultName = json.getString("name");
-			if(simulation!=null&&Tools.validString(resultName)){
-				Report report = simulation.simulate(resultName,"dhondt");
+			String methodName =  json.getString("method");
+			if(simulation!=null&&Tools.validString(resultName)&&Tools.validString(methodName)){
+				Report report = simulation.simulate(resultName,methodName);
+				if(report!=null){
+					ReportDAOImpl.getInstance().createReport(report);
+					Tools.sendJson(resp, report, Report.class);
+				}else{
+					resp.sendError(400);
+				}
 			}else{
 				resp.sendError(400);
 			}
