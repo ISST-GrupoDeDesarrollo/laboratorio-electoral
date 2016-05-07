@@ -2,24 +2,23 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
                                              function($scope,$http,$routeParams,$location,$uibModal){
 	
 	$scope.projects = [];
-	
-	$http.get("/api/workgroups").success(function(data,status){
-		$scope.cleanObjectFromDatabase(data);
-		$scope.workgroupsRecibidos = data;
-		for(i in $scope.workgroupsRecibidos){
-			var workgroupSelec = $scope.workgroupsRecibidos[i];
-			for(j in workgroupSelec.projects){
-				var project = workgroupSelec.projects[j];
-				$scope.projects.push({
-					name: project.name,
-					date: project.creationDate,
-					workGroup: workgroupSelec.name
-				});
+	var reloadProjects = function(){
+		$http.get("/api/workgroups").success(function(data,status){
+			$scope.projects = [];
+			$scope.cleanObjectFromDatabase(data);
+			$scope.workgroupsRecibidos = data;
+			for(i in $scope.workgroupsRecibidos){
+				var workgroupSelec = $scope.workgroupsRecibidos[i];
+				for(j in workgroupSelec.projects){
+					var project = workgroupSelec.projects[j];
+					project.workgroup = workgroupSelec;
+					$scope.projects.push(project);
+				}
 			}
-		}
-	});
+		});
+	};
 	
-	
+	reloadProjects();
 	
 	$scope.orderByField = 'name';
 	$scope.reverseSort = false;
@@ -43,7 +42,14 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 	
 	
 	$scope.goToProject = function(projectSelected){
-		$location.path("/projects/" + projectSelected.id);
+		$location.path("/projects/" + projectSelected);
+	}
+
+	$scope.deleteProject = function(projectSelected){
+		$http.delete("/api/projects", {params:{id:projectSelected}})
+		.success(function(e){
+			reloadProjects();
+		});
 	}
 	
 }]);

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import es.upm.dit.isst.dao.ProjectDAO;
 import es.upm.dit.isst.dao.ProjectDAOImpl;
 import es.upm.dit.isst.dao.SimulationDAOImpl;
 import es.upm.dit.isst.dao.UserDAOImpl;
@@ -117,4 +118,11 @@ public class ProjectsServlet extends HttpServlet {
 		}
 
 	}
+
+	public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		long id = Long.parseLong(req.getParameter("id"));
+		ProjectDAO sDao = ProjectDAOImpl.getInstance();
+		sDao.deleteProject(id);
+		resp.setStatus(200);
+	};
 }

@@ -42,10 +42,10 @@
 				    </thead>
 				    <tbody ng-repeat='project in projects | filter:searchProject'>
 						<tr>
-							<td href="javascript:void(0)" ng-click="goToProject(project)">{{project.name}}</td>
-							<td>{{project.date}}</td>
-							<td>{{project.workGroup}}</td>
-							<td align="center"><i class="glyphicon glyphicon-remove text-center"></i></td>
+							<td href="javascript:void(0)" ng-click="goToProject(project.id)">{{ project.name}}</td>
+							<td href="javascript:void(0)" ng-click="goToProject(project.id)">{{ project.creationDate }}</td>
+							<td>{{project.workgroup.name}}</td>
+							<td align="center"><i href="javascript:void(0)" ng-click="deleteProject(project.id)" class="glyphicon glyphicon-remove text-center"></i></td>
 						</tr>
 					</tbody>		
 				</table>
