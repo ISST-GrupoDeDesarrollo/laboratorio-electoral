@@ -142,3 +142,12 @@ hr.blue{
 .projectContainer{
 	padding-top:50px;
 }
+
+.workgroups{
+    padding-top:50px;
+
+}
+
+.workgroups > article{
+     padding-bottom:50px;
+}

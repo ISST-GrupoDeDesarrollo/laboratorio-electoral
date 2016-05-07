@@ -19,7 +19,18 @@ import es.upm.dit.isst.models.User;
 public class LoginServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.sendError(400);
+
+		HttpSession session = req.getSession();
+		String username = (String) session.getAttribute("user");
+		
+		if(Tools.validString(username)){
+			User user = UserDAOImpl.getInstance().getUser(username);
+			user.getWorkgroups().clear();
+			Tools.sendJson(resp, user, User.class);
+		}
+		else{
+			Tools.sendJson(resp, null, User.class);
+		}
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
