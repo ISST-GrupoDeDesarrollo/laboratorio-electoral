@@ -35,7 +35,7 @@ public class Circumscription implements Serializable {
 	private Long id;
 
 	private long population;
-	private long polled;
+	
 	private String name;
 
 	@Lob
@@ -60,10 +60,6 @@ public class Circumscription implements Serializable {
 		return id;
 	}
 
-	public long getPolled() {
-		return polled;
-	}
-
 	public long getSeats() {
 		return seats;
 	}
@@ -71,6 +67,16 @@ public class Circumscription implements Serializable {
 	public void setSeats(long seats) {
 		this.seats = seats;
 	};
+	
+	
+
+	public long getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(long population) {
+		this.population = population;
+	}
 
 	public Map<String, Long> dhondt() {
 		Map<String, Long> result = new HashMap<String, Long>();

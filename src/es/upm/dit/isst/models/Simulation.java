@@ -82,7 +82,18 @@ public class Simulation implements Serializable {
 	public Report simulate(String name, String method) {
 		Report report = new Report(name);
 		Map<String, ParlamentaryGroup> groups = new HashMap<>();
+		
+		long voters =0;
+		long population =0;
+		
 		for (Circumscription circumscription : getCircunscriptions()) {
+			
+			population+=circumscription.getPopulation();
+			
+			for(VotingIntent intent : circumscription.getVotingIntents()){
+				voters+=intent.getVoters();
+			}
+			
 			Map<String, Long> result = null;
 			switch (method) {
 			case "dhondt":
@@ -107,6 +118,8 @@ public class Simulation implements Serializable {
 		congress.getParlamentaryGroup().addAll(groups.values());
 
 		report.setCongress(congress);
+		report.setVoters(voters);
+		report.setPopulation(population);
 
 		return report;
 	}
