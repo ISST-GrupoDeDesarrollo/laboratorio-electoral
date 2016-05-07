@@ -1,11 +1,7 @@
 package es.upm.dit.isst.models;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.*;
-
-import com.google.appengine.datanucleus.annotations.Unowned;
 
 @Entity
 public class Report {

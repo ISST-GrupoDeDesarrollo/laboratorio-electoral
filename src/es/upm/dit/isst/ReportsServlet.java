@@ -26,30 +26,13 @@ public class ReportsServlet extends HttpServlet{
 		long id = Long.parseLong(req.getParameter("simulation"));
 		Simulation simulation = SimulationDAOImpl.getInstance().getSimulation(id);
 		
-		/*
-		 * May I take a moment to talk about this, I don't like parsing body with a String builder as this was 1999
-		 * Probably no one does, we normally trust other libraries to do it. But
-		 * Other libraries failed me, so I trusted god my duty and It works.
-		 * If you can fix it, just fix it. I dont give a fuck.
-		 * THIS WORKS
-		 */
+		String sb = Tools.readRequestAsString(req);
 		
-		StringBuilder sb = new StringBuilder();
-		BufferedReader reader = req.getReader();
-	    try {
-	        String line;
-	        while ((line = reader.readLine()) != null) {
-	            sb.append(line).append('\n');
-	        }
-	    } finally {
-	        reader.close();
-	    }
-	      //MAGIC ENDS HERE
 		try {
 			JSONObject json = new JSONObject(sb.toString());
 			String resultName = json.getString("name");
 			String methodName =  json.getString("method");
-			if(simulation!=null&&Tools.validString(resultName)&&Tools.validString(methodName)){
+			if(simulation!=null&&Tools.validString(resultName)&& Tools.validString(methodName)){
 				Report report = simulation.simulate(resultName,methodName);
 				if(report!=null){
 					ReportDAOImpl.getInstance().createReport(report);

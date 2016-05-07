@@ -22,8 +22,6 @@ public class Party  implements Serializable {
 	  
 	private String name;
 	
-	public Party(){};
-	
 
 	public Party(String name) {
 		super();

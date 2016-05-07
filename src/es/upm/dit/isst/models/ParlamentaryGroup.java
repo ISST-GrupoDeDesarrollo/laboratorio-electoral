@@ -12,7 +12,7 @@ public class ParlamentaryGroup {
 	private String name;
 	private int deputies;
 	
-	private String party;
+	//private String party;
 	
 	public ParlamentaryGroup(String name, int deputies){
 		this.name = name;
@@ -43,13 +43,13 @@ public class ParlamentaryGroup {
 		this.deputies = deputies;
 	}
 
-	public String getParty() {
-		return party;
-	}
-
-	public void setParty(String party) {
-		this.party = party;
-	}
+//	public String getParty() {
+//		return party;
+//	}
+//
+//	public void setParty(String party) {
+//		this.party = party;
+//	}
 	
 	
 }

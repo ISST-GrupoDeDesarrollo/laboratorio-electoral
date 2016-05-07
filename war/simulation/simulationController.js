@@ -146,13 +146,21 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 
 Laboratory.controller('modalController',['$scope', '$http','$routeParams', '$location', '$uibModal', '$uibModalInstance',
                                          function($scope,$http,$routeParams,$location,$uibModal, $uibModalInstance){
-	
+   $scope.methods = {"values": [{
+   						"value":"dhondt",
+   						"name":"Hont Method"
+   					},{
+   						"value":"saint",
+   						"name":"Saints method"
+   					}],
+   					"defaultvalue": {"value":"dhondt","name":"Hont Method"}
+   				    };
+
 	$scope.ok = function (simulation) {
-		console.log("Name obtained " + $scope.nameReport)
 		$http({
 			method: 'POST',
 			url: '/api/reports',
-			data:{ name: $scope.nameReport },
+			data:{ name: $scope.nameReport, method: $scope.methods.defaultvalue.value },
 			headers: {'Content-Type': 'application/json'},
 			params: {simulation: $routeParams.simulationId}
 		}).success(function(dataReturned){
