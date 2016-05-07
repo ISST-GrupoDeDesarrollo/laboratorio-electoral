@@ -17,7 +17,7 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	private String username;
 	private String email;
@@ -26,12 +26,13 @@ public class User implements Serializable {
 	private String completeName;
 	private String role;
 	private String profilePicBlobKey;
-	
+
 	@ManyToMany()
 	@Unowned
-    private List<Workgroup> workgroups= new ArrayList<Workgroup>();      
-	
-	public User(String username, String email, int salt, String password, String completeName, String role,String profilePicBlobKey) {
+	private List<Workgroup> workgroups = new ArrayList<Workgroup>();
+
+	public User(String username, String email, int salt, String password, String completeName, String role,
+			String profilePicBlobKey) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -41,9 +42,14 @@ public class User implements Serializable {
 		this.role = role;
 		this.profilePicBlobKey = profilePicBlobKey;
 	}
-	
-	public int getSalt(){return salt;}
-	public String getHashedPassword(){return password;}
+
+	public int getSalt() {
+		return salt;
+	}
+
+	public String getHashedPassword() {
+		return password;
+	}
 
 	public List<Workgroup> getWorkgroups() {
 		return workgroups;
@@ -52,6 +58,5 @@ public class User implements Serializable {
 	public void setWorkgroups(List<Workgroup> workgroups) {
 		this.workgroups = workgroups;
 	}
-	
-	
+
 }

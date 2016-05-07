@@ -17,30 +17,28 @@ import com.google.appengine.datanucleus.annotations.Unowned;
 @Entity
 public class Workgroup implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@Id 
-    @GeneratedValue()
+
+	@Id
+	@GeneratedValue()
 	private Long id;
-	
+
 	private String name;
-	
+
 	@ManyToOne
 	@Unowned
 	private User creator;
-	
+
 	@ManyToMany()
 	@Unowned
-    private List<User> members= new ArrayList<User>();        
-	
+	private List<User> members = new ArrayList<User>();
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@Unowned
-    private List<Project> projects= new ArrayList<Project>();    
-	
-	
+	private List<Project> projects = new ArrayList<Project>();
+
 	private boolean isPersonal;
 
-	
-	public Workgroup(String name, User creator,boolean isPersonal) {
+	public Workgroup(String name, User creator, boolean isPersonal) {
 		super();
 		this.name = name;
 		this.creator = creator;
@@ -51,16 +49,13 @@ public class Workgroup implements Serializable {
 		return name;
 	}
 
-
 	public User getCreator() {
 		return creator;
 	}
 
-
 	public List<User> getMembers() {
 		return members;
 	}
-
 
 	public List<Project> getProjects() {
 		return projects;
@@ -73,7 +68,5 @@ public class Workgroup implements Serializable {
 	public void setPersonal(boolean isPersonal) {
 		this.isPersonal = isPersonal;
 	}
-	
 
-	
 }

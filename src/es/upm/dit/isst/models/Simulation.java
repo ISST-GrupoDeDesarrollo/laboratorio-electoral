@@ -79,14 +79,14 @@ public class Simulation implements Serializable {
 		Circunscriptions = circunscriptions;
 	}
 
-	public Report simulate(String name,String method) {
+	public Report simulate(String name, String method) {
 		Report report = new Report(name);
-		Map<String,ParlamentaryGroup> groups = new HashMap<>();
-		for(Circumscription circumscription: getCircunscriptions()){
+		Map<String, ParlamentaryGroup> groups = new HashMap<>();
+		for (Circumscription circumscription : getCircunscriptions()) {
 			Map<String, Long> result = null;
-			switch(method){
+			switch (method) {
 			case "dhondt":
-				result= circumscription.dhondt();
+				result = circumscription.dhondt();
 				break;
 			case "saint":
 				result = circumscription.saint();
@@ -94,20 +94,20 @@ public class Simulation implements Serializable {
 			default:
 				return null;
 			}
-		
-			for(String partyName : result.keySet()){
-				if(!groups.containsKey(partyName)){
+
+			for (String partyName : result.keySet()) {
+				if (!groups.containsKey(partyName)) {
 					groups.put(partyName, new ParlamentaryGroup(partyName, 0));
 				}
 				ParlamentaryGroup group = groups.get(partyName);
-				group.setDeputies((int) (group.getDeputies()+result.get(partyName)));
+				group.setDeputies((int) (group.getDeputies() + result.get(partyName)));
 			}
 		}
 		Congress congress = new Congress();
 		congress.getParlamentaryGroup().addAll(groups.values());
-		
+
 		report.setCongress(congress);
-		
+
 		return report;
 	}
 
