@@ -1,9 +1,68 @@
 <div data-ng-include="'/navigationBars/navigationBar.html'"></div>
-<div class = "alone-button">
 
-    <div class="projectContainer">
-        <button class="btn btn-primary btn-lg" ng-click="createSimulation()">Crear simulaci√≥n</button>
-    </div>
+<div ng-controller="projectController" class="generic-container projects">
+
+
+	<div class="text-center">
+		<h1>prueba</h1>
+	</div>
+	<hr>
+	<div class="col-md-2 col-md-offset-1">
+		<!--  <div class = "alone-button">-->
+	    	<div class="projectContainer">
+	        	<button class="btn btn-primary btn-lg" ng-click="createSimulation()">Crear simulaci√≥n</button>
+	    	</div>
+		<!--</div>-->
+	</div>
+	<div class="col-md-2 col-md-offset-1">
+		<!-- <div class = "alone-button"> -->
+	    	<div class="projectContainer">
+	        	<button class="btn btn-primary btn-lg" ng-click="projectInfo()">InformaciÛn del proyecto</button>
+	    	</div>
+		<!-- </div> -->
+	</div>
+	<div class="col-md-2 col-md-offset-1">
+		<!-- <div class = "alone-button"> -->
+	    	<div class="projectContainer">
+	        	<button class="btn btn-primary btn-lg" ng-click="newComment()">AÒadir comentario al dashboard</button>
+	    	</div>
+		<!-- </div> -->
+	</div>
+	
+	<div class="list-container list-group">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+			    	<th>
+				    	<a  ng-click="orderByField='firstName'; reverseSort = !reverseSort">
+				        	Simulaciones <span ng-show="orderByField == 'name'"></span></span>
+			        	</a>
+			      	</th>
+				    <th>
+				    	<a  ng-click="orderByField='lastName'; reverseSort = !reverseSort">
+				            Reports <span ng-show="orderByField == 'date'"></span></span>
+				        </a>
+				    </th>
+				    <th>
+				    	<a  ng-click="orderByField='date'; reverseSort = !reverseSort">
+				          	Dashboard <span ng-show="orderByField == 'workGroup'"></span></span>
+				        </a>
+				    </th>
+				</tr>
+			</thead>
+			<tbody ng-repeat='simulation in simulations'>
+				<tr>
+					<td href="javascript:void(0)" ng-click="goToSimulation(simulacion)">{{project.simlaciones}}</td>
+					<td href="javascript:void(0)" ng-click="goToReport(report)">{{project.reports}}</td>
+					<td href="javascript:void(0)" ng-click="goTodashboar(project)">{{project.dashboards}}</td>
+				</tr>
+			</tbody>		
+		</table>
+	</div>
+	
+
+
+
 </div>
 <script type="text/ng-template" id="createSimulationModal.html">
 	<form>
