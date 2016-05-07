@@ -1,29 +1,60 @@
-Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', '$location', function($scope,$http,$routeParams,$location){
+Laboratory.controller('workgroupsController', ['$scope', '$http', '$routeParams', '$location', '$uibModal', function($scope,$http,$routeParams,$location,$uibModal){
 		
-	$scope.enviarRegistro = function(){
-			$http.get("/api/register/geturl").success(function(data,status){
-	            $scope.registerUrl = data.url;
-	            
-	            var formData = new FormData();
-	            formData.append('profilePic',$scope.files[0])
-        		formData.append('username', $scope.usuario)
-        		formData.append('password', $scope.password)
-        		formData.append('completeName', $scope.nombreCompleto)
-        		formData.append('role', $scope.rol)
-        		formData.append('email',$scope.email);
-	            
-	            $http.post(data.url, formData, {
-	            	transformRequest: angular.identity,
-	            	headers: {'Content-Type': undefined}
-	            })
-				.success(function(data){
-					alert("Registered");
-				}).error(function(data, status){
-					if(status===403){
-						alert("The username is in use");
+	var reloadWorkgroups = function(){
+		$http.get("/api/login").success(function(user){
+			$scope.appUser = user;
+			$http.get("/api/workgroups").success(function(data){
+				$scope.cleanObjectFromDatabase(data);
+				for (var i = data.length - 1; i >= 0; i--) {
+					if(data[i].isPersonal){
+						data.splice(i,1);
 					}
-				}); 
-	        });
+				}
+				$scope.workgroups = data;
+				console.log(data);
+			});
+		});
+	};
+
+	$scope.addWorkgroup = function(){
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'createWorkgroupModal.html',
+			controller: 'createWorkgroupController'
+		});
+		
+		modalInstance.result.then(
+			function(){
+				reloadWorkgroups()
+			}, function(){
+				console.log("cancelado");
+			}
+		);
+	}
+
+	$scope.removeUser = function(workgroup,user){
+		$http.delete("/api/workgroups",{params:{"removeUser":user.username,"workgroup":workgroup.id}}).success(function(data,status){
+			reloadWorkgroups();
+		});
+	}
+
+	reloadWorkgroups();
+
+}]);
+
+
+Laboratory.controller('createWorkgroupController',['$scope', '$http','$routeParams', '$location', '$uibModal', '$uibModalInstance',
+                                         function($scope,$http,$routeParams,$location,$uibModal, $uibModalInstance){
+	
+	$scope.ok = function () {
+		$http.post("/api/workgroups",$scope.workgroup).success(function(data){		
+			$uibModalInstance.close();
+		});
+			
+	};
+
+	$scope.cancel = function () {
+	   $uibModalInstance.dismiss("Canceled");
 	};
 	
 }]);

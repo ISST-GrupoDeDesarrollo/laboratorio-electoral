@@ -62,3 +62,28 @@ Laboratory.directive('fileInput', ['$parse', function($parse){
         }
     };
 }]);
+
+Laboratory.filter('exclude', function() {
+    return function(input, exclude, prop) {
+        if (!angular.isArray(input))
+            return input;
+
+        if (!angular.isArray(exclude)){
+            var item = exclude;
+            if(item){
+            exclude = [item];}else{
+                exclude=[];
+            }
+        }
+
+        if (prop) {
+            exclude = exclude.map(function byProp(item) {
+                return item[prop];
+            });
+        }
+
+        return input.filter(function byExclude(item) {
+            return exclude.indexOf(prop ? item[prop] : item) === -1;
+        });
+    };
+});
