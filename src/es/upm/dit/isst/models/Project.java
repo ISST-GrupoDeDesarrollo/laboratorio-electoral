@@ -28,6 +28,10 @@ public class Project implements Serializable {
 	@Unowned
     private List<Simulation> simulations = new ArrayList<>();
     
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @Unowned
+    private List<Dashboard> dashboards = new ArrayList<>();
+    
     private Date creationDate;
     
 	public Long getId() {
