@@ -58,6 +58,16 @@ public class LoginServlet extends HttpServlet {
 	
 	}
 	
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		if(Tools.validString((String) session.getAttribute("user"))){
+			session.setAttribute("user", null);
+		}else{
+			resp.sendError(403);
+		}
+	
+	}
+	
 	public static class RequestWrapper{
 		protected String username;
 		protected String password;

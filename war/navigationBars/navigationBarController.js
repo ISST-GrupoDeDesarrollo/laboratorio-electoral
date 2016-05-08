@@ -19,5 +19,11 @@ Laboratory.controller('navigationController', ['$scope', '$http', '$routeParams'
 	          console.log('error: ' + data);
 	        });
 	        
+	        $scope.logout=function(){
+	        	$http.delete("/api/login",{}).success(function(data,status){
+	        		$location.path("/");
+	        	});
+	        }
+
 	    }]);
 	
