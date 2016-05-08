@@ -6,11 +6,15 @@ Laboratory.controller('workgroupsController', ['$scope', '$http', '$routeParams'
 			$http.get("/api/workgroups").success(function(data){
 				$scope.cleanObjectFromDatabase(data);
 				for (var i = data.length - 1; i >= 0; i--) {
+					if($scope.selectedWorkgroup && $scope.selectedWorkgroup.id===data[i].id){
+						$scope.selectedWorkgroup = data[i];
+					}
 					if(data[i].isPersonal){
 						data.splice(i,1);
 					}
 				}
 				$scope.workgroups = data;
+				
 				console.log(data);
 			});
 		});
@@ -85,7 +89,11 @@ Laboratory.controller('addMemberController',['$scope', '$http','$routeParams', '
   		$http.put("/api/workgroups",$scope.workgroup,{params:{addUser:$scope.username}}).success(function(data){		
   			$uibModalInstance.close();
   		}).error(function(data,status){
-  			alert(data);
+  			switch(status){
+  			case 400:
+  				alert("The user doesn't exist");
+  				break;
+  			}
   		});
   	};
 

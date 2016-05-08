@@ -94,15 +94,15 @@ public class ProjectsServlet extends HttpServlet {
 
 			Gson gson = new Gson();
 			Project newProject = gson.fromJson(body, Project.class);
-			newProject.setDateNow();
-			System.out.println(newProject.getName());
-			System.out.println(newProject.getDescription());
-
-			workgroupSelected.getProjects().add(newProject);
-			groupDao.updateWorkgroup(workgroupSelected);
-
+			
 			if (newProject.getName() != null && newProject
 					.getDescription() != null /* && workgroupSelected != null */) {
+				newProject.setDateNow();
+				System.out.println(newProject.getName());
+				System.out.println(newProject.getDescription());
+
+				workgroupSelected.getProjects().add(newProject);
+				groupDao.updateWorkgroup(workgroupSelected);
 
 				String jsonRespuesta = gson.toJson(newProject, Project.class);
 
