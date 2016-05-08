@@ -46,7 +46,7 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 	
 	//This method basically watches the file input, and checks if input file is a GeoJSON
 	$scope.$watchCollection("files",function(newValue){
-		if(newValue.length != 0){
+		if(newValue != undefined && newValue.length != 0){
 			canReadFile(newValue, function(e){
 				try {
 

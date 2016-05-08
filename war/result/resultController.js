@@ -1,5 +1,22 @@
 Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
-	//result controller code goes here
+
+	$scope.simulation={
+			id:$routeParams.reportId,
+			name:"Resultados",
+			Report:[]
+	};
+
+	var reloadResult = function(){
+		$http.get("/api/reports",{params:{id:$routeParams.resultId}}).success(function(data,status){
+			$scope.cleanObjectFromDatabase(data);
+			$scope.result = data;
+			console.log($scope.result);
+		});
+	};
+
+
+	reloadResult();
+	
 	/**
 	 * Simple highcharts-ng maps example.
 	 */

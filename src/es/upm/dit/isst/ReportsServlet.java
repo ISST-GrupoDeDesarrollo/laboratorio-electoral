@@ -18,7 +18,26 @@ import es.upm.dit.isst.models.Simulation;
 public class ReportsServlet extends HttpServlet{
 		
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{
-			
+		
+		String idStringReport = req.getParameter("idreport");
+		String idString = req.getParameter("simulation");
+		if (idString != null && idString != ""  ){
+
+			try {
+					Long id = Long.parseLong(req.getParameter("id"));
+					Report reported = ReportDAOImpl.getInstance().selectById(id);
+				if (reported != null) {
+						
+						Tools.sendJson(resp, reported, Report.class);
+					
+				} else {
+
+					resp.sendError(500);
+				}
+			} catch (NumberFormatException e) {
+				resp.sendError(400);
+			}
+		}
 	}
 	
 

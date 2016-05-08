@@ -20,6 +20,10 @@ public class Report {
 	@Unowned
 	private Congress congress;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	@Unowned
+	private Simulation simulation;
+	
 	private long voters;
 	
 	private long population;
@@ -79,6 +83,14 @@ public class Report {
 		this.population = population;
 	}
 	
+	public Simulation getSimulation() {
+		return simulation;
+	}
+
+
+	public void setSimulation(Simulation simulation) {
+		this.simulation = simulation;
+	}
 	
 	
 }

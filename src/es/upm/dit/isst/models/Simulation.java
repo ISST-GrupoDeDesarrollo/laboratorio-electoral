@@ -116,7 +116,8 @@ public class Simulation implements Serializable {
 		}
 		Congress congress = new Congress();
 		congress.getParlamentaryGroup().addAll(groups.values());
-
+		
+		report.setSimulation(this);
 		report.setCongress(congress);
 		report.setVoters(voters);
 		report.setPopulation(population);
