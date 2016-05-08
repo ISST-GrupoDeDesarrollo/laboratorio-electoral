@@ -44,7 +44,7 @@
 				      </tr>
 				    </thead>
 				    <tbody >
-						<tr ng-repeat='project in projects | filter:searchProject | orderBy : orderByField : reverseSort'>
+						<tr ng-repeat='project in projects | orderBy : orderByField : reverseSort | filter:searchProject '>
 							<td  ng-click="goToProject(project.id)"><a href="javascript:void(0)">{{ project.name}}</a></td>
 							<td href="javascript:void(0)" ng-click="goToProject(project.id)">{{ project.creationDate }}</td>
 							<td>{{project.workgroup.name}}</td>
