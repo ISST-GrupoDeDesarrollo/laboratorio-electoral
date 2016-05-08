@@ -11,7 +11,7 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 				var workgroupSelec = $scope.workgroupsRecibidos[i];
 				for(j in workgroupSelec.projects){
 					var project = workgroupSelec.projects[j];
-					project.workgroup = workgroupSelec;
+					project.workgroup = {name:workgroupSelec.name};
 					$scope.projects.push(project);
 				}
 			}

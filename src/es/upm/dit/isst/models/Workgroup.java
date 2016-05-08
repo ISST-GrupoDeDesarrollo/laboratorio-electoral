@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,6 +28,7 @@ public class Workgroup implements Serializable {
 
 	private String creator;
 	
+	@ElementCollection
 	private ArrayList<String> memberNames = new ArrayList<>();
 
 	@Transient
