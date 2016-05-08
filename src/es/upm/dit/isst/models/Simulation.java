@@ -117,12 +117,15 @@ public class Simulation implements Serializable {
 				group.setDeputies((int) (0 + result.get(partyName)));
 			}
 			Congress congress = new Congress();
-			congress.getParlamentaryGroup().addAll(groups.values());
+			List<ParlamentaryGroup> pg = new ArrayList<ParlamentaryGroup>();
+			pg.addAll(groups.values());
+			congress.setLocationName(circumscription.getName());
+			congress.setParlamentaryGroup(pg);
 			congress.setLocalPopulation(population);
 			congress.setLocalVoters(voters);
 			congresses.add(congress);
 		}
-		//TODO: save this
+
 		report.setCongresses(congresses);
 		 
 		int totalPopulation = 0;
@@ -144,6 +147,7 @@ public class Simulation implements Serializable {
 		globalCongress.setLocalPopulation(totalPopulation);
 		globalCongress.setLocalVoters(totalVoters);
 		globalCongress.getParlamentaryGroup().addAll(groups.values());
+		globalCongress.setLocationName(report.getName());
 		report.setGlobalCongress(globalCongress);
 
 		return report;

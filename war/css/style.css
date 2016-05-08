@@ -128,7 +128,7 @@ hr.blue{
 }
 
 .projects{
-	
+	padding-bottom: 100px;
 }
 
 .simulation .btn-success{
@@ -148,6 +148,9 @@ hr.blue{
 }
 
 .table th{
+    text-align: center;
+}
+.table {
     text-align: center;
 }
 

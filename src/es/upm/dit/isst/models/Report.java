@@ -70,8 +70,8 @@ public class Report {
 		this.globalCongress = congress;
 	}
 
-	public Congress getCongresses() {
-		return globalCongress;
+	public List<Congress> getCongresses() {
+		return congress;
 	}
 
 
