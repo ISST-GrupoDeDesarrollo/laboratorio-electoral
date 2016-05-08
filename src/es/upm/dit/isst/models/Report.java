@@ -12,10 +12,11 @@ public class Report {
 	
 	@Id 
 	@GeneratedValue() 
-	private long id;
+	private Long id;
 	
 	private String name;
 	
+	@OneToOne(cascade=CascadeType.ALL)
 	@Unowned
 	private Congress congress;
 	

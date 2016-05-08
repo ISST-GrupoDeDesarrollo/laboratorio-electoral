@@ -7,7 +7,7 @@ public class ParlamentaryGroup {
 
 	@Id 
 	@GeneratedValue()
-	private long id;
+	private Long id;
 	
 	private String name;
 	private int deputies;
