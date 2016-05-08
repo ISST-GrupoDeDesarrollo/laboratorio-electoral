@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.google.appengine.datanucleus.annotations.Unowned;
 
@@ -26,9 +29,10 @@ public class User implements Serializable {
 	private String completeName;
 	private String role;
 	private String profilePicBlobKey;
+	
+	private List<Long> workgroupIds = new ArrayList<>();
 
-	@ManyToMany()
-	@Unowned
+	@Transient
 	private List<Workgroup> workgroups = new ArrayList<Workgroup>();
 
 	public User(String username, String email, int salt, String password, String completeName, String role,
@@ -60,6 +64,14 @@ public class User implements Serializable {
 	}
 	
 	
+
+	public List<Long> getWorkgroupIds() {
+		return workgroupIds;
+	}
+
+	public void setWorkgroupIds(List<Long> workgroupIds) {
+		this.workgroupIds = workgroupIds;
+	}
 
 	public String getUsername() {
 		return username;

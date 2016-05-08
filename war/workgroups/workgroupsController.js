@@ -31,6 +31,25 @@ Laboratory.controller('workgroupsController', ['$scope', '$http', '$routeParams'
 			}
 		);
 	}
+	
+	$scope.addMember = function(workgroup){
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'addMemberModal.html',
+			controller: 'addMemberController',
+			resolve:{
+				workgroup:function(){return workgroup;}
+			}
+		});
+		
+		modalInstance.result.then(
+			function(){
+				reloadWorkgroups()
+			}, function(){
+				console.log("cancelado");
+			}
+		);
+	}
 
 	$scope.removeUser = function(workgroup,user){
 		$http.delete("/api/workgroups",{params:{"removeUser":user.username,"workgroup":workgroup.id}}).success(function(data,status){
@@ -58,3 +77,20 @@ Laboratory.controller('createWorkgroupController',['$scope', '$http','$routePara
 	};
 	
 }]);
+
+Laboratory.controller('addMemberController',['$scope', '$http','$routeParams', '$location', '$uibModal', '$uibModalInstance','workgroup',
+                                                   function($scope,$http,$routeParams,$location,$uibModal, $uibModalInstance,workgroup){
+	$scope.workgroup = workgroup;
+  	$scope.ok = function () {
+  		$http.put("/api/workgroups",$scope.workgroup,{params:{addUser:$scope.username}}).success(function(data){		
+  			$uibModalInstance.close();
+  		}).error(function(data,status){
+  			alert(data);
+  		});
+  	};
+
+  	$scope.cancel = function () {
+  	   $uibModalInstance.dismiss("Canceled");
+  	};
+  	
+  }]);

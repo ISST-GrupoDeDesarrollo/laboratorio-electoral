@@ -3,6 +3,8 @@ package es.upm.dit.isst.models;
 
 import javax.persistence.*;
 
+import com.google.appengine.datanucleus.annotations.Unowned;
+
 @Entity
 public class Report {
 	
@@ -14,6 +16,7 @@ public class Report {
 	
 	private String name;
 	
+	@Unowned
 	private Congress congress;
 	
 	private long voters;

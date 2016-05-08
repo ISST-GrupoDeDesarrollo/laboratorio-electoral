@@ -48,7 +48,8 @@ public class RegisterServlet extends HttpServlet {
 	        	if(UserDAOImpl.getInstance().getUser(username)==null){
 	        		int salt = (int) (Math.random()*Integer.MAX_VALUE);
 	        		String hash = Tools.sha256(password+salt);
-	        		User newUser = UserDAOImpl.getInstance().createUser(username, email, salt, hash, completeName, role,profilePicKey);
+	        		UserDAOImpl.getInstance().createUser(username, email, salt, hash, completeName, role,profilePicKey);
+	        		User newUser = UserDAOImpl.getInstance().getUser(username);
 	        		Workgroup personal = new Workgroup("My own projects", newUser, true);
 	        		newUser.getWorkgroups().add(personal);
 	        		personal.getMembers().add(newUser);

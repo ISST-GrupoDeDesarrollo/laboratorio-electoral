@@ -9,5 +9,7 @@ public interface UserDAO {
 	public boolean validateUser(String username, String password);
 	public User updateUser(User user);
 	public void deleteUser(String username);
+	public User getUser(String username, boolean fillWorkgroups);
+	
 	
 }

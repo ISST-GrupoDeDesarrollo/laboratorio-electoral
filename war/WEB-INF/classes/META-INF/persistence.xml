@@ -11,6 +11,7 @@
             <property name="datanucleus.NontransactionalWrite" value="true"/>
             <property name="datanucleus.ConnectionURL" value="appengine"/>
             <property name="datanucleus.appengine.datastoreEnableXGTransactions" value="true"/>
+            <property name="datanucleus.appengine.relationDefault" value="unowned" />
         </properties>
     </persistence-unit>
 </persistence>

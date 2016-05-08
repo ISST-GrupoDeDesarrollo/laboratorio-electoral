@@ -1,5 +1,6 @@
 package es.upm.dit.isst.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -39,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User getUser(String username) {
+	public User getUser(String username,boolean fillWorkgroups) {
 		EntityManager em = EMFService.get().createEntityManager();
 		Query q = em.createQuery("SELECT t FROM User t WHERE t.username = :username");
 		q.setParameter("username", username);
@@ -48,13 +49,21 @@ public class UserDAOImpl implements UserDAO {
 		if (users.size() > 0)
 			res = (User)(q.getResultList().get(0));
 		if(res!=null){
+			syncWorkgroups(res);
 			for(Workgroup workgroup : res.getWorkgroups()){
 				workgroup.getProjects(); //Fill the projects and members data of the workgroup
-				workgroup.getMembers();
+				if(fillWorkgroups){
+					WorkgroupDAOImpl.getInstance().syncMembers(workgroup);
+				}
 			}
 		}
 		em.close();
 		return res;
+	}
+	
+	@Override
+	public User getUser(String username) {
+		return getUser(username,true);
 	}
 
 	@Override
@@ -75,7 +84,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public User updateUser(User user) {
-		// TODO Auto-generated method stub
+		syncWorkgroups(user);
 		EntityManager em = EMFService.get().createEntityManager();
 		em.getTransaction().begin();
 		User res = em.merge(user);
@@ -97,6 +106,22 @@ public class UserDAOImpl implements UserDAO {
 			em.close();
 		}
 		
+	}
+	
+	public void syncWorkgroups(User user){
+		if(user.getWorkgroups()==null){
+			user.setWorkgroups(new ArrayList<Workgroup>());
+			for(Long id: user.getWorkgroupIds()){
+				user.getWorkgroups().add(WorkgroupDAOImpl.getInstance().getWorkgroup(id,false));
+			}
+		}else{
+			List<Long> workgroupIds = new ArrayList<Long>();
+			for(Workgroup group:user.getWorkgroups()){
+				workgroupIds.add(group.getId());
+			}
+			user.getWorkgroupIds().clear();
+			user.getWorkgroupIds().addAll(workgroupIds);
+		}
 	}
 
 }

@@ -13,7 +13,7 @@
 					<label class="control-label col-sm-4">Select workgroup:</label>
 					<div class="col-sm-4">
 						<select class="form-control"
-							ng-options="workgroup as workgroup.name for workgroup in workgroups"
+							ng-options="workgroup as workgroup.name for workgroup in workgroups "
 							ng-model="selectedWorkgroup"></select>
 					</div>
 					<div class="btn-group col-sm-4" role="group">
@@ -28,8 +28,8 @@
 				<hr class="separator" />
 				<div ng-show="selectedWorkgroup">
 				<div class="row">
-				<div class="col-md-4">
-					<div class="panel panel-info " ng-repeat="user in selectedWorkgroup.members | exclude:appUser:'username'">
+				<div class="col-md-4" ng-repeat="user in selectedWorkgroup.members | exclude:appUser:'username'">
+					<div class="panel panel-info " >
                         <div class="panel-heading">
                             {{user.completeName}} {{user.username===selectedWorkgroup.creator.username?"(Creator)":""}}
                         </div>
@@ -47,7 +47,7 @@
                     </div>
                     </div>
 				</div>
-				<button class="pull-right btn btn-success">Add member</button>
+				<button class="pull-right btn btn-success" ng-click="addMember(selectedWorkgroup)">Add member</button>
 			</div>
 			</div>
 		</article>
@@ -74,6 +74,32 @@
 
          		<div class="modal-footer">
              		<button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!createWorkgroup.$valid">Create</button>
+             		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+         		</div>
+ 			
+				</div>
+ 			</script>
+ 			
+<script type="text/ng-template" id="addMemberModal.html">
+ 				<div>
+
+         		<div class="modal-header">
+             		<h3 class="modal-title">Add member to {{workgroup.name}}</h3>
+         		</div>
+ 
+
+         		<div class="modal-body">
+             <form class="" name="addMemberForm">
+             		<div class="form-group">
+             			<label>Username:</label>
+             			<input type="text" ng-model="username" class="form-control" required>
+             		</div>
+         
+         		</div>
+ </form>
+
+         		<div class="modal-footer">
+             		<button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!addMemberForm.$valid">Create</button>
              		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
          		</div>
  			

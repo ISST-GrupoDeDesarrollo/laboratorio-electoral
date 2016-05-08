@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.google.appengine.datanucleus.annotations.Unowned;
 
@@ -25,11 +26,12 @@ public class Workgroup implements Serializable {
 	private String name;
 
 	@ManyToOne
-	@Unowned
+	@Unowned()
 	private User creator;
+	
+	private List<String> memberNames = new ArrayList<>();
 
-	@ManyToMany()
-	@Unowned
+	@Transient
 	private List<User> members = new ArrayList<User>();
 
 	@OneToMany(cascade = CascadeType.ALL)
@@ -68,8 +70,12 @@ public class Workgroup implements Serializable {
 	public void setPersonal(boolean isPersonal) {
 		this.isPersonal = isPersonal;
 	}
+
 	
-	
+
+	public List<String> getMemberNames() {
+		return memberNames;
+	}
 
 	public Long getId() {
 		return id;
@@ -97,6 +103,10 @@ public class Workgroup implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public void setMembers(List<User> members) {
+		this.members=members;
 	}
 
 	

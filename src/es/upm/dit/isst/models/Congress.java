@@ -17,23 +17,12 @@ public class Congress {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Key key;
+	@GeneratedValue
+    private Long id;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@Unowned
 	private List<ParlamentaryGroup> parlamentaryGroup = new ArrayList<ParlamentaryGroup>();
-	
-	
-	public Key getKey() {
-		return key;
-	}
-
-
-	public void setKey(Key key) {
-		this.key = key;
-	}
-
 
 	public List<ParlamentaryGroup> getParlamentaryGroup() {
 		return parlamentaryGroup;

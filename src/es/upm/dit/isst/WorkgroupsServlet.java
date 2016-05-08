@@ -40,6 +40,8 @@ public class WorkgroupsServlet extends HttpServlet {
 			resp.sendError(403);
 		}
 	}
+	
+	
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -50,9 +52,41 @@ public class WorkgroupsServlet extends HttpServlet {
 			Workgroup newWorkgroup = new Workgroup(sent.getName(), user, false);
 			user.getWorkgroups().add(newWorkgroup);
 			newWorkgroup.getMembers().add(user);
+			WorkgroupDAOImpl.getInstance().createWorkgroup(newWorkgroup);
 			UserDAOImpl.getInstance().updateUser(user);
-
 			resp.setStatus(200);
+		} else {
+			resp.sendError(403);
+		}
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Workgroup sent = new Gson().fromJson(Tools.readRequestAsString(req), Workgroup.class);
+		String appUsername = (String) req.getSession().getAttribute("user");
+		User appUser = UserDAOImpl.getInstance().getUser(appUsername);
+		if (sent != null && appUser != null ) {
+			String username = req.getParameter("addUser");
+			User user = UserDAOImpl.getInstance().getUser(username);
+			if(user!=null){
+				Workgroup workgroup =WorkgroupDAOImpl.getInstance().getWorkgroup(sent.getId());
+				if(workgroup.getCreator().equals(appUser)){
+					if(!workgroup.getMembers().contains(user)){
+						workgroup.getMembers().add(user);
+						user.getWorkgroups().add(workgroup);
+						WorkgroupDAOImpl.getInstance().updateWorkgroup(workgroup);
+						UserDAOImpl.getInstance().updateUser(user);
+						resp.setStatus(200);
+					}else{
+						resp.sendError(400,"The user is already in the workgroup");
+					}
+				}else{
+					resp.sendError(403);
+				}
+	
+			}else{
+				resp.sendError(400, "The user doesn't exist.");
+			}
 		} else {
 			resp.sendError(403);
 		}
@@ -76,8 +110,8 @@ public class WorkgroupsServlet extends HttpServlet {
 					resp.setStatus(200);
 				}else{
 					toRemove.getWorkgroups().remove(selectedWorkgroup);
-					selectedWorkgroup.getMembers().remove(toRemove);
 					UserDAOImpl.getInstance().updateUser(toRemove);
+					selectedWorkgroup.getMembers().remove(toRemove);
 					WorkgroupDAOImpl.getInstance().updateWorkgroup(selectedWorkgroup);
 					resp.setStatus(200);
 				}

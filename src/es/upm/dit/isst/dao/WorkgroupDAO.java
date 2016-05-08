@@ -8,5 +8,6 @@ public interface WorkgroupDAO {
 	public Workgroup getWorkgroup(long id);
 	public Workgroup updateWorkgroup(Workgroup workgroup);
 	public void deleteWorkgroup(long id);
+	public Workgroup getWorkgroup(long id, boolean fillUsers);
 
 }
