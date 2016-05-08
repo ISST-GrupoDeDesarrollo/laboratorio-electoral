@@ -25,12 +25,10 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public User createUser(String username, String email, int salt, String password, String completeName, String role,String profilePicBlobKey) {
-		// TODO Auto-generated method stub
-		User user = null;
+	public User createUser(User user) {
+		syncWorkgroups(user);
 		EntityManager em = EMFService.get().createEntityManager();
-		//TODO Neded some logic before creation?
-		user = new User(username,email,salt,password,completeName,role,profilePicBlobKey);
+
 		em.getTransaction().begin();
 		em.persist(user);
 		em.getTransaction().commit();

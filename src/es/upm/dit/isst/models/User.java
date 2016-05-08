@@ -30,7 +30,7 @@ public class User implements Serializable {
 	private String role;
 	private String profilePicBlobKey;
 	
-	private List<Long> workgroupIds = new ArrayList<>();
+	private ArrayList<Long> workgroupIds = new ArrayList<>();
 
 	@Transient
 	private List<Workgroup> workgroups = new ArrayList<Workgroup>();
@@ -69,7 +69,7 @@ public class User implements Serializable {
 		return workgroupIds;
 	}
 
-	public void setWorkgroupIds(List<Long> workgroupIds) {
+	public void setWorkgroupIds(ArrayList<Long> workgroupIds) {
 		this.workgroupIds = workgroupIds;
 	}
 

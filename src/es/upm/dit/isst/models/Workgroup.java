@@ -25,11 +25,9 @@ public class Workgroup implements Serializable {
 
 	private String name;
 
-	@ManyToOne
-	@Unowned()
-	private User creator;
+	private String creator;
 	
-	private List<String> memberNames = new ArrayList<>();
+	private ArrayList<String> memberNames = new ArrayList<>();
 
 	@Transient
 	private List<User> members = new ArrayList<User>();
@@ -40,7 +38,7 @@ public class Workgroup implements Serializable {
 
 	private boolean isPersonal;
 
-	public Workgroup(String name, User creator, boolean isPersonal) {
+	public Workgroup(String name, String creator, boolean isPersonal) {
 		super();
 		this.name = name;
 		this.creator = creator;
@@ -51,7 +49,7 @@ public class Workgroup implements Serializable {
 		return name;
 	}
 
-	public User getCreator() {
+	public String getCreator() {
 		return creator;
 	}
 

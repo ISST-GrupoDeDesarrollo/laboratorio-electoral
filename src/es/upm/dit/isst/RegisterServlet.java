@@ -48,13 +48,13 @@ public class RegisterServlet extends HttpServlet {
 	        	if(UserDAOImpl.getInstance().getUser(username)==null){
 	        		int salt = (int) (Math.random()*Integer.MAX_VALUE);
 	        		String hash = Tools.sha256(password+salt);
-	        		UserDAOImpl.getInstance().createUser(username, email, salt, hash, completeName, role,profilePicKey);
-	        		User newUser = UserDAOImpl.getInstance().getUser(username);
-	        		Workgroup personal = new Workgroup("My own projects", newUser, true);
+	        		
+	        		User newUser = new User(username, email, salt, hash, completeName, role,profilePicKey);
+	        		Workgroup personal = new Workgroup("My own projects", newUser.getUsername(), true);
 	        		newUser.getWorkgroups().add(personal);
 	        		personal.getMembers().add(newUser);
-	         		WorkgroupDAOImpl.getInstance().createWorkgroup(personal);
-	        		UserDAOImpl.getInstance().updateUser(newUser);
+	        		WorkgroupDAOImpl.getInstance().createWorkgroup(personal);
+	        		UserDAOImpl.getInstance().createUser(newUser);
 	        		System.out.println("New user created, username: "+username);
 	        		
 	        		session.setAttribute("user", username);

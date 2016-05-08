@@ -32,7 +32,7 @@ public class WorkgroupsServlet extends HttpServlet {
 				for (User member : group.getMembers()) {
 					member.setWorkgroups(null);
 				}
-				group.getCreator().setWorkgroups(null);
+				
 			}
 			Tools.sendJson(resp, workgroups, new TypeToken<List<Workgroup>>() {
 			}.getType());
@@ -49,7 +49,7 @@ public class WorkgroupsServlet extends HttpServlet {
 		String username = (String) req.getSession().getAttribute("user");
 		User user = UserDAOImpl.getInstance().getUser(username);
 		if (sent != null && user != null) {
-			Workgroup newWorkgroup = new Workgroup(sent.getName(), user, false);
+			Workgroup newWorkgroup = new Workgroup(sent.getName(), user.getUsername(), false);
 			user.getWorkgroups().add(newWorkgroup);
 			newWorkgroup.getMembers().add(user);
 			WorkgroupDAOImpl.getInstance().createWorkgroup(newWorkgroup);
@@ -70,7 +70,7 @@ public class WorkgroupsServlet extends HttpServlet {
 			User user = UserDAOImpl.getInstance().getUser(username);
 			if(user!=null){
 				Workgroup workgroup =WorkgroupDAOImpl.getInstance().getWorkgroup(sent.getId());
-				if(workgroup.getCreator().equals(appUser)){
+				if(workgroup.getCreator().equals(appUser.getUsername())){
 					if(!workgroup.getMembers().contains(user)){
 						workgroup.getMembers().add(user);
 						user.getWorkgroups().add(workgroup);
