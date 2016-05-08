@@ -22,6 +22,8 @@ public class Congress {
 	private int localVoters;
 	private int localPopulation;
 	
+	private String locationName;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@Unowned
 	private List<ParlamentaryGroup> parlamentaryGroup = new ArrayList<ParlamentaryGroup>();
@@ -45,6 +47,20 @@ public class Congress {
 
 	public void setLocalPopulation(long population) {
 		this.localPopulation = (int) population;
+	}
+	
+	public void setParlamentaryGroup(List<ParlamentaryGroup> parlam){
+		this.parlamentaryGroup = parlam;
+	}
+
+
+	public String getLocationName() {
+		return locationName;
+	}
+
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
 	}
 
 }

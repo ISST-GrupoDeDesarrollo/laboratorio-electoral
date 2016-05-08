@@ -27,7 +27,7 @@ public class ReportsServlet extends HttpServlet{
 					Long id = Long.parseLong(req.getParameter("id"));
 					ReportDAO reported = ReportDAOImpl.getInstance();
 					Report rep = reported.selectById(id);
-				if (reported != null) {
+				if (rep != null) {
 				
 					Tools.sendJson(resp, rep, Report.class);
 					

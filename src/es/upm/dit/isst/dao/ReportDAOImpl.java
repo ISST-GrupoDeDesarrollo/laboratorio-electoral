@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import es.upm.dit.isst.models.Congress;
 import es.upm.dit.isst.models.Report;
 import es.upm.dit.isst.models.User;
 
@@ -56,8 +57,12 @@ public class ReportDAOImpl implements ReportDAO{
 		List<Report> reports = q.getResultList();
 		if (reports.size() > 0){
 			res = (Report)(q.getResultList().get(0));
-			res.getCongresses();
-			res.getGlobalCongress();
+			List<Congress> cgs = res.getCongresses();
+			Congress cgs2 = res.getGlobalCongress();
+			for (Congress cg : cgs){
+				cg.getParlamentaryGroup();
+			}
+			cgs2.getParlamentaryGroup();
 			res.getTerritories();
 		}
 		em.close();
