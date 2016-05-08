@@ -74,8 +74,8 @@ public class WorkgroupsServlet extends HttpServlet {
 					if(!workgroup.getMembers().contains(user)){
 						workgroup.getMembers().add(user);
 						user.getWorkgroups().add(workgroup);
-						WorkgroupDAOImpl.getInstance().updateWorkgroup(workgroup);
 						UserDAOImpl.getInstance().updateUser(user);
+						WorkgroupDAOImpl.getInstance().updateWorkgroup(workgroup);
 						resp.setStatus(200);
 					}else{
 						resp.sendError(400,"The user is already in the workgroup");

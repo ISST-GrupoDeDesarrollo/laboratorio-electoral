@@ -109,7 +109,7 @@ hr.blue{
 }
 
 #registerContainer{
-	padding-top:50px;
+	
 }
 
 #register_button{
@@ -124,11 +124,11 @@ hr.blue{
 	width:230px !important;
 }
 .simulation{
-	padding-top:50px;
+
 }
 
 .projects{
-	padding-top:50px;
+	
 }
 
 .simulation .btn-success{
@@ -140,14 +140,21 @@ hr.blue{
 }
 
 .projectContainer{
-	padding-top:50px;
+	
 }
 
 .workgroups{
-    padding-top:50px;
+  
+}
 
+.table th{
+    text-align: center;
 }
 
 .workgroups > article{
      padding-bottom:50px;
+}
+
+.navbar{
+    margin-bottom: 0px;
 }

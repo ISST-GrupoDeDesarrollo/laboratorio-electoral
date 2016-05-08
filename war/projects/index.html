@@ -3,13 +3,16 @@
 
 			<div class="text-center">
 			<h1>Projects</h1>
-				<div class="input-group col-centered small-input">
+				<div class="input-group col-sm-4 col-sm-offset-4 ">
 				  <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-				  <input ng-model="searchProject" type="text" class="reasonable-size-for-input form-control" placeholder="Filter by" aria-describedby="basic-addon1">
-				  <button  ng-click="newProject()" type="button" class="btn btn-default" style="float:left;">
+				  <input ng-model="searchProject" type="text" class="form-control" placeholder="Filter by" aria-describedby="basic-addon1">
+				   <span class="input-group-btn">
+			        <button  ng-click="newProject()" type="button" class="btn btn-secondary btn-primary" style="float:left;">
 	    			<span class="fa fa-plus fa-3"></span>
 	  			  </button>
 				</div>
+			      </span>
+				  
 				
 			</div>
 			<hr>

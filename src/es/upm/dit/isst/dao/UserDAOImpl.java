@@ -47,6 +47,7 @@ public class UserDAOImpl implements UserDAO {
 		if (users.size() > 0)
 			res = (User)(q.getResultList().get(0));
 		if(res!=null){
+			res.getWorkgroupIds();
 			syncWorkgroups(res);
 			for(Workgroup workgroup : res.getWorkgroups()){
 				workgroup.getProjects(); //Fill the projects and members data of the workgroup
@@ -109,13 +110,13 @@ public class UserDAOImpl implements UserDAO {
 	public void syncWorkgroups(User user){
 		if(user.getWorkgroups()==null){
 			user.setWorkgroups(new ArrayList<Workgroup>());
-			for(Long id: user.getWorkgroupIds()){
-				user.getWorkgroups().add(WorkgroupDAOImpl.getInstance().getWorkgroup(id,false));
+			for(String id: user.getWorkgroupIds()){
+				user.getWorkgroups().add(WorkgroupDAOImpl.getInstance().getWorkgroup(Long.parseLong(id),false));
 			}
 		}else{
-			List<Long> workgroupIds = new ArrayList<Long>();
+			List<String> workgroupIds = new ArrayList<String>();
 			for(Workgroup group:user.getWorkgroups()){
-				workgroupIds.add(group.getId());
+				workgroupIds.add(group.getId().toString());
 			}
 			user.getWorkgroupIds().clear();
 			user.getWorkgroupIds().addAll(workgroupIds);

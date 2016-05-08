@@ -43,6 +43,7 @@ public class WorkgroupDAOImpl implements WorkgroupDAO{
 		if (workgroups.size() > 0)
 			workgroup = (Workgroup)(workgroups.get(0));
 		if(workgroup!=null){
+			workgroup.getMemberNames();
 			workgroup.getProjects();
 			if(fillUsers){
 				syncMembers(workgroup);

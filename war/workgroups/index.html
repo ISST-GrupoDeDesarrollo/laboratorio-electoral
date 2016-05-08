@@ -13,7 +13,7 @@
 					<label class="control-label col-sm-4">Select workgroup:</label>
 					<div class="col-sm-4">
 						<select class="form-control"
-							ng-options="workgroup as workgroup.name for workgroup in workgroups "
+							ng-options="workgroup as (workgroup.name + (workgroup.creator===appUser.username?' (Owned)':'')) for workgroup in workgroups "
 							ng-model="selectedWorkgroup"></select>
 					</div>
 					<div class="btn-group col-sm-4" role="group">
@@ -55,30 +55,30 @@
 </div>
 
 <script type="text/ng-template" id="createWorkgroupModal.html">
- 				<div>
+ 	<div>
 
-         		<div class="modal-header">
-             		<h3 class="modal-title">Create workgroup</h3>
-         		</div>
+ 		<div class="modal-header">
+     		<h3 class="modal-title">Create workgroup</h3>
+ 		</div>
  
 
-         		<div class="modal-body">
+ 		<div class="modal-body">
              <form class="" name="createWorkgroup">
              		<div class="form-group">
              			<label>Workgroup name:</label>
              			<input type="text" ng-model="workgroup.name" class="form-control" required>
              		</div>
-         
-         		</div>
- </form>
+         	</form>
+  		</div>
 
-         		<div class="modal-footer">
-             		<button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!createWorkgroup.$valid">Create</button>
-             		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-         		</div>
+
+ 		<div class="modal-footer">
+     		<button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!createWorkgroup.$valid">Create</button>
+     		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+ 		</div>
  			
-				</div>
- 			</script>
+	</div>
+</script>
  			
 <script type="text/ng-template" id="addMemberModal.html">
  				<div>
@@ -99,7 +99,7 @@
  </form>
 
          		<div class="modal-footer">
-             		<button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!addMemberForm.$valid">Create</button>
+             		<button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!addMemberForm.$valid">Add</button>
              		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
          		</div>
  			

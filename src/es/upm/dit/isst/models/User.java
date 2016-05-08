@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -30,7 +31,7 @@ public class User implements Serializable {
 	private String role;
 	private String profilePicBlobKey;
 	
-	private ArrayList<Long> workgroupIds = new ArrayList<>();
+	private ArrayList<String> workgroupIds = new ArrayList<>();
 
 	@Transient
 	private List<Workgroup> workgroups = new ArrayList<Workgroup>();
@@ -63,20 +64,28 @@ public class User implements Serializable {
 		this.workgroups = workgroups;
 	}
 	
-	
-
-	public List<Long> getWorkgroupIds() {
+	public List<String> getWorkgroupIds() {
 		return workgroupIds;
 	}
 
-	public void setWorkgroupIds(ArrayList<Long> workgroupIds) {
+	public void setWorkgroupIds(ArrayList<String> workgroupIds) {
 		this.workgroupIds = workgroupIds;
 	}
 
 	public String getUsername() {
 		return username;
 	}
+	
+	
 
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	@Override
 	public int hashCode() {
