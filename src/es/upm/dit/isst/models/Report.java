@@ -1,6 +1,11 @@
 package es.upm.dit.isst.models;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.persistence.*;
 
 import com.google.appengine.datanucleus.annotations.Unowned;
@@ -16,17 +21,19 @@ public class Report {
 	
 	private String name;
 	
+	//Necesito guardar todos los congresos por cada territorio
+	@OneToMany(cascade=CascadeType.ALL)
+	@Unowned
+	private List<Congress> congress = new ArrayList<Congress>();
+	
+	@Lob
+	@ElementCollection
+	private Map<String,String> territories = new HashMap<String, String>();
+	
 	@OneToOne(cascade=CascadeType.ALL)
 	@Unowned
-	private Congress congress;
+	private Congress globalCongress;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@Unowned
-	private Simulation simulation;
-	
-	private long voters;
-	
-	private long population;
 	
 	public Report(String name){
 		super();
@@ -54,43 +61,34 @@ public class Report {
 	}
 
 
-	public Congress getCongress() {
-		return congress;
+	public Congress getGlobalCongress() {
+		return globalCongress;
 	}
 
 
-	public void setCongress(Congress congress) {
+	public void setGlobalCongress(Congress congress) {
+		this.globalCongress = congress;
+	}
+
+	public Congress getCongresses() {
+		return globalCongress;
+	}
+
+
+	public void setCongresses(List<Congress> congress) {
 		this.congress = congress;
 	}
 
 
-	public long getVoters() {
-		return voters;
+	public Map<String,String> getTerritories() {
+		return territories;
 	}
 
 
-	public void setVoters(long voters) {
-		this.voters = voters;
+	public void setTerritories(Map<String,String> territories) {
+		this.territories = territories;
 	}
 
-
-	public long getPopulation() {
-		return population;
-	}
-
-
-	public void setPopulation(long population) {
-		this.population = population;
-	}
-	
-	public Simulation getSimulation() {
-		return simulation;
-	}
-
-
-	public void setSimulation(Simulation simulation) {
-		this.simulation = simulation;
-	}
 	
 	
 }

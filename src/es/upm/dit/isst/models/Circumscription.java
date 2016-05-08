@@ -147,4 +147,16 @@ public class Circumscription implements Serializable {
 
 		return result;
 	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public String getLocalization(){
+		return localization;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

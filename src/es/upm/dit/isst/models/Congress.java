@@ -19,6 +19,8 @@ public class Congress {
 	@Id
 	@GeneratedValue
     private Long id;
+	private int localVoters;
+	private int localPopulation;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@Unowned
@@ -26,6 +28,23 @@ public class Congress {
 
 	public List<ParlamentaryGroup> getParlamentaryGroup() {
 		return parlamentaryGroup;
+	}
+
+	
+	public int getLocalVoters() {
+		return localVoters;
+	}
+
+	public void setLocalVoters(long voters) {
+		this.localVoters = (int) voters;
+	}
+
+	public int getLocalPopulation() {
+		return localPopulation;
+	}
+
+	public void setLocalPopulation(long population) {
+		this.localPopulation = (int) population;
 	}
 
 }

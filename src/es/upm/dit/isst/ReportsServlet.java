@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
+import es.upm.dit.isst.dao.ReportDAO;
 import es.upm.dit.isst.dao.ReportDAOImpl;
 import es.upm.dit.isst.dao.SimulationDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
@@ -19,19 +20,18 @@ public class ReportsServlet extends HttpServlet{
 		
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{
 		
-		String idStringReport = req.getParameter("idreport");
-		String idString = req.getParameter("simulation");
+		String idString = req.getParameter("id");
 		if (idString != null && idString != ""  ){
 
 			try {
 					Long id = Long.parseLong(req.getParameter("id"));
-					Report reported = ReportDAOImpl.getInstance().selectById(id);
+					ReportDAO reported = ReportDAOImpl.getInstance();
+					Report rep = reported.selectById(id);
 				if (reported != null) {
-						
-						Tools.sendJson(resp, reported, Report.class);
+				
+					Tools.sendJson(resp, rep, Report.class);
 					
 				} else {
-
 					resp.sendError(500);
 				}
 			} catch (NumberFormatException e) {

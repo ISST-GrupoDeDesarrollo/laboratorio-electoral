@@ -35,7 +35,7 @@ public class SimulationTest {
 		circumscription2.setSeats(7l);
 		simulation.getCircunscriptions().add(circumscription2);
 		Report result = simulation.simulate("hola","dhondt");
-		for(ParlamentaryGroup group:result.getCongress().getParlamentaryGroup()){
+		for(ParlamentaryGroup group:result.getGlobalCongress().getParlamentaryGroup()){
 			switch(group.getName()){
 			case "Partido A":
 				assertEquals(group.getDeputies(), 6);
@@ -72,7 +72,7 @@ public class SimulationTest {
 		circumscription2.setSeats(7l);
 		simulation.getCircunscriptions().add(circumscription2);
 		Report result = simulation.simulate("hola","saint");
-		for(ParlamentaryGroup group:result.getCongress().getParlamentaryGroup()){
+		for(ParlamentaryGroup group:result.getGlobalCongress().getParlamentaryGroup()){
 			switch(group.getName()){
 			case "Partido A":
 				assertEquals(group.getDeputies(), 6);

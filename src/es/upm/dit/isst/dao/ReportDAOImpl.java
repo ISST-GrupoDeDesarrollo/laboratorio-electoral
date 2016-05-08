@@ -1,8 +1,12 @@
 package es.upm.dit.isst.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import es.upm.dit.isst.models.Report;
+import es.upm.dit.isst.models.User;
 
 public class ReportDAOImpl implements ReportDAO{
 
@@ -46,14 +50,18 @@ public class ReportDAOImpl implements ReportDAO{
 	@Override
 	public Report selectById(long id) {
 		EntityManager em = EMFService.get().createEntityManager();
-		Report reportSelected;
-		try{
-			reportSelected = em.find(Report.class, id);
-			em.close();
-		}catch(Exception e){
-			return null;
+		Query q = em.createQuery("SELECT t FROM Report t WHERE t.id = :id");
+		q.setParameter("id", id);
+		Report res = null;
+		List<Report> reports = q.getResultList();
+		if (reports.size() > 0){
+			res = (Report)(q.getResultList().get(0));
+			res.getCongresses();
+			res.getGlobalCongress();
+			res.getTerritories();
 		}
-		return reportSelected;
+		em.close();
+		return res;
 	}
 	
 	

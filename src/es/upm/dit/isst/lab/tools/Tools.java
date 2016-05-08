@@ -55,7 +55,7 @@ public class Tools {
 		response.setContentType("application/json");
 		PrintWriter out;
 		out = response.getWriter();
-		String jsonString = new Gson().toJson(toJson, clazz);
+ 		String jsonString = new Gson().toJson(toJson, clazz);
 		out.print(jsonString);
 		out.flush();
 	}

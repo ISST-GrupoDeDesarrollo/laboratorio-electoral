@@ -81,20 +81,24 @@ public class Simulation implements Serializable {
 
 	public Report simulate(String name, String method) {
 		Report report = new Report(name);
-		Map<String, ParlamentaryGroup> groups = new HashMap<>();
+		List<Congress> congresses = new ArrayList<Congress>();
+		//Iterate over each circunscription individually
 		
-		long voters =0;
-		long population =0;
+		List<Circumscription> circumscriptions= getCircunscriptions();
+		Map<String,String> terrainData = new HashMap<String, String>();
 		
-		for (Circumscription circumscription : getCircunscriptions()) {
+		for (Circumscription circumscription : circumscriptions) {
+			terrainData.put(circumscription.getName(), circumscription.getLocalization());
+			Map<String, ParlamentaryGroup> groups = new HashMap<>();
+			long population=circumscription.getPopulation();
 			
-			population+=circumscription.getPopulation();
-			
+			long voters = 0;
 			for(VotingIntent intent : circumscription.getVotingIntents()){
 				voters+=intent.getVoters();
 			}
 			
 			Map<String, Long> result = null;
+			
 			switch (method) {
 			case "dhondt":
 				result = circumscription.dhondt();
@@ -105,22 +109,42 @@ public class Simulation implements Serializable {
 			default:
 				return null;
 			}
-
 			for (String partyName : result.keySet()) {
 				if (!groups.containsKey(partyName)) {
 					groups.put(partyName, new ParlamentaryGroup(partyName, 0));
 				}
 				ParlamentaryGroup group = groups.get(partyName);
-				group.setDeputies((int) (group.getDeputies() + result.get(partyName)));
+				group.setDeputies((int) (0 + result.get(partyName)));
+			}
+			Congress congress = new Congress();
+			congress.getParlamentaryGroup().addAll(groups.values());
+			congress.setLocalPopulation(population);
+			congress.setLocalVoters(voters);
+			congresses.add(congress);
+		}
+		//TODO: save this
+		report.setCongresses(congresses);
+		 
+		int totalPopulation = 0;
+		int totalVoters = 0;
+		Congress globalCongress = new Congress();
+		Map<String, ParlamentaryGroup> groups = new HashMap<>();
+		for(Congress congress : congresses){
+			totalPopulation+=congress.getLocalPopulation();
+			totalVoters+=congress.getLocalVoters();
+			for (ParlamentaryGroup party : congress.getParlamentaryGroup()) {
+				if (!groups.containsKey(party.getName())) {
+					groups.put(party.getName(), new ParlamentaryGroup(party.getName(), 0));
+				}
+				ParlamentaryGroup group = groups.get(party.getName());
+				group.setDeputies((int) (group.getDeputies() + party.getDeputies()));
 			}
 		}
-		Congress congress = new Congress();
-		congress.getParlamentaryGroup().addAll(groups.values());
-		
-		report.setSimulation(this);
-		report.setCongress(congress);
-		report.setVoters(voters);
-		report.setPopulation(population);
+		report.setTerritories(terrainData);
+		globalCongress.setLocalPopulation(totalPopulation);
+		globalCongress.setLocalVoters(totalVoters);
+		globalCongress.getParlamentaryGroup().addAll(groups.values());
+		report.setGlobalCongress(globalCongress);
 
 		return report;
 	}
