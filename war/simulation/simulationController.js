@@ -1,6 +1,6 @@
 Laboratory.controller('simulationController',['$scope', '$http','$routeParams', '$location', '$uibModal','breadcrumbs',
                                               function($scope,$http,$routeParams,$location,$uibModal,breadcrumbs){
-    breadcrumbs.setBreadcrumbs([breadcrumbs.createBreadcrumb("project", {projectId:$routeParams.projectId}),breadcrumbs.createBreadcrumb("simulation", {simulationId:$routeParams.simulationId})]);
+    breadcrumbs.setBreadcrumbs([breadcrumbs.createBreadcrumb("project", {projectId:$routeParams.projectId}),breadcrumbs.createBreadcrumb("simulation", {projectId:$routeParams.projectId,simulationId:$routeParams.simulationId})]);
 
     $scope.$on("checkAuth",function(){
 		if(!$scope.appUser){
@@ -45,7 +45,7 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 	};
 	
 	var isGEOJson = function(geoJson){
-		if (geoJson.id != undefined && geoJson.type != undefined && geoJson.geometry != undefined){
+		if (geoJson.type != undefined && geoJson.geometry != undefined){
 			return true;
 		}
 		return false;
@@ -153,19 +153,21 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 
 Laboratory.controller('modalController',['$scope', '$http','$routeParams', '$location', '$uibModal', '$uibModalInstance',
                                          function($scope,$http,$routeParams,$location,$uibModal, $uibModalInstance){
-   
-	$scope.methods = "Hont Method";
-	
+   $scope.methods = {"values": [{
+   						"value":"dhondt",
+   						"name":"Hont Method"
+   					},{
+   						"value":"saint",
+   						"name":"Saints method"
+   					}],
+   					"defaultvalue": {"value":"dhondt","name":"Hont Method"}
+   				    };
+
 	$scope.ok = function (simulation) {
-		
-		var method = "dhondt";
-		if ($scope.methods == "Saints Method")
-			method = "saint";
-		
 		$http({
 			method: 'POST',
 			url: '/api/reports',
-			data:{ name: $scope.nameReport, method: method},
+			data:{ name: $scope.nameReport, method: $scope.methods.defaultvalue.value },
 			headers: {'Content-Type': 'application/json'},
 			params: {simulation: $routeParams.simulationId,projectId:$routeParams.projectId}
 		}).success(function(dataReturned){
@@ -180,11 +182,8 @@ Laboratory.controller('modalController',['$scope', '$http','$routeParams', '$loc
 		});
 	};
 
-	
-	
 	$scope.cancel = function () {
 	   $uibModalInstance.dismiss("Canceled");
 	};
 	
-
 }]);

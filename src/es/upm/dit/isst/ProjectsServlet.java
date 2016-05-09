@@ -94,7 +94,6 @@ public class ProjectsServlet extends HttpServlet {
 			Long idWorkgroup = Long.parseLong(req.getParameter("workgroupId"));
 			WorkgroupDAO groupDao = WorkgroupDAOImpl.getInstance();
 			Workgroup workgroupSelected = groupDao.getWorkgroup(idWorkgroup);
-			System.out.println(body);
 
 			Gson gson = new Gson();
 			Project newProject = gson.fromJson(body, Project.class);
