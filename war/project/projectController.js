@@ -12,7 +12,7 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 			$scope.project = data;
 		});
 	}
-
+	reloadProject();
 	$scope.openSimulation = function(simulation){
 		$location.path("/projects/"+$routeParams.projectId+"/simulations/"+simulation.id);
 	}
