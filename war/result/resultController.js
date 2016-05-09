@@ -1,4 +1,5 @@
-Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
+Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$location','breadcrumbs', function($scope,$http,$routeParams,$location,breadcrumbs){
+    breadcrumbs.setBreadcrumbs([breadcrumbs.createBreadcrumb("project", {projectId:$routeParams.projectId}),breadcrumbs.createBreadcrumb("report", {reportId:$routeParams.resultId})]);
 
 	$scope.simulation={
 			id:$routeParams.reportId,

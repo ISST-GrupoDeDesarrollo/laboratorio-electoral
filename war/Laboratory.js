@@ -64,6 +64,60 @@ Laboratory.run(['$rootScope','$http',function($rootScope,$http){
    $rootScope.$on('$routeChangeStart', function() { 
         loadAppUser();
     });
+   $rootScope.$on('$routeChangeSuccess', function() { 
+        $rootScope.breadcrumbs = undefined;
+    });
+}]);
+
+Laboratory.service('breadcrumbs', ['$rootScope','$http','$location',function ($rootScope,$http,$location) {
+    
+    $rootScope.breadcrumbs = [];
+    $rootScope.navTo = function (breadcrumb) {
+        $location.path(breadcrumb.path);
+    }
+    
+    var createBreadcrumb = function (identifier, pathArgs) {
+        var breadcrumb = {};
+        var projectId = pathArgs.projectId;
+        var simulationId = pathArgs.simulationId;
+        var reportId = pathArgs.reportId;
+        switch (identifier) {
+            case "projects":
+            breadcrumb.name = "Projects";
+            breadcrumb.path = "/projects";
+            break;
+            case "project":
+            breadcrumb.name = projectId;
+            breadcrumb.path = "/projects/" + projectId;
+            $http.get("/api/projects",{params:{id:projectId}}).success(function (data, status) {
+                breadcrumb.name = data.name;
+            });
+            break;
+            case "simulation":
+            breadcrumb.name = simulationId;
+            breadcrumb.path = "/projects/" + projectId + "/simulations/" + simulationId;
+            $http.get("/api/simulations",{params:{id:simulationId}}).success(function(data,status){
+                breadcrumb.name = data.name;
+            });
+            break;
+            case "report":
+            breadcrumb.name = "Interferences";
+            breadcrumb.path = "/projects/" + projectId + "/reports/" + reportId;
+            $http.get("/api/reports",{params:{id:reportId}}).success(function(data,status){
+                breadcrumb.name = data.name;
+            });
+            break;
+          
+        }
+        return breadcrumb;
+    }
+    var setBreadcrumbs = function (breadcrumbs) {
+        $rootScope.breadcrumbs = breadcrumbs;
+    }
+    return {
+        createBreadcrumb: createBreadcrumb,
+        setBreadcrumbs:setBreadcrumbs
+    }
 }]);
 
 Laboratory.directive('fileInput', ['$parse', function($parse){

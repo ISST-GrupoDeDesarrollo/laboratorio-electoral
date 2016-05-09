@@ -175,3 +175,13 @@ hr.blue{
      text-align: center;
 }
 
+
+.breadcrumb {
+    margin: 7px 10px 0px 10px;
+}
+
+    .breadcrumb > li + li:before {
+        color: #CCCCCC;
+        content: "/ ";
+        padding: 0 5px;
+    }

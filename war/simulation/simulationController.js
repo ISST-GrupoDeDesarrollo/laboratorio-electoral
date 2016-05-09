@@ -1,6 +1,8 @@
-Laboratory.controller('simulationController',['$scope', '$http','$routeParams', '$location', '$uibModal',
-                                              function($scope,$http,$routeParams,$location,$uibModal){
-                                              		$scope.$on("checkAuth",function(){
+Laboratory.controller('simulationController',['$scope', '$http','$routeParams', '$location', '$uibModal','breadcrumbs',
+                                              function($scope,$http,$routeParams,$location,$uibModal,breadcrumbs){
+    breadcrumbs.setBreadcrumbs([breadcrumbs.createBreadcrumb("project", {projectId:$routeParams.projectId}),breadcrumbs.createBreadcrumb("simulation", {simulationId:$routeParams.simulationId})]);
+
+    $scope.$on("checkAuth",function(){
 		if(!$scope.appUser){
 			$location.path("/");
 		}

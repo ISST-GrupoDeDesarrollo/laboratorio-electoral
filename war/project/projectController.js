@@ -1,4 +1,5 @@
-Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$location','$uibModal', function($scope,$http,$routeParams,$location,$uibModal){
+Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$location','$uibModal','breadcrumbs', function($scope,$http,$routeParams,$location,$uibModal,breadcrumbs){
+	breadcrumbs.setBreadcrumbs([breadcrumbs.createBreadcrumb("project", {projectId:$routeParams.projectId})]);
 	$scope.$on("checkAuth",function(){
 		if(!$scope.appUser){
 			$location.path("/");

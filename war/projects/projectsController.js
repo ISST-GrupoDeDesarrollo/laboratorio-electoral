@@ -1,5 +1,5 @@
-Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '$location', '$uibModal',
-                                             function($scope,$http,$routeParams,$location,$uibModal){
+Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '$location', '$uibModal','breadcrumbs',
+                                             function($scope,$http,$routeParams,$location,$uibModal,breadcrumbs){
 		$scope.$on("checkAuth",function(){
 		if(!$scope.appUser){
 			$location.path("/");

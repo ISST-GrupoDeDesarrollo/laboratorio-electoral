@@ -24,12 +24,16 @@
                     <li>
                         <a data-ng-href="#/projects" data-ng-show="loggedIn">Projects</a>
                     </li>
-                    <li>
-                        <a data-ng-href="#/workgroups" data-ng-show="loggedIn">Work Groups</a>
-                    </li>
+                  
+                    <li ng-show="breadcrumbs.length>0"><ol class="breadcrumb">
+                    <li ng-repeat="breadcrumb in breadcrumbs"><a href="javascript:void(0)" ng-click="navTo(breadcrumb)">{{breadcrumb.name}}</a></li>
+                </ol></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                  <li ng-show="loggedIn" ng-click="logout()"><a href="javascript:void(0)">Logout</a></li>
+                   <li>
+                        <a data-ng-href="#/workgroups" data-ng-show="loggedIn">Work Groups</a>
+                    </li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
