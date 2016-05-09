@@ -48,4 +48,10 @@ public class DashboardDAOImpl implements DashboardDAO {
 		}
 	}
 
+	@Override
+	public DashboardMessage getDashboardMessage(Long messageId) {
+		EntityManager em = EMFService.get().createEntityManager();
+		return em.find(DashboardMessage.class, messageId);
+	}
+
 }

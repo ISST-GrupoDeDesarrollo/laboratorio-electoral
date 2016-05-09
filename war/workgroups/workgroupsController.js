@@ -1,5 +1,10 @@
 Laboratory.controller('workgroupsController', ['$scope', '$http', '$routeParams', '$location', '$uibModal', function($scope,$http,$routeParams,$location,$uibModal){
 		
+			$scope.$on("checkAuth",function(){
+		if(!$scope.appUser){
+			$location.path("/");
+		}
+	});
 	var reloadWorkgroups = function(){
 		
 			$http.get("/api/workgroups").success(function(data){
@@ -13,7 +18,9 @@ Laboratory.controller('workgroupsController', ['$scope', '$http', '$routeParams'
 					}
 				}
 				$scope.workgroups = data;
-				
+				if(!$scope.selectedWorkgroup && data.length>0){
+					$scope.selectedWorkgroup = data[0];
+				}
 				console.log(data);
 			});
 	};

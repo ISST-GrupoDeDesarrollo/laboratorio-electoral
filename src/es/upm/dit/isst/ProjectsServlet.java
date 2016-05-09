@@ -19,6 +19,7 @@ import es.upm.dit.isst.dao.UserDAOImpl;
 import es.upm.dit.isst.dao.WorkgroupDAO;
 import es.upm.dit.isst.dao.WorkgroupDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
+import es.upm.dit.isst.models.DashboardMessage;
 import es.upm.dit.isst.models.Project;
 import es.upm.dit.isst.models.Simulation;
 import es.upm.dit.isst.models.User;
@@ -69,6 +70,9 @@ public class ProjectsServlet extends HttpServlet {
 				long id = Long.parseLong(req.getParameter("id"));
 				Project project = ProjectDAOImpl.getInstance().getProject(id);
 				if (project != null) {
+					for(DashboardMessage message:project.getDashboard()){
+						message.setCreator(UserDAOImpl.getInstance().getUser(message.getCreatorUsername()));
+					}
 					Tools.sendJson(resp, project, Project.class);
 				} else {
 					resp.sendError(404);

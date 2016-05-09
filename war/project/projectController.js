@@ -1,5 +1,10 @@
 Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$location','$uibModal', function($scope,$http,$routeParams,$location,$uibModal){
-	
+	$scope.$on("checkAuth",function(){
+		if(!$scope.appUser){
+			$location.path("/");
+		}
+	});
+
 	var reloadProject = function(){
 		$http.get("/api/projects",{params: {id: $routeParams.projectId}}).success(function(data,status){
 			$scope.cleanObjectFromDatabase(data);
@@ -19,7 +24,7 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 	
 	$scope.createSimulation=function(){
 		var modalInstance = $uibModal.open({
-			animation: $scope.animationsEnabled,
+			animation: true,
 			templateUrl: 'createSimulationModal.html',
 			controller: 'CreateSimulationController',
 			resolve: {
@@ -33,6 +38,28 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 		});
 	};
 
+	$scope.addMessage = function(){
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'addMessageModal.html',
+			controller: 'addMessageController',
+			resolve: {
+			}
+		});
+
+		modalInstance.result.then(function (simulation) {
+			reloadProject();
+		}, function () {
+			console.log('Modal dismissed at: ' + new Date());
+		});
+	}
+
+	$scope.deleteMessage = function(message){
+		$http.delete("/api/messages",{params:{messageId:message.id,projectId:$routeParams.projectId}}).success(function(data,status){
+			reloadProject();
+		});
+	}
+
 	reloadProject();
 }]);
 
@@ -42,6 +69,21 @@ Laboratory.controller('CreateSimulationController', ['$scope', '$http', '$uibMod
 		$http.post("/api/simulations",{projectId:$routeParams.projectId,name:$scope.name}).success(function(data,status){
 			$uibModalInstance.close(data);
 		});
+	};
+
+	$scope.cancel = function(){
+		$uibModalInstance.dismiss('cancel');
+	};
+}]);
+
+Laboratory.controller('addMessageController', ['$scope', '$http', '$uibModalInstance','$routeParams',  function ($scope, $http, $uibModalInstance,$routeParams) {
+
+	$scope.ok = function(){
+		if($scope.addMessageForm.$valid){
+		$http.post("/api/messages",$scope.message,{params:{projectId:$routeParams.projectId}}).success(function(data,status){
+			$uibModalInstance.close(data);
+		});
+	}
 	};
 
 	$scope.cancel = function(){

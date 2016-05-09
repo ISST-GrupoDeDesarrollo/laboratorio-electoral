@@ -73,6 +73,14 @@ public class Project implements Serializable {
 	public void setReports(List<Report> reports) {
 		this.reports = reports;
 	}
+
+	public List<DashboardMessage> getDashboard() {
+		return dashboard;
+	}
+
+	public void setDashboard(List<DashboardMessage> dashboard) {
+		this.dashboard = dashboard;
+	}
 	
 	
 	

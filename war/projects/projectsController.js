@@ -1,6 +1,10 @@
 Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '$location', '$uibModal',
                                              function($scope,$http,$routeParams,$location,$uibModal){
-	
+		$scope.$on("checkAuth",function(){
+		if(!$scope.appUser){
+			$location.path("/");
+		}
+	});
 	$scope.projects = [];
 	var reloadProjects = function(){
 		$http.get("/api/workgroups").success(function(data,status){

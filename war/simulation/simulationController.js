@@ -1,5 +1,10 @@
 Laboratory.controller('simulationController',['$scope', '$http','$routeParams', '$location', '$uibModal',
                                               function($scope,$http,$routeParams,$location,$uibModal){
+                                              		$scope.$on("checkAuth",function(){
+		if(!$scope.appUser){
+			$location.path("/");
+		}
+	});
 	$scope.simulation={
 			id:$routeParams.simulationId,
 			name:"Simulacion de ejemplo",

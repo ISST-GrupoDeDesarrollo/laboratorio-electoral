@@ -53,6 +53,7 @@ Laboratory.run(['$rootScope','$http',function($rootScope,$http){
     var loadAppUser = function(){
          $http.get("/api/login").success(function(user){
             $rootScope.appUser = user;
+            $rootScope.$broadcast("checkAuth");
         });
     }
    
@@ -60,7 +61,9 @@ Laboratory.run(['$rootScope','$http',function($rootScope,$http){
         loadAppUser();
     });
 
-    loadAppUser();
+   $rootScope.$on('$routeChangeStart', function() { 
+        loadAppUser();
+    });
 }]);
 
 Laboratory.directive('fileInput', ['$parse', function($parse){
