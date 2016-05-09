@@ -1,6 +1,6 @@
 Laboratory.controller('simulationController',['$scope', '$http','$routeParams', '$location', '$uibModal','breadcrumbs',
                                               function($scope,$http,$routeParams,$location,$uibModal,breadcrumbs){
-    breadcrumbs.setBreadcrumbs([breadcrumbs.createBreadcrumb("project", {projectId:$routeParams.projectId}),breadcrumbs.createBreadcrumb("simulation", {simulationId:$routeParams.simulationId})]);
+    breadcrumbs.setBreadcrumbs([breadcrumbs.createBreadcrumb("project", {projectId:$routeParams.projectId}),breadcrumbs.createBreadcrumb("simulation", {projectId:$routeParams.projectId,simulationId:$routeParams.simulationId})]);
 
     $scope.$on("checkAuth",function(){
 		if(!$scope.appUser){
@@ -45,7 +45,7 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 	};
 	
 	var isGEOJson = function(geoJson){
-		if (geoJson.id != undefined && geoJson.type != undefined && geoJson.geometry != undefined){
+		if (geoJson.type != undefined && geoJson.geometry != undefined){
 			return true;
 		}
 		return false;
