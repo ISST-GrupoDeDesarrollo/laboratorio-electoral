@@ -1,6 +1,9 @@
 Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$location','breadcrumbs', function($scope,$http,$routeParams,$location,breadcrumbs){
     breadcrumbs.setBreadcrumbs([breadcrumbs.createBreadcrumb("project", {projectId:$routeParams.projectId}),breadcrumbs.createBreadcrumb("report", {projectId:$routeParams.projectId,reportId:$routeParams.resultId})]);
 
+
+    //MAP LOGIC
+
 	$scope.simulation={
 			id:$routeParams.reportId,
 			Report:[]
@@ -21,15 +24,44 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 			var territory= JSON.parse($scope.result.territories[name]);
 			territory.properties.name = name;
 			$scope.formed_json.features.push(territory);
-			
+
+			var party_representation_string = partyRepresentationString(congresses[n].parlamentaryGroup);
+			var party_represntation_char_data = partyRepresentationCharData(congresses[n].parlamentaryGroup);
+
+
 			$scope.dataForMap.push({
 				"name": name,
-				"value": congresses[n].localVoters
+				"localPopulation": congresses[n].localPopulation,
+				"localVoters": congresses[n].localVoters,
+				"parties": party_representation_string,
+				"parties_data": party_represntation_char_data
 			});
 		}
-		console.log($scope.dataForMap);
+		//console.log($scope.dataForMap);
 	};
 
+	/*
+	*	Auxiliar method to create String for labels
+	*/
+	var partyRepresentationString = function(array){
+		var string = "";
+		for(var n = 0; n < array.length; n++){
+			string += array[n].name +": " + array[n].deputies + " deputies<br>"
+		}
+		return string;
+	};
+
+	var partyRepresentationCharData = function(array){
+		var party_data = [];
+		for(var n = 0; n < array.length; n++){
+			party_data.push([array[n].name, array[n].deputies])
+		}
+		return party_data;
+	};
+
+	/*
+	*	Auxiliar method to update scope when downloading map
+	*/
 	var updateConfigScope = function(){
 		$scope.config.title.text = $scope.result.name;
 		createInfoStructure();
@@ -39,8 +71,18 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
             	duration: 1000
             },
             name: "Voters",
-            allowOverlap: true,
 			data: $scope.dataForMap,
+			point:{
+                	events:{
+                    	click: function(){
+                    			console.log($);
+
+		                    		$scope.graphicCongress.series[0].data = this.parties_data;
+		                    		$scope.graphicCongress.series[0].animation = {duration: 500};
+									$scope.$apply();
+                        }
+                    }
+                },
 			mapData: $scope.formed_json,
 			joinBy: ["name","name"],
 			dataLabels: {
@@ -49,9 +91,12 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
                     format: '{point.name}'
             },
             tooltip: {
-            	pointFormat: '{point.name}: {point.value} voters'
+            	pointFormat: 'Population: ' + '{point.localPopulation}' + "<br>" + 'Voters: ' + '{point.localVoters}'+ '<br>'+ '{point.parties}'
+
             }
 		}];
+		
+
 	};
 
 	var reloadResult = function(){
@@ -65,8 +110,9 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 		});
 	};
 
-	$scope.map = {};
-
+	/*
+	* Map Initializer
+	*/
 	reloadResult();
 	
 	$scope.config = {
@@ -81,4 +127,48 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
             }
         };
 
+    /*
+	*	Chart Initializer
+    */
+
+    $scope.graphicCongress = {
+       chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,
+            plotShadow: false
+        },
+        title: {
+            text: 'Parliament<br>structure',
+            align: 'center',
+            verticalAlign: 'middle',
+            y: 40
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        options:{
+        plotOptions: {
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white',
+                        textShadow: '0px 1px 2px black'
+                    }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%']
+            }
+        }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Parliament',
+            innerSize: '50%',
+            data: []
+        }]
+    };
 }]);
