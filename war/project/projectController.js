@@ -1,15 +1,21 @@
 Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$location','$uibModal', function($scope,$http,$routeParams,$location,$uibModal){
 	
-	$http({
-		method: 'GET',
-		url: '/api/projects',
-		headers: {'Content-Type': 'application/json'},
-		params: {id: $routeParams.projectId}
-	}).success(function(dataReturned){
-		$scope.cleanObjectFromDatabase(dataReturned);
-		$scope.project = dataReturned;
-	}).error(function(data, status){
-	});
+	var reloadProject = function(){
+		$http.get("/api/projects",{params: {id: $routeParams.projectId}}).success(function(data,status){
+			$scope.cleanObjectFromDatabase(data);
+			$scope.project = data;
+		});
+	}
+
+	$scope.openSimulation = function(simulation){
+		$location.path("/projects/"+$routeParams.projectId+"/simulations/"+simulation.id);
+	}
+
+	$scope.deleteSimulation = function(simulation){
+		$http.delete("/api/simulations",{params:{simulation:simulation.id,projectId:$routeParams.projectId}}).success(function(data,status){
+			reloadProject();
+		});
+	}
 	
 	$scope.createSimulation=function(){
 		var modalInstance = $uibModal.open({
@@ -27,7 +33,7 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 		});
 	};
 
-
+	reloadProject();
 }]);
 
 Laboratory.controller('CreateSimulationController', ['$scope', '$http', '$uibModalInstance','$routeParams',  function ($scope, $http, $uibModalInstance,$routeParams) {

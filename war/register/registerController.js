@@ -18,6 +18,7 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 	            })
 				.success(function(data){
 					$location.path("/projects");
+					  $scope.$emit("loginChanged");
 				}).error(function(data, status){
 					if(status===403){
 						alert("The username is in use");

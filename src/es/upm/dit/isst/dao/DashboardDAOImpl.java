@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import es.upm.dit.isst.models.Dashboard;
+import es.upm.dit.isst.models.DashboardMessage;
 
 public class DashboardDAOImpl implements DashboardDAO {
 
@@ -18,7 +18,7 @@ public class DashboardDAOImpl implements DashboardDAO {
 	}
 	
 	@Override
-	public Dashboard createDashboard(Dashboard newDashboard) {
+	public DashboardMessage createDashboard(DashboardMessage newDashboard) {
 		EntityManager em = EMFService.get().createEntityManager();
 		em.getTransaction().begin();
 		em.persist(newDashboard);
@@ -28,16 +28,16 @@ public class DashboardDAOImpl implements DashboardDAO {
 	}
 
 	@Override
-	public List<Dashboard> getDashboards() {
+	public List<DashboardMessage> getDashboards() {
 		EntityManager em = EMFService.get().createEntityManager();
 		Query q = em.createQuery("select d from Dashboard d");
-		List<Dashboard> dashboards = q.getResultList();
+		List<DashboardMessage> dashboards = q.getResultList();
 		em.close();
 		return dashboards;
 	}
 
 	@Override
-	public void deleteDashboard(Dashboard dashboardToDelete) {
+	public void deleteDashboard(DashboardMessage dashboardToDelete) {
 		EntityManager em = EMFService.get().createEntityManager();
 		try{
 			em.getTransaction().begin();

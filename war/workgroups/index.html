@@ -47,7 +47,8 @@
                     </div>
                     </div>
 				</div>
-				<button class="pull-right btn btn-success" ng-click="addMember(selectedWorkgroup)">Add member</button>
+				<button class="pull-right btn btn-success" ng-click="addMember(selectedWorkgroup)" ng-show="selectedWorkgroup.creator===appUser.username">Add member</button>
+				<div class="clearfix"></div>
 			</div>
 			</div>
 		</article>

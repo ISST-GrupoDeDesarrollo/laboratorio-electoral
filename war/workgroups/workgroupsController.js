@@ -1,8 +1,7 @@
 Laboratory.controller('workgroupsController', ['$scope', '$http', '$routeParams', '$location', '$uibModal', function($scope,$http,$routeParams,$location,$uibModal){
 		
 	var reloadWorkgroups = function(){
-		$http.get("/api/login").success(function(user){
-			$scope.appUser = user;
+		
 			$http.get("/api/workgroups").success(function(data){
 				$scope.cleanObjectFromDatabase(data);
 				for (var i = data.length - 1; i >= 0; i--) {
@@ -17,7 +16,6 @@ Laboratory.controller('workgroupsController', ['$scope', '$http', '$routeParams'
 				
 				console.log(data);
 			});
-		});
 	};
 
 	$scope.addWorkgroup = function(){

@@ -28,7 +28,7 @@ Laboratory.config(['$routeProvider',function ($routeProvider) { //Configuro el p
     }).otherwise({redirectTo: '/'});
 }]);
 
-Laboratory.run(['$rootScope',function($rootScope){
+Laboratory.run(['$rootScope','$http',function($rootScope,$http){
     $rootScope.cleanObjectFromDatabase = function(obj){
         for(attr in obj){
             if(attr === "jdoDetachedState"){
@@ -49,6 +49,18 @@ Laboratory.run(['$rootScope',function($rootScope){
             }
         }
     }
+
+    var loadAppUser = function(){
+         $http.get("/api/login").success(function(user){
+            $rootScope.appUser = user;
+        });
+    }
+   
+    $rootScope.$on("loginChanged",function(){
+        loadAppUser();
+    });
+
+    loadAppUser();
 }]);
 
 Laboratory.directive('fileInput', ['$parse', function($parse){

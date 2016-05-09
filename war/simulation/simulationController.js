@@ -162,7 +162,7 @@ Laboratory.controller('modalController',['$scope', '$http','$routeParams', '$loc
 			url: '/api/reports',
 			data:{ name: $scope.nameReport, method: $scope.methods.defaultvalue.value },
 			headers: {'Content-Type': 'application/json'},
-			params: {simulation: $routeParams.simulationId}
+			params: {simulation: $routeParams.simulationId,projectId:$routeParams.projectId}
 		}).success(function(dataReturned){
 			$scope.cleanObjectFromDatabase(dataReturned);
 			$uibModalInstance.close(dataReturned);

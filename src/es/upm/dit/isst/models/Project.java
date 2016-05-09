@@ -30,7 +30,11 @@ public class Project implements Serializable {
     
     @OneToMany(cascade = CascadeType.REMOVE)
     @Unowned
-    private List<Dashboard> dashboards = new ArrayList<>();
+    private List<Report> reports = new ArrayList<>();
+    
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @Unowned
+    private List<DashboardMessage> dashboard = new ArrayList<>();
     
     private Date creationDate;
     
@@ -61,5 +65,15 @@ public class Project implements Serializable {
 	public void setDate(Date date){
 		this.creationDate = date;
 	}
+
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
+	}
+	
+	
 	
 }

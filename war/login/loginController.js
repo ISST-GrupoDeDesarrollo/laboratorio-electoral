@@ -6,6 +6,7 @@ Laboratory.controller('loginController', ['$scope', '$http','$routeParams', '$lo
 			password: $scope.contrasena
 		}).success(function(data){
 			$location.path("/projects");
+			  $scope.$emit("loginChanged");
 		}).error(function(data, status){
 			alert("Wrong username or password");
 		});

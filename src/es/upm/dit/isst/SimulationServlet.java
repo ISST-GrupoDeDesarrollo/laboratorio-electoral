@@ -74,6 +74,23 @@ public class SimulationServlet extends HttpServlet {
 			resp.sendError(400);
 		}
 	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Long simulationId = Long.parseLong(req.getParameter("simulation"));
+		Long projectId = Long.parseLong(req.getParameter("projectId"));
+		
+		Simulation simulacion = SimulationDAOImpl.getInstance().getSimulation(simulationId);
+		Project project = ProjectDAOImpl.getInstance().getProject(projectId);
+		
+		if(simulacion!=null && project!=null&&project.getSimulations().contains(simulacion)){
+			project.getSimulations().remove(simulacion);
+			ProjectDAOImpl.getInstance().updateProject(project);
+			resp.setStatus(200);
+		}else{
+			resp.sendError(400);
+		}
+	}
 
 	public static class RequestWrapper {
 		protected String name;

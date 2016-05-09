@@ -19,17 +19,37 @@
 <div class="row">
 	<div class="col-md-4">
 		<h3>Simulations</h3>
-		 <div class="panel-group">
 			<div ng-repeat="simulation in project.simulations">
 				 <div class="panel panel-default">
-				      <div class="panel-heading">Panel Header</div>
-				      <div class="panel-body">Panel Content</div>
+				      <div class="panel-heading"><a href="javascript:void(0)" ng-click="openSimulation(simulation)">{{simulation.name}}</a></div>
+				      <div class="panel-body">
+				      	<p>Creator: {{simulation.creator}}</p>
+				      	<p>Creation date: {{simulation.createDate}}</p>
+				      	<p>Circumscriptions: {{simulation.circumscriptions?simulation.circumscriptions.length:0}}</p>
+				      </div>
+				       <div class="panel-footer" ng-show="simulation.creator===appUser.username">
+				       	<button class="btn btn-danger pull-right" ng-click="deleteSimulation(simulation)">Delete</button>
+				       	<div class="clearfix"></div>
+				       </div>
    				 </div>
-			</div>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<h3>Reports</h3>
+			<div ng-repeat="report in project.reports">
+				 <div class="panel panel-primary">
+				      <div class="panel-heading"><a href="javascript:void(0)" ng-click="openReport(report)">{{report.name}}</a></div>
+				      <div class="panel-body">
+				      	<p>Creator: {{report.creator}}</p>
+				      	<p>Simulation: {{report.simulation}}</p>
+				      	<p>Creation date: {{report.createDate}}</p>
+				      </div>
+				       <div class="panel-footer"  ng-show="report.creator===appUser.username">
+				       		<button class="btn btn-danger pull-right">Delete</button>
+				       	<div class="clearfix"></div>
+				       </div>
+   				 </div>
+			</div>
 	</div>
 	<div class="col-md-4">
 		<h3>Messages</h3>

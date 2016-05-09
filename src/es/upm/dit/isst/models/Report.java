@@ -2,6 +2,7 @@ package es.upm.dit.isst.models;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,12 @@ public class Report {
 	private Long id;
 	
 	private String name;
+	
+	private String creator;
+	
+	private String simulation;
+	
+	private Date createDate;
 	
 	//Necesito guardar todos los congresos por cada territorio
 	@OneToMany(cascade=CascadeType.ALL)
@@ -87,6 +94,36 @@ public class Report {
 
 	public void setTerritories(Map<String,String> territories) {
 		this.territories = territories;
+	}
+
+
+	public String getCreator() {
+		return creator;
+	}
+
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+
+	public String getSimulation() {
+		return simulation;
+	}
+
+
+	public void setSimulation(String simulation) {
+		this.simulation = simulation;
+	}
+
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	
