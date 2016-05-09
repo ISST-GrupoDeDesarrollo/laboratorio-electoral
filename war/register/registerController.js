@@ -1,6 +1,8 @@
 Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', '$location', function($scope,$http,$routeParams,$location){
-		
+
 	$scope.enviarRegistro = function(){
+		
+		//if($scope.password)  ng-click="enviarRegistro()"
 			$http.get("/api/register/geturl").success(function(data,status){
 	            $scope.registerUrl = data.url;
 	            
