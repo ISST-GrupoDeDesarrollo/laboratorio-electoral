@@ -154,12 +154,18 @@ Laboratory.controller('simulationController',['$scope', '$http','$routeParams', 
 Laboratory.controller('modalController',['$scope', '$http','$routeParams', '$location', '$uibModal', '$uibModalInstance',
                                          function($scope,$http,$routeParams,$location,$uibModal, $uibModalInstance){
    
+	$scope.methods = "Hont Method";
 	
 	$scope.ok = function (simulation) {
+		
+		var method = "dhondt";
+		if ($scope.methods == "Saints Method")
+			method = "saint";
+		
 		$http({
 			method: 'POST',
 			url: '/api/reports',
-			data:{ name: $scope.nameReport, method: $scope.methods},
+			data:{ name: $scope.nameReport, method: method},
 			headers: {'Content-Type': 'application/json'},
 			params: {simulation: $routeParams.simulationId,projectId:$routeParams.projectId}
 		}).success(function(dataReturned){
@@ -174,8 +180,11 @@ Laboratory.controller('modalController',['$scope', '$http','$routeParams', '$loc
 		});
 	};
 
+	
+	
 	$scope.cancel = function () {
 	   $uibModalInstance.dismiss("Canceled");
 	};
-	$scope.methods = "Hont Method";
+	
+
 }]);
