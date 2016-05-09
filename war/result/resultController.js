@@ -75,7 +75,9 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 			point:{
                 	events:{
                     	click: function(){
-                    			console.log($);
+                    				$scope.graphicCongress.series[0].data = [];
+                    				$scope.graphicCongress.series[0].animation = {};
+                    				$scope.$apply();
 
 		                    		$scope.graphicCongress.series[0].data = this.parties_data;
 		                    		$scope.graphicCongress.series[0].animation = {duration: 500};
