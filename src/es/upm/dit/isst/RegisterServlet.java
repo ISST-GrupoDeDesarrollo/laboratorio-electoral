@@ -29,8 +29,6 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		
-		System.out.println(session.getAttribute("user"));
-		
 		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
 		List<BlobKey> blobKeys = blobs.get("profilePic");
@@ -40,29 +38,36 @@ public class RegisterServlet extends HttpServlet {
 		
 			String username = req.getParameter("username");
 			String password = req.getParameter("password");
+			String password2 = req.getParameter("password2");
 			String completeName = req.getParameter("completeName");
 			String role = req.getParameter("role");
 			String email = req.getParameter("email");
 			
 	        if(username!=null&&password!=null&&completeName!=null&&role!=null&&email!=null&&profilePicKey!=null){
-	        	if(UserDAOImpl.getInstance().getUser(username)==null){
-	        		int salt = (int) (Math.random()*Integer.MAX_VALUE);
-	        		String hash = Tools.sha256(password+salt);
-	        		
-	        		User newUser = new User(username, email, salt, hash, completeName, role,profilePicKey);
-	        		Workgroup personal = new Workgroup("My own projects", newUser.getUsername(), true);
-	        		newUser.getWorkgroups().add(personal);
-	        		personal.getMembers().add(newUser);
-	        		WorkgroupDAOImpl.getInstance().createWorkgroup(personal);
-	        		UserDAOImpl.getInstance().createUser(newUser);
-	        		System.out.println("New user created, username: "+username);
-	        		
-	        		session.setAttribute("user", username);
-	        		
-	        		resp.setStatus(200);
-	        	}else{
+	        	
+	        	if(!password.equals(password2)){
 	        		resp.sendError(403);
-	        	}
+	        	}else{
+	        	
+		        	if(UserDAOImpl.getInstance().getUser(username)==null){
+		        		int salt = (int) (Math.random()*Integer.MAX_VALUE);
+		        		String hash = Tools.sha256(password+salt);
+		        		
+		        		User newUser = new User(username, email, salt, hash, completeName, role,profilePicKey);
+		        		Workgroup personal = new Workgroup("My own projects", newUser.getUsername(), true);
+		        		newUser.getWorkgroups().add(personal);
+		        		personal.getMembers().add(newUser);
+		        		WorkgroupDAOImpl.getInstance().createWorkgroup(personal);
+		        		UserDAOImpl.getInstance().createUser(newUser);
+		        		System.out.println("New user created, username: "+username);
+		        		
+		        		session.setAttribute("user", username);
+		        		
+		        		resp.setStatus(200);
+		        	}else{
+		        		resp.sendError(403);
+		        	}
+	        	}	
 	        }else{
 	        	resp.sendError(400);
 	        }
