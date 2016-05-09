@@ -39,6 +39,9 @@ public class ProjectDAOImpl implements ProjectDAO {
 			project = (Project)(projects.get(0));
 		if(project!=null){
 			List<Simulation> simulations = project.getSimulations();
+			for(Simulation simulation:simulations){
+				simulation.getCircunscriptions();
+			}
 			project.getDashboard();
 			project.getReports();
 		}
