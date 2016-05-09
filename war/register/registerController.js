@@ -1,6 +1,8 @@
 Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', '$location', function($scope,$http,$routeParams,$location){
-		
+
 	$scope.enviarRegistro = function(){
+		
+		//if($scope.password)  ng-click="enviarRegistro()"
 			$http.get("/api/register/geturl").success(function(data,status){
 	            $scope.registerUrl = data.url;
 	            
@@ -8,6 +10,7 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 	            formData.append('profilePic',$scope.files[0])
         		formData.append('username', $scope.usuario)
         		formData.append('password', $scope.password)
+        		formData.append('password2', $scope.password2)
         		formData.append('completeName', $scope.nombreCompleto)
         		formData.append('role', $scope.rol)
         		formData.append('email',$scope.email);
@@ -21,7 +24,7 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 					  $scope.$emit("loginChanged");
 				}).error(function(data, status){
 					if(status===403){
-						alert("The username is in use");
+						alert("The username is in use or the passwords doesn't agree");
 					}
 				}); 
 	        });
