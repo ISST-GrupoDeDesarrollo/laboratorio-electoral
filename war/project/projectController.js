@@ -60,6 +60,16 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 		});
 	}
 
+	$scope.openReport = function(report){
+		$location.path("/projects/"+$routeParams.projectId+"/results/"+report.id);
+	}
+
+	$scope.deleteReport = function(report){
+		$http.delete("/api/reports",{params:{reportId:report.id,projectId:$routeParams.projectId}}).success(function(data,status){
+			reloadProject();
+		});
+	}
+
 	reloadProject();
 }]);
 

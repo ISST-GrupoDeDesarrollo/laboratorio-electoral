@@ -10,11 +10,13 @@ import javax.servlet.http.*;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
+import es.upm.dit.isst.dao.DashboardDAOImpl;
 import es.upm.dit.isst.dao.ProjectDAOImpl;
 import es.upm.dit.isst.dao.ReportDAO;
 import es.upm.dit.isst.dao.ReportDAOImpl;
 import es.upm.dit.isst.dao.SimulationDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
+import es.upm.dit.isst.models.DashboardMessage;
 import es.upm.dit.isst.models.Project;
 import es.upm.dit.isst.models.Report;
 import es.upm.dit.isst.models.Simulation;
@@ -42,6 +44,20 @@ public class ReportsServlet extends HttpServlet{
 			}
 		}
 	}
+	
+public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{
+	Long reportId =Long.parseLong(req.getParameter("reportId"));
+	Long projectId = Long.parseLong(req.getParameter("projectId"));
+	Project project = ProjectDAOImpl.getInstance().getProject(projectId);
+	Report report = ReportDAOImpl.getInstance().selectById(reportId);
+	if(report!=null&&project!=null&&project.getReports().contains(report)){
+		project.getReports().remove(report);
+		ProjectDAOImpl.getInstance().updateProject(project);
+		resp.setStatus(200);
+	}else{
+		resp.sendError(400);
+	}
+}
 	
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{

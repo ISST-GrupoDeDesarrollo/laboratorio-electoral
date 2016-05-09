@@ -64,7 +64,7 @@
 	<div class="col-md-4">
 		<h3>Reports</h3>
 			<div ng-repeat="report in project.reports">
-				 <div class="panel panel-primary">
+				 <div class="panel panel-success">
 				      <div class="panel-heading"><a href="javascript:void(0)" ng-click="openReport(report)">{{report.name}}</a></div>
 				      <div class="panel-body">
 				      	<p>Creator: {{report.creator}}</p>
@@ -72,7 +72,8 @@
 				      	<p>Creation date: {{report.createDate}}</p>
 				      </div>
 				       <div class="panel-footer"  ng-show="report.creator===appUser.username">
-				       		<button class="btn btn-danger pull-right">Delete</button>
+				       		<button class="btn btn-danger pull-right" ng-click="deleteReport(report)">Delete</button>
+				       		<button class="btn btn-primary pull-right" style="margin-right: 10px" ng-click="openReport(report)">View</button>
 				       	<div class="clearfix"></div>
 				       </div>
    				 </div>
