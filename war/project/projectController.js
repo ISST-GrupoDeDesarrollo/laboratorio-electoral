@@ -12,11 +12,12 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 			$scope.project = data;
 		});
 	}
-	reloadProject();
+
+	
 	$scope.openSimulation = function(simulation){
 		$location.path("/projects/"+$routeParams.projectId+"/simulations/"+simulation.id);
 	}
-
+	
 	$scope.deleteSimulation = function(simulation){
 		$http.delete("/api/simulations",{params:{simulation:simulation.id,projectId:$routeParams.projectId}}).success(function(data,status){
 			reloadProject();
