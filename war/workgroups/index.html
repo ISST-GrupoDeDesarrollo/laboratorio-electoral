@@ -36,22 +36,15 @@
                         
                         <div class="panel-body">
                         
-                            <div class="col-xs-6" ng-if="user.profilePicBlobKey != null">
-     						<img class="img-responsive" ng-src="/api/getblob?blobkey={{user.profilePicBlobKey}}">
+                            <div class="col-xs-6">
+     						<img class="img-responsive" ng-src="{{user.profilePicBlobKey?'/api/getblob?blobkey='+user.profilePicBlobKey:'../assets/ejemplo.jpg'}}">
+                            </div>
                             <div class="col-xs-6">
                             	<p>{{user.username}}</p>
                             	<p>{{user.role}}</p>
                             </div>
                         </div>
-                        
-                        <div class="col-xs-6" ng-if="user.profilePicBlobKey == null">
-						<img class="img-responsive" ng-src="../assets/ejemplo.jpg">
-                            <div class="col-xs-6">
-                            	<p>{{user.username}}</p>
-                            	<p>{{user.role}}</p>
-                            </div>
-                        </div>
-
+    
                          <div class="panel-footer" ng-show="selectedWorkgroup.creator===appUser.username">
                             <button class="pull-right btn btn-danger" ng-click="removeUser(selectedWorkgroup,user)">Remove</button>
                             <div class="clearfix"></div>
