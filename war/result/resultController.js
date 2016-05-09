@@ -19,6 +19,7 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 			var name = congresses[n].locationName;
 			$scope.result.territories[name].name = name;
 			var territory= JSON.parse($scope.result.territories[name]);
+			territory.properties.name = name;
 			$scope.formed_json.features.push(territory);
 			
 			$scope.dataForMap.push({
@@ -37,16 +38,18 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 			animation: {
             	duration: 1000
             },
+            name: "Voters",
+            allowOverlap: true,
 			data: $scope.dataForMap,
 			mapData: $scope.formed_json,
 			joinBy: ["name","name"],
 			dataLabels: {
                     enabled: true,
-                    color: '#222222',
+                    color: '#332222',
                     format: '{point.name}'
             },
             tooltip: {
-            	pointFormat: '{point.name}: {point.value}/km²'
+            	pointFormat: '{point.name}: {point.value} voters'
             }
 		}];
 	};
