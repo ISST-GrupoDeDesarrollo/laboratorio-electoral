@@ -143,6 +143,15 @@ hr.blue{
 	
 }
 
+.projectContainer .description{
+    padding-top: 20px;
+}
+
+.projectContainer .header{
+   padding-bottom: 20px;
+}
+
+
 .workgroups{
   
 }
@@ -161,3 +170,8 @@ hr.blue{
 .navbar{
     margin-bottom: 0px;
 }
+
+.center-text{
+     text-align: center;
+}
+

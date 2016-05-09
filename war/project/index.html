@@ -1,12 +1,43 @@
 <div data-ng-include="'/navigationBars/navigationBar.html'"></div>
 
-<div ng-controller="projectController" class="generic-container projects">
+<div ng-controller="projectController" class="projectContainer container">
 
-	<div class="text-center">
-		<h1>Project X</h1>
-	</div>
-	<hr>
+<div class="header">
 	<div class="row">
+
+		<div class="col-md-6 ">
+			<h1>{{project.name}}</h1>
+			<h4>Creation date: {{project.creationDate}}</h4>
+		</div>
+		<div class="col-md-6 description">
+			<h4>Description</h4>
+			<textarea class="form-control" rows="5"  ng-model="project.description" readonly="true"></textarea>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<h3>Simulations</h3>
+		 <div class="panel-group">
+			<div ng-repeat="simulation in project.simulations">
+				 <div class="panel panel-default">
+				      <div class="panel-heading">Panel Header</div>
+				      <div class="panel-body">Panel Content</div>
+   				 </div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<h3>Reports</h3>
+	</div>
+	<div class="col-md-4">
+		<h3>Messages</h3>
+	</div>
+</div>
+
+	<div class="row">
+
 	<div class="col-md-2 col-centered">
 	<input ng-model="searchSimulation" type="text" 
 		class="reasonable-size-for-input form-control" 

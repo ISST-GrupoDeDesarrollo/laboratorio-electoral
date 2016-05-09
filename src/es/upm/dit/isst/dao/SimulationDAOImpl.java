@@ -26,11 +26,11 @@ public class SimulationDAOImpl implements SimulationDAO {
 	}
 	
 	@Override
-	public Simulation createSimulation(String simulname, String creator, Date createDate, String team) {
+	public Simulation createSimulation(String simulname, String creator, Date createDate) {
 		Simulation simul = null;
 		EntityManager em = EMFService.get().createEntityManager();
 		//TODO Neded some logic before creation?
-		simul = new  Simulation(simulname, creator, createDate, team);
+		simul = new  Simulation(simulname, creator, createDate);
 		em.getTransaction().begin();
 		em.persist(simul);
 		em.getTransaction().commit();
@@ -88,17 +88,6 @@ public class SimulationDAOImpl implements SimulationDAO {
 		EntityManager em = EMFService.get().createEntityManager();
 		Query q = em.createQuery("select t from Simulation t where t.creator = :creator");
 		q.setParameter("creator", creator);
-		List<Simulation> res = null;
-		res = q.getResultList();
-		em.close();
-		return res;
-	}
-	
-	@Override
-	public List<Simulation> getByTeam(Team team) {
-		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("select t from Simulation t where t.creator = :team");
-		q.setParameter("team", team);
 		List<Simulation> res = null;
 		res = q.getResultList();
 		em.close();

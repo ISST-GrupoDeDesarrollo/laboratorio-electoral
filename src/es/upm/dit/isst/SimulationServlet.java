@@ -41,12 +41,10 @@ public class SimulationServlet extends HttpServlet {
 
 		String simulname = rqWrap.name;
 		String creator = (String) session.getAttribute("user");
-		String team = rqWrap.team;
 		Date createDate = new Date();
 
-		if (simulname != null && creator != null && team != null) {
-			Simulation simulation = SimulationDAOImpl.getInstance().createSimulation(simulname, creator, createDate,
-					team);
+		if (simulname != null && creator != null ) {
+			Simulation simulation = SimulationDAOImpl.getInstance().createSimulation(simulname, creator, createDate);
 			resp.setStatus(200);
 			Tools.sendJson(resp, simulation, Simulation.class);
 		} else {
@@ -72,8 +70,7 @@ public class SimulationServlet extends HttpServlet {
 
 	public static class RequestWrapper {
 		protected String name;
-		protected String creator;
-		protected String team;
+		protected Long projectId;
 		protected String date;
 	}
 

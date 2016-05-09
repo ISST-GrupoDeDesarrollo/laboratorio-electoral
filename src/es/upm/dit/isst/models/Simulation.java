@@ -37,18 +37,16 @@ public class Simulation implements Serializable {
 	private String name;
 	private String creator;
 	private Date createDate;
-	private String team;
 
 	@OneToMany(cascade = CascadeType.PERSIST)
 	@Unowned
 	private List<Circumscription> Circunscriptions = new ArrayList<Circumscription>();
 
-	public Simulation(String simulname, String creator, Date createDate, String team) {
+	public Simulation(String simulname, String creator, Date createDate) {
 		super();
 		this.name = simulname;
 		this.creator = creator;
 		this.createDate = createDate;
-		this.team = team;
 	}
 
 	public String getCreator() {
@@ -61,10 +59,6 @@ public class Simulation implements Serializable {
 
 	public Date getCreateDate() {
 		return this.createDate;
-	}
-
-	public String getTeam() {
-		return this.team;
 	}
 
 	public Long getId() {

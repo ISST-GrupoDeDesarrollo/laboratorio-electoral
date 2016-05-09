@@ -17,7 +17,7 @@ public class SimulationTest {
 
 	@Test
 	public void testSimulateDhondt() {
-		Simulation simulation = new Simulation("Test", "", new Date(), "");
+		Simulation simulation = new Simulation("Test", "", new Date());
 		Circumscription circumscription1 = new Circumscription();
 		circumscription1.getVotingIntents().add(new VotingIntent(new Party("Partido A"),340000));
 		circumscription1.getVotingIntents().add(new VotingIntent(new Party("Partido B"),280000));
@@ -54,7 +54,7 @@ public class SimulationTest {
 	
 	@Test
 	public void testSimulateSaint() {
-		Simulation simulation = new Simulation("Test", "", new Date(), "");
+		Simulation simulation = new Simulation("Test", "", new Date());
 		Circumscription circumscription1 = new Circumscription();
 		circumscription1.getVotingIntents().add(new VotingIntent(new Party("Partido A"),340000));
 		circumscription1.getVotingIntents().add(new VotingIntent(new Party("Partido B"),280000));
