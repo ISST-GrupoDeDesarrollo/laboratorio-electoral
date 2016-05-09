@@ -10,8 +10,10 @@ import javax.servlet.http.*;
 
 import com.google.gson.Gson;
 
+import es.upm.dit.isst.dao.ProjectDAOImpl;
 import es.upm.dit.isst.dao.SimulationDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
+import es.upm.dit.isst.models.Project;
 import es.upm.dit.isst.models.Simulation;
 
 @SuppressWarnings("serial")
@@ -41,10 +43,15 @@ public class SimulationServlet extends HttpServlet {
 
 		String simulname = rqWrap.name;
 		String creator = (String) session.getAttribute("user");
+		Project project = ProjectDAOImpl.getInstance().getProject(rqWrap.projectId);
+		
 		Date createDate = new Date();
 
-		if (simulname != null && creator != null ) {
-			Simulation simulation = SimulationDAOImpl.getInstance().createSimulation(simulname, creator, createDate);
+		if (Tools.validString(simulname)&& Tools.validString(creator)&&project!=null) {
+			
+			Simulation simulation = new Simulation(simulname, creator, createDate);
+			project.getSimulations().add(simulation);
+			ProjectDAOImpl.getInstance().updateProject(project);
 			resp.setStatus(200);
 			Tools.sendJson(resp, simulation, Simulation.class);
 		} else {

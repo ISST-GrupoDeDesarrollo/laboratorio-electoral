@@ -30,10 +30,10 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 
 }]);
 
-Laboratory.controller('CreateSimulationController', ['$scope', '$http', '$uibModalInstance',  function ($scope, $http, $uibModalInstance) {
+Laboratory.controller('CreateSimulationController', ['$scope', '$http', '$uibModalInstance','$routeParams',  function ($scope, $http, $uibModalInstance,$routeParams) {
 
 	$scope.ok = function(){
-		$http.post("/api/simulations",{team:"TODO",name:$scope.name}).success(function(data,status){
+		$http.post("/api/simulations",{projectId:$routeParams.projectId,name:$scope.name}).success(function(data,status){
 			$uibModalInstance.close(data);
 		});
 	};

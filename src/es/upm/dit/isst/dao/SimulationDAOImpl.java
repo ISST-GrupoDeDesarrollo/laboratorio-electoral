@@ -26,11 +26,9 @@ public class SimulationDAOImpl implements SimulationDAO {
 	}
 	
 	@Override
-	public Simulation createSimulation(String simulname, String creator, Date createDate) {
-		Simulation simul = null;
+	public Simulation createSimulation(Simulation simul) {
 		EntityManager em = EMFService.get().createEntityManager();
 		//TODO Neded some logic before creation?
-		simul = new  Simulation(simulname, creator, createDate);
 		em.getTransaction().begin();
 		em.persist(simul);
 		em.getTransaction().commit();
