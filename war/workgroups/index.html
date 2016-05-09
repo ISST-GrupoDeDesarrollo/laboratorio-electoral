@@ -33,13 +33,25 @@
                         <div class="panel-heading">
                             {{user.completeName}} {{user.username===selectedWorkgroup.creator?"(Creator)":""}}
                         </div>
+                        
                         <div class="panel-body">
-                            <div class="col-xs-6"><img class="img-responsive" ng-src="/api/getblob?blobkey={{user.profilePicBlobKey}}"></div>
+                        
+                            <div class="col-xs-6" ng-if="user.profilePicBlobKey != null">
+     						<img class="img-responsive" ng-src="/api/getblob?blobkey={{user.profilePicBlobKey}}">
                             <div class="col-xs-6">
                             	<p>{{user.username}}</p>
                             	<p>{{user.role}}</p>
                             </div>
                         </div>
+                        
+                        <div class="col-xs-6" ng-if="user.profilePicBlobKey == null">
+						<img class="img-responsive" ng-src="../assets/ejemplo.jpg">
+                            <div class="col-xs-6">
+                            	<p>{{user.username}}</p>
+                            	<p>{{user.role}}</p>
+                            </div>
+                        </div>
+
                          <div class="panel-footer" ng-show="selectedWorkgroup.creator===appUser.username">
                             <button class="pull-right btn btn-danger" ng-click="removeUser(selectedWorkgroup,user)">Remove</button>
                             <div class="clearfix"></div>

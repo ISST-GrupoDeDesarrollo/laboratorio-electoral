@@ -7,7 +7,8 @@ Laboratory.controller('registerController', ['$scope', '$http', '$routeParams', 
 	            $scope.registerUrl = data.url;
 	            
 	            var formData = new FormData();
-	            formData.append('profilePic',$scope.files[0])
+	            if ($scope.files != null)
+	            	formData.append('profilePic',$scope.files[0])
         		formData.append('username', $scope.usuario)
         		formData.append('password', $scope.password)
         		formData.append('password2', $scope.password2)

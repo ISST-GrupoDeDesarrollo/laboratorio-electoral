@@ -1,11 +1,13 @@
 package es.upm.dit.isst;
 
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
+
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -32,9 +34,10 @@ public class RegisterServlet extends HttpServlet {
 		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
 		List<BlobKey> blobKeys = blobs.get("profilePic");
-		
-		if(blobKeys!=null){
-			String profilePicKey = blobKeys.size()>0? blobKeys.get(0).getKeyString() : null;
+		 
+		String profilePicKey = null;
+		 if(blobKeys!=null)
+			profilePicKey = blobKeys.size()>0? blobKeys.get(0).getKeyString() : null;
 		
 			String username = req.getParameter("username");
 			String password = req.getParameter("password");
@@ -43,7 +46,7 @@ public class RegisterServlet extends HttpServlet {
 			String role = req.getParameter("role");
 			String email = req.getParameter("email");
 			
-	        if(username!=null&&password!=null&&completeName!=null&&role!=null&&email!=null&&profilePicKey!=null){
+	        if(username!=null&&password!=null&&completeName!=null&&role!=null&&email!=null){
 	        	
 	        	if(!password.equals(password2)){
 	        		resp.sendError(403);
@@ -71,9 +74,7 @@ public class RegisterServlet extends HttpServlet {
 	        }else{
 	        	resp.sendError(400);
 	        }
-        }else{
-        	resp.sendError(400);
-        }
+       
 	}
 	
 }
