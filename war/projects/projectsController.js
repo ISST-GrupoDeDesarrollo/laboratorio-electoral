@@ -37,7 +37,7 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 		
 		modalInstance.result.then(
 			function(projectCreated){
-				$scope.goToProject(projectCreated)
+				$scope.goToProject(projectCreated.id)
 			}, function(){
 				console.log("cancelado");
 			}
@@ -45,8 +45,8 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 	}
 	
 	
-	$scope.goToProject = function(projectSelected){
-		$location.path("/projects/" + projectSelected);
+	$scope.goToProject = function(projectSelectedId){
+		$location.path("/projects/" + projectSelectedId);
 	}
 
 	$scope.deleteProject = function(projectSelected){
@@ -63,6 +63,7 @@ Laboratory.controller('projectsController', ['$scope', '$http','$routeParams', '
 
 Laboratory.controller('createProjectController', ['$scope', '$http', '$uibModalInstance', function($scope, $http, $uibModalInstance){
 	
+	console.log("deberia entrar aqui");
 	$http.get("/api/workgroups").success(function(data,status){
 		
 		$scope.cleanObjectFromDatabase(data);
