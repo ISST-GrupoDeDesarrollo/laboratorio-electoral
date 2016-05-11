@@ -3,12 +3,14 @@ package es.upm.dit.isst;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
+import com.google.gson.reflect.TypeToken;
 
 import es.upm.dit.isst.dao.DashboardDAOImpl;
 import es.upm.dit.isst.dao.ProjectDAOImpl;
@@ -42,6 +44,26 @@ public class ReportsServlet extends HttpServlet{
 			} catch (NumberFormatException e) {
 				resp.sendError(400);
 			}
+		}
+		else{
+			
+			try {
+				
+				ReportDAO reported = ReportDAOImpl.getInstance();
+				List<Report> rep = reported.selectAll();
+				
+			if (rep != null) {
+			
+				Tools.sendJson(resp, rep, new TypeToken<List<Report>>() {
+				}.getType());
+				
+			} else {
+				resp.sendError(500);
+			}
+		} catch (NumberFormatException e) {
+			resp.sendError(400);
+		}
+			
 		}
 	}
 	

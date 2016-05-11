@@ -68,6 +68,15 @@ public class ReportDAOImpl implements ReportDAO{
 		em.close();
 		return res;
 	}
+
+	@Override
+	public List<Report> selectAll() {
+		EntityManager em = EMFService.get().createEntityManager();
+		Query q = em.createQuery("SELECT t FROM Report t");
+		List<Report> res= q.getResultList();
+		em.close();
+		return res;
+	}
 	
 	
 	

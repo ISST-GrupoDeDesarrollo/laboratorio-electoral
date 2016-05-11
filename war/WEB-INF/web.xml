@@ -32,6 +32,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/api/register/geturl</url-pattern>
 	</servlet-mapping>
 	
+		<servlet>
+		<servlet-name>GetProfileUrl</servlet-name>
+		<servlet-class>es.upm.dit.isst.GetProfileUrlServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetProfileUrl</servlet-name>
+		<url-pattern>/api/profile/geturl</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>GetBlob</servlet-name>
 		<servlet-class>es.upm.dit.isst.GetBlobServlet</servlet-class>
@@ -75,6 +84,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>checkLoginServlet</servlet-name>
 		<url-pattern>/checkLoginServlet</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>profileServlet</servlet-name>
+		<servlet-class>es.upm.dit.isst.ProfileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>profileServlet</servlet-name>
+		<url-pattern>/api/profile</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

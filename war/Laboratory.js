@@ -16,6 +16,9 @@ Laboratory.config(['$routeProvider',function ($routeProvider) { //Configuro el p
     }).when("/projects", {
         controller: "projectsController",
         templateUrl: "projects/index.html"
+    }).when("/profile", {
+        controller: "profileController",
+        templateUrl: "profile/index.html"
     }).when("/projects/:projectId", {
         controller: "projectController",
         templateUrl: "project/index.html"

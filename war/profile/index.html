@@ -1,0 +1,182 @@
+<div data-ng-include="'/navigationBars/navigationBar.html'"></div>
+
+<div class="container">
+	<div class="profile">
+
+<div class="container">
+		<header class="page-header">
+		<h1>Profile</h1>
+		</header>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{user.completeName}}</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> 
+				<input type='file' id="imgInp" file-input="files" onchange="angular.element(this).scope().changeImage(this)"/>
+				<img ng-show="changes" class="img-responsive" id="fot" onclick="cargarFoto();" ng-src="{{user.profilePicBlobKey?'/api/getblob?blobkey='+user.profilePicBlobKey:'../assets/ejemplo.jpg'}}">                
+                <img ng-show="!changes" class="img-responsive" ng-src="{{user.profilePicBlobKey?'/api/getblob?blobkey='+user.profilePicBlobKey:'../assets/ejemplo.jpg'}}">                
+               	<p></p>
+               	<button ng-show="changes" ng-click ="changeImg()"  ng-disabled="enabled" type="button" class="btn btn-info btn-xs">Set new image</button>
+                </div>
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                    <tr>
+                        <h4 class="col-md-9 col-lg-9">Personal information</h4>
+                      </tr>
+                      <tr>
+                        <td>Username</td>
+                        <td>{{user.username}}</td>
+                        <td><button ng-show="changes" ng-click ="changePass()" class="btn btn-info btn-xs">Change password</button></td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td>{{user.email}}</td>
+                        <td>  <button ng-show="changes" ng-click ="changeEmail()" type="button" class="btn btn-info btn-xs">Change email</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Role</td>
+                        <td>{{user.role}}</td>
+                        <td>  <button ng-show="changes" ng-click ="changeRol()" type="button" class="btn btn-info btn-xs">Change rol</button>
+                        </td>
+                      </tr>
+                      <tr>   
+                      <td></td>
+                        <td></td>
+                        <td>
+                        </td>
+                        
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+                  <div> 
+                  <table class="table table-user-information">
+                    <tbody>
+                    <tr>
+                        <h4  class="col-md-9 col-lg-9">Work information</h4> 
+                      </tr>
+                      <tr>
+                        <td>Workgroups</td>
+                        <td>{{numberWorkgroups}}</td>
+                      </tr>
+                      <tr>
+                        <td>Own Workgroups</td>
+                        <td>{{numberWorkgroupsOwn}}</td>
+                      </tr>
+                      <tr>
+                        <td>Proyects</td>
+                        <td>{{numberProjects}}</td>
+                      </tr>                    
+                      <!--  <tr>
+                        <td>Proyects Owned</td>
+                        <td>{{numberProjectsOwn}}</td>
+                      </tr>-->
+                      <tr>
+                        <td>Created simulations</td>
+                        <td>{{numberSimulations}}</td>
+                      </tr>
+                      <tr>
+                        <td>Generated Reports</td>
+                        <td>{{numberReports}}</td>
+                      </tr>       
+                       <tr>
+                        <td>Sent messages</td>
+                        <td>{{numberMessages}}</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  
+                  
+                </div>
+              </div>
+    			
+                 
+                 <button ng-click ="change()" class="btn btn-primary pull-right btn-md">Change personal information</button>
+               
+            
+          
+        </div>
+      </div>  
+    </div>
+	
+	
+	</div>
+</div> 	
+</div>
+</div>
+<script type="text/ng-template" id="passModal.html">
+ 				<div>
+	         		<div class="modal-header">
+	             		<h3 class="modal-title">Change password</h3>
+	         		</div>
+	         		<div class="modal-body">      
+	             		<div class="form-group">
+							<label>Old password</label>
+	    					<input type="password" ng-model="oldPass" class="form-control"/>
+	             			<label>New password</label>
+	             			<input type="password" ng-model="newPass1" class="form-control"/>
+							<label>Repeat new password</label>
+	             			<input type="password" ng-model="newPass2" class="form-control"/>
+
+	             		</div>
+	         		</div>
+	         		<div class="modal-footer">
+	             		<button class="btn btn-primary" type="button" ng-click="ok()">Change</button>
+	             		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	         		</div>
+ 				
+				</div>
+    </script>	
+<script type="text/ng-template" id="emailModal.html">
+ 				<div>
+	         		<div class="modal-header">
+	             		<h3 class="modal-title">Change email</h3>
+	         		</div>
+	         		<div class="modal-body">      
+	             		<div class="form-group">
+	             			<label>New email</label>
+	             			<input type="text" ng-model="newEmail" class="form-control"/>
+
+
+	             		</div>
+	         		</div>
+	         		<div class="modal-footer">
+	             		<button class="btn btn-primary" type="button" ng-click="ok()">Change</button>
+	             		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	         		</div>
+ 			
+				</div>
+    </script>
+<script type="text/ng-template" id="rolModal.html">
+ 				<div>
+	         		<div class="modal-header">
+	             		<h3 class="modal-title">Change rol</h3>
+	         		</div>
+	         		<div class="modal-body">      
+	             		<div class="form-group">
+	             			<label>New rol</label>
+	             			<input type="text" ng-model="newRol" class="form-control"/>
+
+
+	             		</div>
+	         		</div>
+	         		<div class="modal-footer">
+	             		<button class="btn btn-primary" type="button" ng-click="ok()">Change</button>
+	             		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	         		</div>
+ 			
+				</div>
+    </script>
+
