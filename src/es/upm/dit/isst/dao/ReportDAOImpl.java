@@ -22,9 +22,7 @@ public class ReportDAOImpl implements ReportDAO{
 	@Override
 	public Report createReport(Report newReport) {
 		EntityManager em = EMFService.get().createEntityManager();
-		em.getTransaction().begin();
 		em.persist(newReport);
-		em.getTransaction().commit();
 		em.close();
 		return newReport;
 	}
@@ -32,9 +30,7 @@ public class ReportDAOImpl implements ReportDAO{
 	@Override
 	public Report updateReport(Report reportUpdated) {
 		EntityManager em = EMFService.get().createEntityManager();
-		em.getTransaction().begin();
 		em.merge(reportUpdated);
-		em.getTransaction().commit();
 		em.close();
 		return reportUpdated;
 	}
@@ -42,9 +38,7 @@ public class ReportDAOImpl implements ReportDAO{
 	@Override
 	public void deleteReport(Report reportToDelete) {
 		EntityManager em = EMFService.get().createEntityManager();
-		em.getTransaction().begin();
 		em.remove(reportToDelete);
-		em.getTransaction().commit();
 		em.close();
 	}
 
