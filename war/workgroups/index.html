@@ -42,17 +42,27 @@
                             <div class="col-xs-6">
                             	<p>{{user.username}}</p>
                             	<p>{{user.role}}</p>
+                            	<hr ng-show="appUser.username===selectedWorkgroup.creator">
+								<p ng-show="appUser.username===selectedWorkgroup.creator">Permissions:</p>
+								<multiselect
+									ng-show="appUser.username===selectedWorkgroup.creator"
+									ng-bind-html="usernameM = user.username"
+									ng-change="newPermission(user)"    
+    								ng-model="permissionsSelected[usernameM]" 
+    								options="c for c in permissionsOptions"
+    								data-multiple="true">
+    							</multiselect>
                             </div>
                         </div>
     
-                         <div class="panel-footer" ng-show="selectedWorkgroup.creator===appUser.username">
+                         <div class="panel-footer" ng-show="(selectedWorkgroup.creator===appUser.username || selectedWorkgroup.permissions[appUser.username].deleteMember) && user.username !== selectedWorkgroup.creator">
                             <button class="pull-right btn btn-danger" ng-click="removeUser(selectedWorkgroup,user)">Remove</button>
                             <div class="clearfix"></div>
                         </div>
                     </div>
                     </div>
 				</div>
-				<button class="pull-right btn btn-success" ng-click="addMember(selectedWorkgroup)" ng-show="selectedWorkgroup.creator===appUser.username">Add member</button>
+				<button class="pull-right btn btn-success" ng-click="addMember(selectedWorkgroup)" ng-show="selectedWorkgroup.creator===appUser.username || selectedWorkgroup.permissions[appUser.username].addMember">Add member</button>
 				<div class="clearfix"></div>
 			</div>
 			</div>

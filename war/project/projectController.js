@@ -10,9 +10,27 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 		$http.get("/api/projects",{params: {id: $routeParams.projectId}}).success(function(data,status){
 			$scope.cleanObjectFromDatabase(data);
 			$scope.project = data;
+			getActualWorkgroup();
 		});
 	}
 
+	
+	var getActualWorkgroup = function(){
+		$http.get("api/workgroups").success(function(data){
+			var actualProjectId = $scope.project.id;
+			$scope.cleanObjectFromDatabase(data);
+			$scope.workgroupsRecibidos = data;
+			for(i in $scope.workgroupsRecibidos){
+				var workgroupSelec = $scope.workgroupsRecibidos[i];
+				for(j in workgroupSelec.projects){
+					if(actualProjectId === workgroupSelec.projects[j].id){
+						$scope.actualWorkgroup = workgroupSelec;
+						break;
+					}
+				}
+			}
+		});
+	}
 	
 	$scope.openSimulation = function(simulation){
 		$location.path("/projects/"+$routeParams.projectId+"/simulations/"+simulation.id);
