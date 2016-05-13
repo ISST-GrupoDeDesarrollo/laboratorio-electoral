@@ -2,12 +2,15 @@ package es.upm.dit.isst.models;
 
 import javax.persistence.*;
 
+import org.datanucleus.api.jpa.annotations.Extension;
+
 @Entity
 public class ParlamentaryGroup {
 
 	@Id 
-	@GeneratedValue()
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+    private String id;
 	
 	private String name;
 	private int deputies;
@@ -19,11 +22,11 @@ public class ParlamentaryGroup {
 		this.deputies = deputies;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

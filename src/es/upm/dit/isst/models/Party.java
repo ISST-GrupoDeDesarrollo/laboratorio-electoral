@@ -7,7 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.google.appengine.api.datastore.Key;
+import org.datanucleus.api.jpa.annotations.Extension;
+
 
 @Entity
 public class Party  implements Serializable {
@@ -17,8 +18,9 @@ public class Party  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-    @GeneratedValue()
-    private Long id;   
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+    private String id;
 	  
 	private String name;
 	
@@ -30,11 +32,11 @@ public class Party  implements Serializable {
 
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

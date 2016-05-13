@@ -30,7 +30,6 @@ public class Report {
 	
 	//Necesito guardar todos los congresos por cada territorio
 	@OneToMany(cascade=CascadeType.ALL)
-	@Unowned
 	private List<Congress> congress = new ArrayList<Congress>();
 	
 	@Lob
@@ -38,7 +37,6 @@ public class Report {
 	private Map<String,String> territories = new HashMap<String, String>();
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@Unowned
 	private Congress globalCongress;
 	
 	

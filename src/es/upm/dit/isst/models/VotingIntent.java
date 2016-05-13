@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.datanucleus.api.jpa.annotations.Extension;
+
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.datanucleus.annotations.Unowned;
 
@@ -24,11 +26,11 @@ public class VotingIntent implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue()
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+    private String id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@Unowned
+	@OneToOne(cascade=CascadeType.ALL)
 	private Party party;
 
 	private int voters;
@@ -42,7 +44,7 @@ public class VotingIntent implements Serializable {
 		this.voters = voters;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 

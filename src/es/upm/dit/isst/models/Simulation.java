@@ -39,7 +39,6 @@ public class Simulation implements Serializable {
 	private Date createDate;
 
 	@OneToMany(cascade = CascadeType.PERSIST)
-	@Unowned
 	private List<Circumscription> Circunscriptions = new ArrayList<Circumscription>();
 
 	public Simulation(String simulname, String creator, Date createDate) {

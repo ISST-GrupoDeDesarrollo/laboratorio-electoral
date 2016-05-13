@@ -8,6 +8,8 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.persistence.*;
 
+import org.datanucleus.api.jpa.annotations.Extension;
+
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.datanucleus.annotations.Unowned;
 
@@ -17,15 +19,16 @@ public class Congress {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+    private String id;
+	
 	private int localVoters;
 	private int localPopulation;
 	
 	private String locationName;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@Unowned
 	private List<ParlamentaryGroup> parlamentaryGroup = new ArrayList<ParlamentaryGroup>();
 
 	public List<ParlamentaryGroup> getParlamentaryGroup() {

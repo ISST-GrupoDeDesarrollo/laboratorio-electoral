@@ -18,6 +18,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.datanucleus.api.jpa.annotations.Extension;
+
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.datanucleus.annotations.Unowned;
@@ -31,8 +33,9 @@ public class Circumscription implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue()
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+    private String id;
 
 	private long population;
 	
@@ -45,7 +48,6 @@ public class Circumscription implements Serializable {
 	private long seats;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@Unowned
 	private List<VotingIntent> votingIntents = new ArrayList<VotingIntent>();
 
 	public List<VotingIntent> getVotingIntents() {
@@ -56,7 +58,7 @@ public class Circumscription implements Serializable {
 		this.votingIntents = votingIntents;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
