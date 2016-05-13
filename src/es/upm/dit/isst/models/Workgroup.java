@@ -2,15 +2,23 @@ package es.upm.dit.isst.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Serialized;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -30,9 +38,12 @@ public class Workgroup implements Serializable {
 	
 	@ElementCollection
 	private ArrayList<String> memberNames = new ArrayList<>();
-
+	
 	@Transient
 	private List<User> members = new ArrayList<User>();
+	
+	@Basic
+	private Map<String,Permission> permissions = new HashMap<String,Permission>();
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@Unowned
@@ -46,7 +57,19 @@ public class Workgroup implements Serializable {
 		this.creator = creator;
 		this.isPersonal = isPersonal;
 	}
+	
+	public Map<String, Permission> getPermissions() {
+		return permissions;
+	}
 
+	public void addPermissions(String username, Permission newPerm) {
+		this.permissions.put(username, newPerm);
+	}
+	
+	public void setPermissions(Map<String, Permission> permissions){
+		this.permissions = permissions;
+	}
+	
 	public String getName() {
 		return name;
 	}

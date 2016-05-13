@@ -27,7 +27,7 @@
 				      	<p>Creation date: {{simulation.createDate}}</p>
 				      	<p>Circumscriptions: {{simulation.Circunscriptions?simulation.Circunscriptions.length:0}}</p>
 				      </div>
-				       <div class="panel-footer" ng-show="simulation.creator===appUser.username">
+				       <div class="panel-footer" ng-show="simulation.creator===appUser.username || actualWorkgroup.permissions[appUser.username].deleteSimulations">
 				       	<button class="btn btn-danger pull-right" ng-click="deleteSimulation(simulation)">Delete</button>
 				       	<div class="clearfix"></div>
 				       </div>
@@ -36,7 +36,8 @@
 		<div ng-show="!project.simulations||project.simulations.length==0">
 				<p class="center-text">No simulations created yet in this project.</p>
 			</div>
-		<button class="btn btn-primary pull-right" ng-click="createSimulation()">Create simulation</button>
+		<button class="btn btn-primary pull-right" ng-show="actualWorkgroup.permissions[appUser.username].createSimulation"
+			ng-click="createSimulation()">Create simulation</button>
 		<div class="clearfix"></div>
 	</div>
 <div class="col-md-4">
@@ -49,7 +50,7 @@
 				      	<p class="text-right">Sent by: {{message.creator.completeName}} <br>
 				Created on: {{message.postDate}}</p>
 				      </div>
-				       <div class="panel-footer"  ng-show="message.creator.username===appUser.username">
+				       <div class="panel-footer"  ng-show="message.creator.username===appUser.username || actualWorkgroup.permissions[appUser.username].deleteMessage">
 				       		<button class="btn btn-danger pull-right" ng-click="deleteMessage(message)">Delete</button>
 				       	<div class="clearfix"></div>
 				       </div>
@@ -58,7 +59,8 @@
 			<div ng-show="!project.dashboard||project.dashboard.length==0">
 				<p class="center-text">No messages added yet in this project.</p>
 			</div>
-			<button class="btn btn-primary pull-right" ng-click="addMessage()">Add message</button>
+			<button class="btn btn-primary pull-right" ng-show="message.creator===appUser.username || actualWorkgroup.permissions[appUser.username].addMessage"
+				ng-click="addMessage()">Add message</button>
 		<div class="clearfix"></div>
 	</div>
 	<div class="col-md-4">

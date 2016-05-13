@@ -30,7 +30,7 @@ public class DashboardDAOImpl implements DashboardDAO {
 	@Override
 	public List<DashboardMessage> getDashboards() {
 		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("select d from Dashboard d");
+		Query q = em.createQuery("select d from DashboardMessage d");
 		List<DashboardMessage> dashboards = q.getResultList();
 		em.close();
 		return dashboards;

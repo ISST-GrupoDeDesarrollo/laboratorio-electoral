@@ -4,22 +4,27 @@ import java.io.IOException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import es.upm.dit.isst.dao.ProjectDAOImpl;
 import es.upm.dit.isst.dao.SimulationDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.Project;
+import es.upm.dit.isst.models.Report;
 import es.upm.dit.isst.models.Simulation;
 
 @SuppressWarnings("serial")
 public class SimulationServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+		if(req.getParameter("id") != null){
 		try{
 			long id = Long.parseLong(req.getParameter("id"));
 			Simulation simulation = SimulationDAOImpl.getInstance().getSimulation(id);
@@ -32,7 +37,23 @@ public class SimulationServlet extends HttpServlet {
 			resp.sendError(400);
 		}
 		
+	}else{
+		try{
+
+			List<Simulation> rep = SimulationDAOImpl.getInstance().getByCreator((String)req.getSession().getAttribute("user"));
+			if(rep!=null){
+				Tools.sendJson(resp, rep, new TypeToken<List<Simulation>>() {
+				}.getType());
+			}else{
+				resp.sendError(404);
+			}
+		}catch(NumberFormatException e){
+			resp.sendError(400);
+		}
+		
+		
 	}
+}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

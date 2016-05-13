@@ -17,9 +17,6 @@ import com.google.appengine.datanucleus.annotations.Unowned;
 @Entity
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -110,6 +107,21 @@ public class User implements Serializable {
 		} else if (!username.equals(other.username))
 			return false;
 		return true;
+	}
+
+
+	public void setEmail(String newEmail) {
+		this.email = newEmail;
+		
+	}
+
+	public void setPassword(String newPass) {
+		this.password = newPass;
+	}
+
+	public void setImg(String profilePicKey) {
+		this.profilePicBlobKey = profilePicKey;
+		
 	}
 
 	

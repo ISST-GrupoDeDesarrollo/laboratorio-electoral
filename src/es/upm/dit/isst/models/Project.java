@@ -82,6 +82,8 @@ public class Project implements Serializable {
 		this.dashboard = dashboard;
 	}
 	
-	
+	public Date getCreationDate(){
+		return this.creationDate;
+	}
 	
 }
