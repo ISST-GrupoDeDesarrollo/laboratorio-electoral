@@ -1,17 +1,22 @@
 Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
 	
-	var getReport = function(){
+	$scope.result = {};
+	
+	var getResult = function(){
 		var reportId = $location.path();
 		http({
 			method: 'GET',
 			url: '/api/publicReport',
 			{params: {id: reportId} }
 		}).success(function(data){
-			$scope.report = data;
+			$scope.cleanObjectFromDatabase(data);
+			$scope.result = data;
+			updateConfigScope();
 		}).eror(function(){
 			
 		});
 	}
+	getResult();
 	
 	//Mostrar el mapa como en resultController
 	//MAP LOGIC
@@ -21,7 +26,6 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 			Report:[]
 	};
 
-	$scope.result = {};
 
 	/*
 	*	Merge GEOJson and create labels and colors properly
@@ -112,7 +116,7 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 		
 
 	};
-
+/*
 	var reloadResult = function(){
 		$http.get("/api/reports",{params:{id:$routeParams.resultId}}).success(function(data,status){
 			$scope.cleanObjectFromDatabase(data);
@@ -122,12 +126,12 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 			
 			
 		});
-	};
+	};*/
 
 	/*
 	* Map Initializer
 	*/
-	reloadResult();
+	getResult();
 	
 	$scope.config = {
             options: {

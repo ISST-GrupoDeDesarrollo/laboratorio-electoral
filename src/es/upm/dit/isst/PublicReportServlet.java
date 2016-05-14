@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -25,8 +26,9 @@ public class PublicReportServlet extends HttpServlet{
 				ReportDAO dao = ReportDAOImpl.getInstance();
 				Report reportSelected = dao.selectById(Long.parseLong(idString));
 				if (reportSelected != null && reportSelected.getIsPublic()){
-					//TODO eliminar informacion del creador y workgroups y proyectos
-					Tools.sendJson(resp, reportSelected, Report.class);
+					Report reportToSend = reportSelected;
+					reportToSend.setCreator(null);
+					Tools.sendJson(resp, reportToSend, Report.class);
 				}else{
 					resp.sendError(400);
 				}
@@ -39,7 +41,6 @@ public class PublicReportServlet extends HttpServlet{
 	}
 	
 	public void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{
-		//TODO comprobar que está login
 		String idString = req.getParameter("id");
 		if(idString != null && idString != ""){
 			try{
@@ -48,6 +49,7 @@ public class PublicReportServlet extends HttpServlet{
 				if (reportSelected != null){
 					reportSelected.setIsPublic();
 					dao.updateReport(reportSelected);
+					Tools.sendJson(resp, reportSelected, Report.class);
 				}else{
 					resp.sendError(400);
 				}
@@ -57,28 +59,6 @@ public class PublicReportServlet extends HttpServlet{
 		}else{
 			resp.sendError(400);
 		}
-		
-	}
-	
-	public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{
-		//TODO comprobar que está login
-		String idString = req.getParameter("id");
-			if(idString != null && idString != ""){
-				try{
-					ReportDAO dao = ReportDAOImpl.getInstance();
-					Report reportSelected = dao.selectById(Long.parseLong(idString));
-					if (reportSelected != null){
-						reportSelected.setIsPublic();
-						dao.updateReport(reportSelected);
-					}else{
-						resp.sendError(400);
-					}
-				}catch(Exception e){
-					resp.sendError(400);
-				}
-			}else{
-				resp.sendError(400);
-			}
 	}
 	
 }

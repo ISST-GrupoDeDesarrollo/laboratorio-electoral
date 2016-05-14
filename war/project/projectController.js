@@ -90,30 +90,16 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 		});
 	}
 	
-    $scope.publishReport = function(report){
-    	
-    	if(!report.isPublic){
-    		http({
-        		method: 'PUT',
-        		url: '/api/publicReport',
-        		{params: {id: report.id} }
-        	}).success(function(data){
+    $scope.publishReport = function(id){
+    	http({
+        	method: 'PUT',
+       		url: '/api/publicReport',
+        	{params: {id: id} }
+        }).success(function(data){
+        	reloadProject();
+        }).error(function(){
         		
-        	}).error(function(){
-        		
-        	});
-    	}else{
-    		http({
-    			method: 'DELETE',
-    			url: '/api/publishReport',
-    			{params: {id: report.id} }
-    		}).success(function(data){
-    			
-    		}).error(function(){
-    			
-    		});
-    	}
-    
+       	});
     }
 
 	reloadProject();
