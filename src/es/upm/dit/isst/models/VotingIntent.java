@@ -64,4 +64,10 @@ public class VotingIntent implements Serializable {
 		this.voters = voters;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	
+	
 }

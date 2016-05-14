@@ -79,6 +79,12 @@ public class Circumscription implements Serializable {
 	public void setPopulation(long population) {
 		this.population = population;
 	}
+	
+	
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public Map<String, Long> dhondt() {
 		Map<String, Long> result = new HashMap<String, Long>();

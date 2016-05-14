@@ -37,6 +37,7 @@ public class Simulation implements Serializable {
 	private String name;
 	private String creator;
 	private Date createDate;
+	private boolean isTemplate;
 
 	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<Circumscription> Circunscriptions = new ArrayList<Circumscription>();
@@ -46,6 +47,7 @@ public class Simulation implements Serializable {
 		this.name = simulname;
 		this.creator = creator;
 		this.createDate = createDate;
+		this.isTemplate = false;
 	}
 
 	public String getCreator() {
@@ -70,6 +72,33 @@ public class Simulation implements Serializable {
 
 	public void setCircunscriptions(List<Circumscription> circunscriptions) {
 		Circunscriptions = circunscriptions;
+	}
+	
+
+	public boolean isTemplate() {
+		return isTemplate;
+	}
+
+	public void setTemplate(boolean isTemplate) {
+		this.isTemplate = isTemplate;
+	}
+	
+	
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	public Report simulate(String name, String method) {
