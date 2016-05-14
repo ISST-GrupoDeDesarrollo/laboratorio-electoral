@@ -15,7 +15,6 @@ public class UserDAOImpl implements UserDAO {
 	private static UserDAOImpl instance;
 	
 	private UserDAOImpl() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public static UserDAOImpl getInstance(){
@@ -94,7 +93,6 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void deleteUser(String username) {
-		// TODO Auto-generated method stub
 		EntityManager em = EMFService.get().createEntityManager();
 		try{
 			User hypUser = em.find(User.class, username);

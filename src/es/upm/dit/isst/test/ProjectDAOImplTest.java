@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import com.google.appengine.labs.repackaged.org.json.JSONArray;
@@ -21,7 +22,7 @@ import es.upm.dit.isst.models.Project;
 
 public class ProjectDAOImplTest {
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(100));
 	
 	private Project project;
 	
@@ -52,15 +53,15 @@ public class ProjectDAOImplTest {
 	@Test
 	public void testGetProject() {
 		ProjectDAO dao = ProjectDAOImpl.getInstance();
+		dao.createProject(project);
 		Project devuelto = dao.getProject(project.getId());
-		assertSame(project,devuelto);
 		assertEquals(devuelto.getId(),project.getId());
 		assertEquals(devuelto.getName(),project.getName());
 		assertEquals(devuelto.getDashboard().size(),project.getDashboard().size());
 		assertEquals(devuelto.getDescription(),project.getDescription());
 		assertEquals(devuelto.getReports().size(),project.getReports().size());
 		assertEquals(devuelto.getSimulations().size(),project.getSimulations().size());
-		long idPrueba;
+		long idPrueba = -1;
 		assertNull(dao.getProject(idPrueba));
 	}
 

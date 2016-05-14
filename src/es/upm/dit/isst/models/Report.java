@@ -28,6 +28,8 @@ public class Report {
 	
 	private Date createDate;
 	
+	private boolean isPublic;
+	
 	//Necesito guardar todos los congresos por cada territorio
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Congress> congress = new ArrayList<Congress>();
@@ -43,9 +45,17 @@ public class Report {
 	public Report(String name){
 		super();
 		this.name = name;
+		this.isPublic = false;
 	}
 
-
+	public void setIsPublic(){
+		this.isPublic = !this.isPublic;
+	}
+	
+	public boolean getIsPublic(){
+		return this.isPublic;
+	}
+	
 	public long getId() {
 		return id;
 	}

@@ -104,13 +104,22 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/api/reports</url-pattern>
 	</servlet-mapping>
 	
-		<servlet>
+	<servlet>
 		<servlet-name>MessagesServlet</servlet-name>
 		<servlet-class>es.upm.dit.isst.MessagesServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MessagesServlet</servlet-name>
 		<url-pattern>/api/messages</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PublicReportServlet</servlet-name>
+		<servlet-class>es.upm.dit.isst.PublicReportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PublicReportServlet</servlet-name>
+		<url-pattern>/api/public</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>

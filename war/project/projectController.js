@@ -89,6 +89,18 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 			reloadProject();
 		});
 	}
+	
+    $scope.publishReport = function(id){
+    	http({
+        	method: 'PUT',
+       		url: '/api/publicReport',
+        	{params: {id: id} }
+        }).success(function(data){
+        	reloadProject();
+        }).error(function(){
+        		
+       	});
+    }
 
 	reloadProject();
 }]);

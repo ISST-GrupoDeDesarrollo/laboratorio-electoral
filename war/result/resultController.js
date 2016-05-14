@@ -173,4 +173,5 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
             data: []
         }]
     };
+    
 }]);
