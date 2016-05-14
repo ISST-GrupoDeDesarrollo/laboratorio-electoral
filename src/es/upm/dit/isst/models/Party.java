@@ -3,9 +3,11 @@ package es.upm.dit.isst.models;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.datanucleus.api.jpa.annotations.Extension;
 
@@ -24,6 +26,8 @@ public class Party  implements Serializable {
 	  
 	private String name;
 	
+	@OneToOne(fetch = FetchType.LAZY)
+	private VotingIntent intent;
 
 	public Party(String name) {
 		super();

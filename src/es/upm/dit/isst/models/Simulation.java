@@ -39,7 +39,7 @@ public class Simulation implements Serializable {
 	private Date createDate;
 	private boolean isTemplate;
 
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.PERSIST,mappedBy="simulation")
 	private List<Circumscription> Circunscriptions = new ArrayList<Circumscription>();
 
 	public Simulation(String simulname, String creator, Date createDate) {

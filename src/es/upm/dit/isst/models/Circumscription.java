@@ -40,6 +40,9 @@ public class Circumscription implements Serializable {
 	private long population;
 	
 	private String name;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Simulation simulation;
 
 	@Lob
 	private String localization;
@@ -47,7 +50,7 @@ public class Circumscription implements Serializable {
 	private String localizationFilename;
 	private long seats;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="circumscription")
 	private List<VotingIntent> votingIntents = new ArrayList<VotingIntent>();
 
 	public List<VotingIntent> getVotingIntents() {

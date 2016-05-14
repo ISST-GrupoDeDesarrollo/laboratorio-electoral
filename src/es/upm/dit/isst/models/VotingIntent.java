@@ -30,8 +30,11 @@ public class VotingIntent implements Serializable {
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
     private String id;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL,mappedBy="intent")
 	private Party party;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Circumscription circumscription;
 
 	private int voters;
 
