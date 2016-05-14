@@ -16,7 +16,7 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 			
 		});
 	}
-	getResult();
+	getResult();	
 	
 	//Mostrar el mapa como en resultController
 	//MAP LOGIC

@@ -2,6 +2,7 @@ package es.upm.dit.isst;
 
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import es.upm.dit.isst.dao.UserDAOImpl;
 import es.upm.dit.isst.dao.WorkgroupDAO;
 import es.upm.dit.isst.dao.WorkgroupDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
+import es.upm.dit.isst.models.Permission;
 import es.upm.dit.isst.models.User;
 import es.upm.dit.isst.models.Workgroup;
 
@@ -60,6 +62,14 @@ public class RegisterServlet extends HttpServlet {
 		        		Workgroup personal = new Workgroup("My own projects", newUser.getUsername(), true);
 		        		newUser.getWorkgroups().add(personal);
 		        		personal.getMembers().add(newUser);
+		        		Permission newPerm = new Permission();
+		    			newPerm.setAddMember(true);
+		    			newPerm.setDeleteMember(true);
+		    			newPerm.setDeleteMessage(true);
+		    			newPerm.setDeleteSimulations(true);
+		    			Map permMap = new HashMap<String,Permission>();
+		    			permMap.put(username, newPerm);
+		    			personal.setPermissions(permMap);
 		        		WorkgroupDAOImpl.getInstance().createWorkgroup(personal);
 		        		UserDAOImpl.getInstance().createUser(newUser);
 		        		System.out.println("New user created, username: "+username);

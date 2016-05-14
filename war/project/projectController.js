@@ -90,16 +90,35 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 		});
 	}
 	
-    $scope.publishReport = function(id){
+    $scope.publishReport = function(reportId){
     	http({
         	method: 'PUT',
        		url: '/api/publicReport',
-        	{params: {id: id} }
+        	params: {id: reportId} 
         }).success(function(data){
         	reloadProject();
         }).error(function(){
         		
        	});
+    }
+    
+    $scope.seeLink = function(reportId){
+    	var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'seeLinkModal.html',
+			controller: 'seeLinkController',
+			resolve: {
+				url: function(){
+					return $location.protocol() + '://' + $location.host() + '/' + reportId;
+				}	
+			}
+		});
+    	
+    	modalInstance.result.then(function (simulation) {
+			reloadProject();
+		}, function () {
+			console.log('Modal dismissed at: ' + new Date());
+		});
     }
 
 	reloadProject();
@@ -146,4 +165,18 @@ Laboratory.controller('addMessageController', ['$scope', '$http', '$uibModalInst
 	$scope.cancel = function(){
 		$uibModalInstance.dismiss('cancel');
 	};
+}]);
+
+Laboratory.controller('seeLinkController', ['$scope', '$http', '$uibModalInstance', '$routeParams', '$window', function($scope, $http, $uibModalInstance, $routeParams, $window, url){
+	
+	$scope.url = url;
+	
+	$scope.goPublicReport = function(){
+		$window.location.href = url;
+	}
+	
+	$scope.cancel = function(){
+		$uibModalInstance.dismiss('cancel');
+	}
+	
 }]);
