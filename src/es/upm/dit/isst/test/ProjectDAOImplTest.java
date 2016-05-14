@@ -61,7 +61,7 @@ public class ProjectDAOImplTest {
 		assertEquals(devuelto.getDescription(),project.getDescription());
 		assertEquals(devuelto.getReports().size(),project.getReports().size());
 		assertEquals(devuelto.getSimulations().size(),project.getSimulations().size());
-		long idPrueba;
+		long idPrueba = -1;
 		assertNull(dao.getProject(idPrueba));
 	}
 

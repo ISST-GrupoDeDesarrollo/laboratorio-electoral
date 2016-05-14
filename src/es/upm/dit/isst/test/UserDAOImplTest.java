@@ -73,12 +73,20 @@ public class UserDAOImplTest {
 
 	@Test
 	public void testUpdateUser() {
-		fail("Not yet implemented");
+		UserDAO dao = UserDAOImpl.getInstance();
+		dao.createUser(user);
+		assertEquals(user.getRole(),"role");
+		user.setRole("role2");
+		dao.updateUser(user);
+		assertEquals(user.getRole(),"role2");
 	}
 
 	@Test
 	public void testDeleteUser() {
-		fail("Not yet implemented");
+		UserDAO dao = UserDAOImpl.getInstance();
+		dao.createUser(user);
+		dao.deleteUser(user.getUsername());
+		assertNull(dao.getUser(user.getUsername()));
 	}
 
 }
