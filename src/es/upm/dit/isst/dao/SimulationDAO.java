@@ -14,6 +14,6 @@ public interface SimulationDAO {
 	public Simulation updateSimulation(Simulation simul);
 	public void deleteSimulation(long id);
 	public List<Simulation> getByCreator(String creator);
-	
+	public List<Simulation> getTemplates();
 	
 }

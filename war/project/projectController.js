@@ -94,10 +94,25 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 }]);
 
 Laboratory.controller('CreateSimulationController', ['$scope', '$http', '$uibModalInstance','$routeParams',  function ($scope, $http, $uibModalInstance,$routeParams) {
-
+	var defaultTemplate = {name:"None"};
+	$scope.templates = [defaultTemplate];
+	$scope.template = defaultTemplate;
+	
+	$http.get("/api/simulations",{params:{templates:true}}).success(function(data){
+		$scope.cleanObjectFromDatabase(data);
+		$scope.templates=$scope.templates.concat(data);
+	});
+	
 	$scope.ok = function(){
-		$http.post("/api/simulations",{projectId:$routeParams.projectId,name:$scope.name}).success(function(data,status){
-			$uibModalInstance.close(data);
+		$http.post("/api/simulations",{projectId:$routeParams.projectId,name:$scope.name}).success(function(simulation,status){
+			if($scope.template!=defaultTemplate){
+				$scope.template.id = simulation.id;
+				$http.put("/api/simulations",$scope.template).success(function(data,status){
+					$uibModalInstance.close(simulation);
+				});
+			}else{
+				$uibModalInstance.close(simulation);
+			}
 		});
 	};
 

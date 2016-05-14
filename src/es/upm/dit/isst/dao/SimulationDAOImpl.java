@@ -1,5 +1,6 @@
 package es.upm.dit.isst.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -90,6 +91,23 @@ public class SimulationDAOImpl implements SimulationDAO {
 		res = q.getResultList();
 		em.close();
 		return res;
+	}
+
+	@Override
+	public List<Simulation> getTemplates() {
+		EntityManager em = EMFService.get().createEntityManager();
+		Query q = em.createQuery("select t from Simulation t where t.isTemplate = TRUE");
+		List<Simulation> simuls = q.getResultList();
+		for(Simulation simulation : simuls){
+			if(simulation!=null){
+				List<Circumscription> circumscriptions = simulation.getCircunscriptions();
+				for(Circumscription circumscription:circumscriptions){
+					circumscription.getVotingIntents();
+				}
+			}
+		}
+		em.close();
+		return new ArrayList<>(simuls);
 	}
 
 

@@ -15,9 +15,11 @@ import com.google.gson.reflect.TypeToken;
 import es.upm.dit.isst.dao.ProjectDAOImpl;
 import es.upm.dit.isst.dao.SimulationDAOImpl;
 import es.upm.dit.isst.lab.tools.Tools;
+import es.upm.dit.isst.models.Circumscription;
 import es.upm.dit.isst.models.Project;
 import es.upm.dit.isst.models.Report;
 import es.upm.dit.isst.models.Simulation;
+import es.upm.dit.isst.models.VotingIntent;
 
 @SuppressWarnings("serial")
 public class SimulationServlet extends HttpServlet {
@@ -38,6 +40,20 @@ public class SimulationServlet extends HttpServlet {
 		}
 		
 	}else{
+		if(Tools.validString(req.getParameter("templates"))){
+			List<Simulation> templates = SimulationDAOImpl.getInstance().getTemplates();
+			for(Simulation simulation:templates){
+				simulation.setId(null);
+				for(Circumscription circumscription:simulation.getCircunscriptions()){
+					circumscription.setId(null);
+					for(VotingIntent intent:circumscription.getVotingIntents()){
+						intent.setId(null);
+						intent.getParty().setId(null);
+					}
+				}
+			}
+			Tools.sendJson(resp, templates, new TypeToken<List<Simulation>>() {}.getType());
+		}else{
 		try{
 
 			List<Simulation> rep = SimulationDAOImpl.getInstance().getByCreator((String)req.getSession().getAttribute("user"));
@@ -50,7 +66,7 @@ public class SimulationServlet extends HttpServlet {
 		}catch(NumberFormatException e){
 			resp.sendError(400);
 		}
-		
+		}
 		
 	}
 }
@@ -69,8 +85,7 @@ public class SimulationServlet extends HttpServlet {
 		Date createDate = new Date();
 
 		if (Tools.validString(simulname)&& Tools.validString(creator)&&project!=null) {
-			
-			Simulation simulation = new Simulation(simulname, creator, createDate);
+			Simulation simulation =new Simulation(simulname, creator, createDate);
 			project.getSimulations().add(simulation);
 			ProjectDAOImpl.getInstance().updateProject(project);
 			resp.setStatus(200);
@@ -87,10 +102,23 @@ public class SimulationServlet extends HttpServlet {
 		// http://stackoverflow.com/questions/18567719/gson-deserializing-nested-objects-with-instancecreator
 		Simulation simulacion = json.fromJson(body, Simulation.class);
 		if(simulacion!=null && simulacion.getId()!=null){
-			SimulationDAOImpl dao = SimulationDAOImpl.getInstance();
-			dao.updateSimulation(simulacion);
-			System.out.println("Updated simulation with id: "+simulacion.getId());
-			resp.setStatus(200);
+			String setTemplateString = req.getParameter("settemplate");
+			if(Tools.validString(setTemplateString)){
+				boolean value = Boolean.parseBoolean(setTemplateString);
+				Simulation toEdit = SimulationDAOImpl.getInstance().getSimulation(simulacion.getId());
+				toEdit.setTemplate(value);
+				SimulationDAOImpl.getInstance().updateSimulation(toEdit);
+				resp.setStatus(200);
+			}else{
+				SimulationDAOImpl dao = SimulationDAOImpl.getInstance();
+				Simulation old = dao.getSimulation(simulacion.getId());
+				simulacion.setCreator(old.getCreator()); //not modificable parameters
+				simulacion.setCreateDate(old.getCreateDate());
+				simulacion.setName(old.getName());
+				dao.updateSimulation(simulacion);
+				System.out.println("Updated simulation with id: "+simulacion.getId());
+				resp.setStatus(200);
+			}
 		}else{
 			resp.sendError(400);
 		}
