@@ -11,6 +11,7 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 		}).success(function(data){
 			$scope.cleanObjectFromDatabase(data);
 			$scope.result = data;
+			console.log(data);
 			updateConfigScope();
 		}).eror(function(){
 			

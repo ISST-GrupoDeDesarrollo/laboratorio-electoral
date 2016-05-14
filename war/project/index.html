@@ -78,9 +78,9 @@
 				       		<button class="btn btn-primary pull-right" style="margin-right: 10px" ng-click="openReport(report)">View</button>
 				       		<button class="btn btn-primary pull-right" style="margin-right: 50px" ng-show="!report.isPublic"
 				       					ng-click="publishReport(report.id)">Publish</button>
-				       		<button class="btn btn-danger pull-right" style="margin-right: 50px" ng-show="report.isPublic"
-				       					ng-click="publishReport(report.id)">Cancel publication</button>
-				       		<button class="btn btn-danger pull-right" style="margin-right: 10px" ng-show="report.isPublic"
+				       		<button class="btn btn-warning pull-right" style="margin-right: 60px" ng-show="report.isPublic"
+				       					ng-click="publishReport(report.id)">Private</button>
+				       		<button class="btn btn-primary pull-right" style="margin-right: 10px" ng-show="report.isPublic"
 				       					ng-click="seeLink(report.id)">Link</button>
 				       	<div class="clearfix"></div>
 				       </div>
@@ -158,16 +158,15 @@
 </script>
 
 <script type="text/ng-template" id="seeLinkModal.html">
-        
 		<div class="modal-header">
-            <h3 class="modal-title">Send new message</h3>
+            <h3 class="modal-title">Public link</h3>
         </div>
         <div class="modal-body">
             <div class="form-horizontal">
             	<div class="form-group">
 					<label class="control-label col-sm-3" >Link:</label>
 					<div class="col-sm-8">
-						<input class="form-control" ng-model='url' required>
+						<input class="form-control" ng-model='url'>
 					</div>
 				</div>
             </div>

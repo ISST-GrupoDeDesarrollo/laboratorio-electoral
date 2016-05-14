@@ -119,7 +119,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PublicReportServlet</servlet-name>
-		<url-pattern>/api/public</url-pattern>
+		<url-pattern>/api/publicReport</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>

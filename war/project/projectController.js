@@ -1,4 +1,4 @@
-Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$location','$uibModal','breadcrumbs', function($scope,$http,$routeParams,$location,$uibModal,breadcrumbs){
+Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$location', '$window', '$uibModal','breadcrumbs', function($scope,$http,$routeParams,$location,$window,$uibModal,breadcrumbs){
 	breadcrumbs.setBreadcrumbs([breadcrumbs.createBreadcrumb("project", {projectId:$routeParams.projectId})]);
 	$scope.$on("checkAuth",function(){
 		if(!$scope.appUser){
@@ -91,7 +91,7 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 	}
 	
     $scope.publishReport = function(reportId){
-    	http({
+    	$http({
         	method: 'PUT',
        		url: '/api/publicReport',
         	params: {id: reportId} 
@@ -108,14 +108,14 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 			templateUrl: 'seeLinkModal.html',
 			controller: 'seeLinkController',
 			resolve: {
-				url: function(){
-					return $location.protocol() + '://' + $location.host() + '/' + reportId;
+				id: function(){
+					return reportId;
 				}	
 			}
 		});
     	
-    	modalInstance.result.then(function (simulation) {
-			reloadProject();
+    	modalInstance.result.then(function (url) {
+    		$window.location.href = url;
 		}, function () {
 			console.log('Modal dismissed at: ' + new Date());
 		});
@@ -167,12 +167,16 @@ Laboratory.controller('addMessageController', ['$scope', '$http', '$uibModalInst
 	};
 }]);
 
-Laboratory.controller('seeLinkController', ['$scope', '$http', '$uibModalInstance', '$routeParams', '$window', function($scope, $http, $uibModalInstance, $routeParams, $window, url){
+Laboratory.controller('seeLinkController', ['$scope', '$http', '$uibModalInstance', '$routeParams', '$window', '$location', 'id', function($scope, $http, $uibModalInstance, $routeParams, $window, $location, id){
 	
-	$scope.url = url;
+	var protocol = $location.protocol();
+	var host = $location.host();
+
+	$scope.url = (protocol + '://' + host + ':8888/#/public/' + id);
+	console.log($scope.url);
 	
 	$scope.goPublicReport = function(){
-		$window.location.href = url;
+		$uibModalInstance.close($scope.url);
 	}
 	
 	$scope.cancel = function(){
