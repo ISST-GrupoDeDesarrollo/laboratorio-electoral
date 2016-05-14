@@ -22,7 +22,7 @@ import es.upm.dit.isst.models.Project;
 
 public class ProjectDAOImplTest {
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(100));
 	
 	private Project project;
 	
@@ -53,8 +53,8 @@ public class ProjectDAOImplTest {
 	@Test
 	public void testGetProject() {
 		ProjectDAO dao = ProjectDAOImpl.getInstance();
+		dao.createProject(project);
 		Project devuelto = dao.getProject(project.getId());
-		assertSame(project,devuelto);
 		assertEquals(devuelto.getId(),project.getId());
 		assertEquals(devuelto.getName(),project.getName());
 		assertEquals(devuelto.getDashboard().size(),project.getDashboard().size());
