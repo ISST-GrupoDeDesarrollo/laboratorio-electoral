@@ -89,6 +89,32 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 			reloadProject();
 		});
 	}
+	
+    $scope.publishReport = function(report){
+    	
+    	if(!report.isPublic){
+    		http({
+        		method: 'PUT',
+        		url: '/api/publicReport',
+        		{params: {id: report.id} }
+        	}).success(function(data){
+        		
+        	}).error(function(){
+        		
+        	});
+    	}else{
+    		http({
+    			method: 'DELETE',
+    			url: '/api/publishReport',
+    			{params: {id: report.id} }
+    		}).success(function(data){
+    			
+    		}).error(function(){
+    			
+    		});
+    	}
+    
+    }
 
 	reloadProject();
 }]);
