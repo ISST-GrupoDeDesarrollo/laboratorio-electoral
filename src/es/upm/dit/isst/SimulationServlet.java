@@ -88,7 +88,7 @@ public class SimulationServlet extends HttpServlet {
 		if (Tools.validString(simulname)&& Tools.validString(creator)&&project!=null) {
 			Simulation toCreate =new Simulation(simulname, creator, createDate);
 			Simulation created = SimulationDAOImpl.getInstance().createSimulation(toCreate);
-			project.getSimulations().add(new SimulationId(created.getId()));
+			project.getSimulations().add(new SimulationId(created.getId(),simulname,creator,createDate));
 			ProjectDAOImpl.getInstance().updateProject(project);
 			resp.setStatus(200);
 			Tools.sendJson(resp, created, Simulation.class);
@@ -131,12 +131,13 @@ public class SimulationServlet extends HttpServlet {
 		String simulationId = req.getParameter("simulation");
 		Long projectId = Long.parseLong(req.getParameter("projectId"));
 		
-		Simulation simulacion = SimulationDAOImpl.getInstance().getSimulation(simulationId);
 		Project project = ProjectDAOImpl.getInstance().getProject(projectId);
+		int simulationIndex = project.getSimulations().indexOf(new SimulationId(simulationId));
 		
-		if(simulacion!=null && project!=null&&project.getSimulations().contains(simulacion)){
-			project.getSimulations().remove(simulacion);
+		if(project!=null&&simulationIndex!=-1){
+			project.getSimulations().remove(simulationIndex);
 			ProjectDAOImpl.getInstance().updateProject(project);
+			SimulationDAOImpl.getInstance().deleteSimulation(simulationId);
 			resp.setStatus(200);
 		}else{
 			resp.sendError(400);

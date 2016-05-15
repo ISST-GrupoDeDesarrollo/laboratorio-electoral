@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import es.upm.dit.isst.lab.tools.RestClient;
 import es.upm.dit.isst.models.Circumscription;
@@ -83,30 +84,28 @@ public class SimulationDAOImpl implements SimulationDAO {
 
 	@Override
 	public List<Simulation> getByCreator(String creator) {
-		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("select t from Simulation t where t.creator = :creator");
-		q.setParameter("creator", creator);
-		List<Simulation> res = null;
-		res = q.getResultList();
-		em.close();
-		return res;
+		RestClient client = new RestClient(URL_BASE+"/api/simulations?creator="+creator, RestClient.GET_METHOD);
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		if(client.getStatusCode()==200){
+			return new Gson().fromJson(response, new TypeToken<List<Simulation>>() {}.getType());
+		}else{
+			return null;
+		}
 	}
 
 	@Override
 	public List<Simulation> getTemplates() {
-		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("select t from Simulation t where t.isTemplate = TRUE");
-		List<Simulation> simuls = q.getResultList();
-		for(Simulation simulation : simuls){
-			if(simulation!=null){
-				List<Circumscription> circumscriptions = simulation.getCircunscriptions();
-				for(Circumscription circumscription:circumscriptions){
-					circumscription.getVotingIntents();
-				}
-			}
+		RestClient client = new RestClient(URL_BASE+"/api/simulations?templates=true", RestClient.GET_METHOD);
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		if(client.getStatusCode()==200){
+			return new Gson().fromJson(response, new TypeToken<List<Simulation>>() {}.getType());
+		}else{
+			return null;
 		}
-		em.close();
-		return new ArrayList<>(simuls);
 	}
 
 
