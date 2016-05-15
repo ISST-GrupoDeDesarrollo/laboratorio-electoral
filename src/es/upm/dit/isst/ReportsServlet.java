@@ -52,7 +52,8 @@ public class ReportsServlet extends HttpServlet{
 			try {
 				
 				ReportDAO reported = ReportDAOImpl.getInstance();
-				List<Report> rep = reported.selectAll();
+				
+				List<Report> rep = reported.selectByCreator((String) req.getSession().getAttribute("user"));
 				
 			if (rep != null) {
 			

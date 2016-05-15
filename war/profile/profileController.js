@@ -79,11 +79,9 @@ Laboratory.controller('profileController', ['$scope', '$http', '$routeParams', '
 							$scope.reports = data;
 							
 							for (ind in $scope.reports ){
-									if($scope.reports[ind].creator == $scope.user.username ){
+									
 										$scope.numberReports = $scope.numberReports + 1;
 										
-									}
-									
 								}
 									}
 						
