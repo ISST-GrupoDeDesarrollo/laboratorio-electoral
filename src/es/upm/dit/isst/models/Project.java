@@ -26,7 +26,7 @@ public class Project implements Serializable {
      
     @OneToMany(cascade = CascadeType.REMOVE)
 	@Unowned
-    private List<Simulation> simulations = new ArrayList<>();
+    private List<SimulationId> simulations = new ArrayList<>();
     
     @OneToMany(cascade = CascadeType.REMOVE)
     @Unowned
@@ -42,11 +42,11 @@ public class Project implements Serializable {
 		return id;
 	}
 
-	public List<Simulation> getSimulations() {
+	public List<SimulationId> getSimulations() {
 		return simulations;
 	}
 
-	public void setSimulations(List<Simulation> simulations) {
+	public void setSimulations(List<SimulationId> simulations) {
 		this.simulations = simulations;
 	}
 	

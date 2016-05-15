@@ -19,6 +19,7 @@ import es.upm.dit.isst.models.Circumscription;
 import es.upm.dit.isst.models.Project;
 import es.upm.dit.isst.models.Report;
 import es.upm.dit.isst.models.Simulation;
+import es.upm.dit.isst.models.SimulationId;
 import es.upm.dit.isst.models.VotingIntent;
 
 @SuppressWarnings("serial")
@@ -28,7 +29,7 @@ public class SimulationServlet extends HttpServlet {
 		
 		if(req.getParameter("id") != null){
 		try{
-			long id = Long.parseLong(req.getParameter("id"));
+			String id = req.getParameter("id");
 			Simulation simulation = SimulationDAOImpl.getInstance().getSimulation(id);
 			if(simulation!=null){
 				Tools.sendJson(resp, simulation, Simulation.class);
@@ -85,11 +86,12 @@ public class SimulationServlet extends HttpServlet {
 		Date createDate = new Date();
 
 		if (Tools.validString(simulname)&& Tools.validString(creator)&&project!=null) {
-			Simulation simulation =new Simulation(simulname, creator, createDate);
-			project.getSimulations().add(simulation);
+			Simulation toCreate =new Simulation(simulname, creator, createDate);
+			Simulation created = SimulationDAOImpl.getInstance().createSimulation(toCreate);
+			project.getSimulations().add(new SimulationId(created.getId()));
 			ProjectDAOImpl.getInstance().updateProject(project);
 			resp.setStatus(200);
-			Tools.sendJson(resp, simulation, Simulation.class);
+			Tools.sendJson(resp, created, Simulation.class);
 		} else {
 			resp.sendError(400);
 		}
@@ -126,7 +128,7 @@ public class SimulationServlet extends HttpServlet {
 	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Long simulationId = Long.parseLong(req.getParameter("simulation"));
+		String simulationId = req.getParameter("simulation");
 		Long projectId = Long.parseLong(req.getParameter("projectId"));
 		
 		Simulation simulacion = SimulationDAOImpl.getInstance().getSimulation(simulationId);

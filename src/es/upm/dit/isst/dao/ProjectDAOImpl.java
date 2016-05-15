@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import es.upm.dit.isst.models.Project;
 import es.upm.dit.isst.models.Simulation;
+import es.upm.dit.isst.models.SimulationId;
 
 public class ProjectDAOImpl implements ProjectDAO {
 	
@@ -39,10 +40,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		if (projects.size() > 0)
 			project = (Project)(projects.get(0));
 		if(project!=null){
-			List<Simulation> simulations = project.getSimulations();
-			for(Simulation simulation:simulations){
-				simulation.getCircunscriptions();
-			}
+			List<SimulationId> simulations = project.getSimulations();
 			project.getDashboard();
 			project.getReports();
 		}

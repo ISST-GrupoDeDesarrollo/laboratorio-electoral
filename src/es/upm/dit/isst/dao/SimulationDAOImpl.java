@@ -8,6 +8,9 @@ import javax.jdo.annotations.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import com.google.gson.Gson;
+
+import es.upm.dit.isst.lab.tools.RestClient;
 import es.upm.dit.isst.models.Circumscription;
 import es.upm.dit.isst.models.Simulation;
 import es.upm.dit.isst.models.Team;
@@ -17,6 +20,7 @@ import es.upm.dit.isst.models.VotingIntent;
 public class SimulationDAOImpl implements SimulationDAO {
 	
 	private static SimulationDAOImpl instance;
+	private static String URL_BASE = "http://localhost:4000";
 	
 	private SimulationDAOImpl() {}
 	
@@ -28,57 +32,52 @@ public class SimulationDAOImpl implements SimulationDAO {
 	
 	@Override
 	public Simulation createSimulation(Simulation simul) {
-		EntityManager em = EMFService.get().createEntityManager();
-		//TODO Neded some logic before creation?
-		em.getTransaction().begin();
-		em.persist(simul);
-		em.getTransaction().commit();
-		em.close();
-		
-		return simul;
+		RestClient client = new RestClient(URL_BASE+"/api/simulations", RestClient.POST_METHOD,new Gson().toJson(simul));
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		if(client.getStatusCode()==200){
+			String id = client.getResponse();
+			simul.setId(id);
+			return simul;
+		}else{
+			return null;
+		}
 	}
 
 	@Override
-	public Simulation getSimulation(long id){
-		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("select t from Simulation t where t.id = :id");
-		q.setParameter("id", id);
-		Simulation res = null;
-		List<Simulation> simuls = q.getResultList();
-		if (simuls.size() > 0)
-			res = (Simulation)(simuls.get(0));
-		if(res!=null){
-			List<Circumscription> circumscriptions = res.getCircunscriptions();
-			for(Circumscription circumscription:circumscriptions){
-				circumscription.getVotingIntents();
-			}
+	public Simulation getSimulation(String id){
+		RestClient client = new RestClient(URL_BASE+"/api/simulations/"+id, RestClient.GET_METHOD);
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		if(client.getStatusCode()==200){
+			return new Gson().fromJson(response, Simulation.class);
+		}else{
+			return null;
 		}
-		em.close();
-		return res;
 	}
 	
 	@Override
 	public Simulation updateSimulation(Simulation simul) {
-		EntityManager em = EMFService.get().createEntityManager();
-		em.getTransaction().begin();
-		Simulation managed = em.merge(simul);
-		em.getTransaction().commit();
-		em.close();
-		return managed;
+		RestClient client = new RestClient(URL_BASE+"/api/simulations/"+simul.getId(), RestClient.PUT_METHOD,new Gson().toJson(simul));
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		if(client.getStatusCode()==200){
+			return simul;
+		}else{
+			return null;
+		}
 	}
 
 	@Override
-	public void deleteSimulation(long id) {
-		EntityManager em = EMFService.get().createEntityManager();
-		try{
-			Simulation hypSimul = em.find(Simulation.class, id);
-			em.getTransaction().begin();
-			em.remove(hypSimul);
-			em.getTransaction().commit();
-		} finally {
-			em.close();
-		}
-		
+	public void deleteSimulation(String id) {
+		RestClient client = new RestClient(URL_BASE+"/api/simulations/"+id, RestClient.DELETE_METHOD);
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		System.out.println("Simulation deletion, result :"+client.getStatusCode());
 	}
 
 

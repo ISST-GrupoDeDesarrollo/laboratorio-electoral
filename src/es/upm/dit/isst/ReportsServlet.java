@@ -85,7 +85,7 @@ public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws Se
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{
 		
 		long projectId = Long.parseLong(req.getParameter("projectId"));
-		long id = Long.parseLong(req.getParameter("simulation"));
+		String id = req.getParameter("simulation");
 		Simulation simulation = SimulationDAOImpl.getInstance().getSimulation(id);
 		Project project = ProjectDAOImpl.getInstance().getProject(projectId);
 		String sb = Tools.readRequestAsString(req);

@@ -24,26 +24,23 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 
 import com.google.appengine.datanucleus.annotations.Unowned;
 
-@Entity
-public class Simulation implements Serializable {
-	public static final int SAMPLE_POINTS = 5;
+public class Simulation  {
 
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue()
-	Long id;
+	private String id;
 
 	private String name;
 	private String creator;
 	private Date createDate;
 	private boolean isTemplate;
 
-	@OneToMany(cascade = CascadeType.PERSIST,mappedBy="simulation")
 	private List<Circumscription> Circunscriptions = new ArrayList<Circumscription>();
 
-	public Simulation(String simulname, String creator, Date createDate) {
+	public Simulation(){
 		super();
+	}
+	
+	public Simulation(String simulname, String creator, Date createDate) {
+		this();
 		this.name = simulname;
 		this.creator = creator;
 		this.createDate = createDate;
@@ -62,7 +59,7 @@ public class Simulation implements Serializable {
 		return this.createDate;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return this.id;
 	}
 
@@ -85,7 +82,7 @@ public class Simulation implements Serializable {
 	
 	
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

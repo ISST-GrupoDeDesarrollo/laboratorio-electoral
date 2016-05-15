@@ -10,9 +10,9 @@ import es.upm.dit.isst.models.Team;
 public interface SimulationDAO {
 
 	public Simulation createSimulation(Simulation simul);
-	public Simulation getSimulation(long id);
+	public Simulation getSimulation(String id);
 	public Simulation updateSimulation(Simulation simul);
-	public void deleteSimulation(long id);
+	public void deleteSimulation(String id);
 	public List<Simulation> getByCreator(String creator);
 	public List<Simulation> getTemplates();
 	
