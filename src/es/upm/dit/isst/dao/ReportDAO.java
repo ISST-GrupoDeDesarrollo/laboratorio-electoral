@@ -8,8 +8,8 @@ public interface ReportDAO {
 	
 	public Report createReport(Report newReport);
 	public Report updateReport(Report reportUpdated);
-	public void deleteReport(Report reportToDelete);
-	public Report selectById(long id);
+	public void deleteReport(String id);
+	public Report selectById(String id);
 	public List<Report> selectAll();
-	
+	public List<Report> selectByCreator(String creator);
 }

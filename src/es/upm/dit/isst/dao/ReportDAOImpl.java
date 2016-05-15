@@ -5,12 +5,18 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import es.upm.dit.isst.lab.tools.RestClient;
 import es.upm.dit.isst.models.Congress;
 import es.upm.dit.isst.models.Report;
+import es.upm.dit.isst.models.Simulation;
 import es.upm.dit.isst.models.User;
 
 public class ReportDAOImpl implements ReportDAO{
-
+	private static String URL_BASE = "http://cubosybridas.cloudapp.net:4000";
+	
 	private static ReportDAOImpl instance;
 	public static ReportDAOImpl getInstance(){
 		if(instance == null){
@@ -21,57 +27,79 @@ public class ReportDAOImpl implements ReportDAO{
 	
 	@Override
 	public Report createReport(Report newReport) {
-		EntityManager em = EMFService.get().createEntityManager();
-		em.persist(newReport);
-		em.close();
-		return newReport;
+		RestClient client = new RestClient(URL_BASE+"/api/reports", RestClient.POST_METHOD,new Gson().toJson(newReport));
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		if(client.getStatusCode()==200){
+			String id = client.getResponse();
+			newReport.setId(id);
+			return newReport;
+		}else{
+			return null;
+		}
 	}
 
 	@Override
 	public Report updateReport(Report reportUpdated) {
-		EntityManager em = EMFService.get().createEntityManager();
-		em.merge(reportUpdated);
-		em.close();
-		return reportUpdated;
-	}
-
-	@Override
-	public void deleteReport(Report reportToDelete) {
-		EntityManager em = EMFService.get().createEntityManager();
-		em.remove(reportToDelete);
-		em.close();
-	}
-
-	@Override
-	public Report selectById(long id) {
-		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("SELECT t FROM Report t WHERE t.id = :id");
-		q.setParameter("id", id);
-		Report res = null;
-		List<Report> reports = q.getResultList();
-		if (reports.size() > 0){
-			res = (Report)(q.getResultList().get(0));
-			List<Congress> cgs = res.getCongresses();
-			Congress cgs2 = res.getGlobalCongress();
-			for (Congress cg : cgs){
-				cg.getParlamentaryGroup();
-			}
-			cgs2.getParlamentaryGroup();
-			res.getTerritories();
+		RestClient client = new RestClient(URL_BASE+"/api/reports/"+reportUpdated.getId(), RestClient.PUT_METHOD,new Gson().toJson(reportUpdated));
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		if(client.getStatusCode()==200){
+			return reportUpdated;
+		}else{
+			return null;
 		}
-		em.close();
-		return res;
+	}
+
+	@Override
+	public void deleteReport(String id) {
+		RestClient client = new RestClient(URL_BASE+"/api/reports/"+id, RestClient.DELETE_METHOD);
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		System.out.println("Report deletion, result :"+client.getStatusCode());
+	}
+
+	@Override
+	public Report selectById(String id) {
+		RestClient client = new RestClient(URL_BASE+"/api/reports/"+id, RestClient.GET_METHOD);
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		if(client.getStatusCode()==200){
+			return new Gson().fromJson(response, Report.class);
+		}else{
+			return null;
+		}
+	}
+
+	@Override
+	public List<Report> selectByCreator(String creator) {
+		RestClient client = new RestClient(URL_BASE+"/api/reports?creator="+creator, RestClient.GET_METHOD);
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		if(client.getStatusCode()==200){
+			return new Gson().fromJson(response, new TypeToken<List<Report>>() {}.getType());
+		}else{
+			return null;
+		}
 	}
 
 	@Override
 	public List<Report> selectAll() {
-		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("SELECT t FROM Report t");
-		List<Report> res= q.getResultList();
-		em.close();
-		return res;
+		RestClient client = new RestClient(URL_BASE+"/api/reports", RestClient.GET_METHOD);
+		client.addHeader("Content-type", "application/json");
+		client.execute();
+		String response = client.getResponse();
+		if(client.getStatusCode()==200){
+			return new Gson().fromJson(response, new TypeToken<List<Report>>() {}.getType());
+		}else{
+			return null;
+		}
 	}
-	
 	
 	
 }

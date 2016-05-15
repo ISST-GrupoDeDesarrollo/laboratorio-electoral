@@ -24,7 +24,7 @@ public class PublicReportServlet extends HttpServlet{
 		if(idString != null && idString != ""){
 			try{
 				ReportDAO dao = ReportDAOImpl.getInstance();
-				Report reportSelected = dao.selectById(Long.parseLong(idString));
+				Report reportSelected = dao.selectById(idString);
 				if (reportSelected != null && reportSelected.getIsPublic()){
 					Report reportToSend = reportSelected;
 					reportToSend.setCreator(null);
@@ -45,7 +45,7 @@ public class PublicReportServlet extends HttpServlet{
 		if(idString != null && idString != ""){
 			try{
 				ReportDAO dao = ReportDAOImpl.getInstance();
-				Report reportSelected = dao.selectById(Long.parseLong(idString));
+				Report reportSelected = dao.selectById(idString);
 				if (reportSelected != null){
 					reportSelected.setIsPublic();
 					dao.updateReport(reportSelected);
