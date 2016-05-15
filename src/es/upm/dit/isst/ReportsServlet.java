@@ -69,19 +69,30 @@ public class ReportsServlet extends HttpServlet{
 		}
 	}
 	
-public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{
-	String reportId = req.getParameter("reportId");
-	Long projectId = Long.parseLong(req.getParameter("projectId"));
-	Project project = ProjectDAOImpl.getInstance().getProject(projectId);
-	Report report = ReportDAOImpl.getInstance().selectById(reportId);
-	if(report!=null&&project!=null&&project.getReports().contains(report)){
-		project.getReports().remove(report);
-		ProjectDAOImpl.getInstance().updateProject(project);
-		resp.setStatus(200);
-	}else{
-		resp.sendError(400);
-	}
-}
+	public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{
+		String reportId = req.getParameter("reportId");
+		Long projectId = Long.parseLong(req.getParameter("projectId"));
+		Project project = ProjectDAOImpl.getInstance().getProject(projectId);
+		Report report = ReportDAOImpl.getInstance().selectById(reportId);
+		ReportId reportIdObject = null;
+		List<ReportId> reportsIdInProject = project.getReports();
+		for(ReportId repo : reportsIdInProject){
+			if(repo.getId().equals(reportId)){
+				reportIdObject = repo;
+				break;
+			}
+		}
+		if(report!=null && project!=null && project.getReports().contains(reportIdObject)){
+			System.out.println(report.getId());
+			System.out.println(report.getName());
+			project.getReports().remove(reportIdObject);
+			ProjectDAOImpl.getInstance().updateProject(project);
+			ReportDAOImpl.getInstance().deleteReport(report.getId());
+			resp.setStatus(200);
+		}else{
+			resp.sendError(400);
+		}
+	}	
 	
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{

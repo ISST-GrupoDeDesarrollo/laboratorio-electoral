@@ -17,6 +17,7 @@ public class ReportId {
 	private String creator;
 	private Date createDate;
 	private String simulation;
+	private boolean isPublic;
 	
 	public ReportId(String id) {
 		this(id,null,null,null,null);
@@ -29,6 +30,7 @@ public class ReportId {
 		this.createDate = date;
 		this.name = name;
 		this.simulation = simulation;
+		this.isPublic = false;
 	}
 
 	public Long getUniqueIdentifier() {
@@ -39,6 +41,14 @@ public class ReportId {
 		this.uniqueIdentifier = uniqueIdentifier;
 	}
 
+	public boolean getIsPublic(){
+		return this.isPublic;
+	}
+	
+	public void setIsPublic(){
+		this.isPublic = !this.isPublic;
+	}
+	
 	public String getId() {
 		return id;
 	}
