@@ -9,6 +9,7 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 	var reloadProject = function(){
 		$http.get("/api/projects",{params: {id: $routeParams.projectId}}).success(function(data,status){
 			$scope.cleanObjectFromDatabase(data);
+			console.log(data);
 			$scope.project = data;
 			getActualWorkgroup();
 		});
@@ -94,7 +95,7 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
     	$http({
         	method: 'PUT',
        		url: '/api/publicReport',
-        	params: {id: reportId} 
+        	params: {idReport: reportId, idProject: $scope.project.id} 
         }).success(function(data){
         	reloadProject();
         }).error(function(){
