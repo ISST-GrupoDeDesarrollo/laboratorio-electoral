@@ -38,7 +38,6 @@ public class SimulationDAOImplTest {
 		helper.tearDown();
 		
 		SimulationDAO dao = SimulationDAOImpl.getInstance();
-		
 		for(Simulation simul : simuls){
 			dao.deleteSimulation(simul.getId());
 		}
