@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import es.upm.dit.isst.dao.DashboardDAOImpl;
@@ -21,6 +22,7 @@ import es.upm.dit.isst.lab.tools.Tools;
 import es.upm.dit.isst.models.DashboardMessage;
 import es.upm.dit.isst.models.Project;
 import es.upm.dit.isst.models.Report;
+import es.upm.dit.isst.models.ReportId;
 import es.upm.dit.isst.models.Simulation;
 
 public class ReportsServlet extends HttpServlet{
@@ -31,7 +33,7 @@ public class ReportsServlet extends HttpServlet{
 		if (idString != null && idString != ""  ){
 
 			try {
-					Long id = Long.parseLong(req.getParameter("id"));
+					String id = req.getParameter("id");
 					ReportDAO reported = ReportDAOImpl.getInstance();
 					Report rep = reported.selectById(id);
 				if (rep != null) {
@@ -68,7 +70,7 @@ public class ReportsServlet extends HttpServlet{
 	}
 	
 public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{
-	Long reportId =Long.parseLong(req.getParameter("reportId"));
+	String reportId = req.getParameter("reportId");
 	Long projectId = Long.parseLong(req.getParameter("projectId"));
 	Project project = ProjectDAOImpl.getInstance().getProject(projectId);
 	Report report = ReportDAOImpl.getInstance().selectById(reportId);
@@ -99,9 +101,10 @@ public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws Se
 				if(report!=null){
 					report.setCreateDate(new Date());
 					report.setCreator(username);
+					String reportAsJson = new Gson().toJson(report,Report.class);
 					report.setSimulation(simulation.getName());
-					
-					project.getReports().add(report);
+					report = ReportDAOImpl.getInstance().createReport(report);
+					project.getReports().add(new ReportId(report.getId(), report.getName(), report.getCreator(), report.getCreateDate(), report.getSimulation()));
 					ProjectDAOImpl.getInstance().updateProject(project);
 					Tools.sendJson(resp, report, Report.class);
 				}else{

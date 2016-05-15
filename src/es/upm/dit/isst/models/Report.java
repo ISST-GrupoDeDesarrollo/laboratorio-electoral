@@ -7,18 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.*;
-
-import com.google.appengine.datanucleus.annotations.Unowned;
-
-@Entity
 public class Report {
 	
-	private static final long serialVersionUID = 1L;
-	
-	@Id 
-	@GeneratedValue() 
-	private Long id;
+	private String id;
 	
 	private String name;
 	
@@ -30,17 +21,15 @@ public class Report {
 	
 	private boolean isPublic;
 	
-	//Necesito guardar todos los congresos por cada territorio
-	@OneToMany(cascade=CascadeType.ALL)
 	private List<Congress> congress = new ArrayList<Congress>();
 	
-	@Lob
-	@ElementCollection
 	private Map<String,String> territories = new HashMap<String, String>();
 	
-	@OneToOne(cascade=CascadeType.ALL)
 	private Congress globalCongress;
 	
+	public Report(){
+		super();
+	}
 	
 	public Report(String name){
 		super();
@@ -56,12 +45,12 @@ public class Report {
 		return this.isPublic;
 	}
 	
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -30,7 +30,7 @@ public class Project implements Serializable {
     
     @OneToMany(cascade = CascadeType.REMOVE)
     @Unowned
-    private List<Report> reports = new ArrayList<>();
+    private List<ReportId> reports = new ArrayList<>();
     
     @OneToMany(cascade = CascadeType.REMOVE)
     @Unowned
@@ -66,11 +66,11 @@ public class Project implements Serializable {
 		this.creationDate = date;
 	}
 
-	public List<Report> getReports() {
+	public List<ReportId> getReports() {
 		return reports;
 	}
 
-	public void setReports(List<Report> reports) {
+	public void setReports(List<ReportId> reports) {
 		this.reports = reports;
 	}
 
