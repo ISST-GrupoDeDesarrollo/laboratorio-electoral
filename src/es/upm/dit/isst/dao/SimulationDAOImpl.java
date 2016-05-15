@@ -20,7 +20,7 @@ import es.upm.dit.isst.models.VotingIntent;
 public class SimulationDAOImpl implements SimulationDAO {
 	
 	private static SimulationDAOImpl instance;
-	private static String URL_BASE = "http://localhost:4000";
+	private static String URL_BASE = "http://cubosybridas.cloudapp.net:4000";
 	
 	private SimulationDAOImpl() {}
 	
