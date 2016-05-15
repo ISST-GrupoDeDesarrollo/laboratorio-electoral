@@ -2,6 +2,7 @@ package es.upm.dit.isst.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,49 +22,65 @@ public class SimulationDAOImplTest {
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(100));
 	
 	private Simulation simulation;
+	private List<Simulation> simuls;
 	
 	@Before
 	public void setUp() throws Exception {
 		helper.setUp();
 		
-		simulation = new Simulation("name","creator",new Date(1000));
+		simuls = new ArrayList<Simulation>();
+		simulation = new Simulation("name","creaasfknaf",new Date(1000));
+	
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		helper.tearDown();
+		
+		SimulationDAO dao = SimulationDAOImpl.getInstance();
+		for(Simulation simul : simuls){
+			dao.deleteSimulation(simul.getId());
+		}
 	}
 
 	@Test
 	public void testCreateSimulation() {
 		SimulationDAO dao = SimulationDAOImpl.getInstance();
 		Simulation devuelto = dao.createSimulation(simulation);
+		simuls.add(devuelto);
 		assertNotNull(devuelto);
+		assertEquals(simulation.getId(),devuelto.getId());
+		assertSame(simulation,devuelto);
 	}
 
 	@Test
 	public void testGetSimulation() {
 		SimulationDAO dao = SimulationDAOImpl.getInstance();
-		dao.createSimulation(simulation);
-		Simulation devuelto = dao.getSimulation(simulation.getId());
-		assertEquals(simulation.getId(),devuelto.getId());
-		assertEquals(simulation.getName(),devuelto.getName());
+		Simulation created = dao.createSimulation(simulation);
+		simuls.add(created);
+		assertSame(created,simulation);
+		Simulation devuelto = dao.getSimulation(created.getId());
+		//assertSame(created,devuelto);
+		assertEquals(created.getId(),devuelto.getId());
+		assertEquals(created.getName(),devuelto.getName());
 	}
 
 	@Test
 	public void testUpdateSimulation() {
 		SimulationDAO dao = SimulationDAOImpl.getInstance();
-		dao.createSimulation(simulation);
+		Simulation created = dao.createSimulation(simulation);
+		simuls.add(created);
 		assertEquals(simulation.getName(),"name");
 		simulation.setName("name2");
-		dao.updateSimulation(simulation);
-		assertEquals(simulation.getName(),"name2");
+		Simulation updated = dao.updateSimulation(simulation);
+		assertEquals(updated.getName(),"name2");
 	}
 
 	@Test
 	public void testDeleteSimulation() {
 		SimulationDAO dao = SimulationDAOImpl.getInstance();
-		dao.createSimulation(simulation);
+		Simulation created = dao.createSimulation(simulation);
+		simuls.add(created);
 		assertNotNull(dao.getSimulation(simulation.getId()));
 		dao.deleteSimulation(simulation.getId());
 		assertNull(dao.getSimulation(simulation.getId()));
@@ -72,7 +89,8 @@ public class SimulationDAOImplTest {
 	@Test
 	public void testGetByCreator() {
 		SimulationDAO dao = SimulationDAOImpl.getInstance();
-		dao.createSimulation(simulation);
+		Simulation created = dao.createSimulation(simulation);
+		simuls.add(created);
 		List<Simulation> devueltos = dao.getByCreator(simulation.getCreator());
 		assertEquals(devueltos.size(),1);
 	}
@@ -80,7 +98,8 @@ public class SimulationDAOImplTest {
 	@Test
 	public void testGetTemplates() {
 		SimulationDAO dao = SimulationDAOImpl.getInstance();
-		dao.createSimulation(simulation);
+		Simulation created = dao.createSimulation(simulation);
+		simuls.add(created);
 		List<Simulation> templates = dao.getTemplates();
 		assertFalse(dao.getSimulation(simulation.getId()).isTemplate());
 		assertEquals(templates.size(),0);
