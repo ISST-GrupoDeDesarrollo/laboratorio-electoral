@@ -47,7 +47,7 @@ public class DashboardDAOImplTest {
 		DashboardMessage devuelto = dao.createDashboard(message);
 		assertNotNull(devuelto);
 	}
-
+	//
 	@Test
 	public void testGetDashboards() {
 		DashboardDAO dao = DashboardDAOImpl.getInstance();
