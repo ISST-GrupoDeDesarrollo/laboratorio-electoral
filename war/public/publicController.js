@@ -3,7 +3,9 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 	$scope.result = {};
 	
 	var getResult = function(){
+		console.log("entra en getResult");
 		var reportId = $location.path();
+		console.log("El id del report es:" + reportId);
 		http({
 			method: 'GET',
 			url: '/api/publicReport',

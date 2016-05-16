@@ -116,7 +116,10 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 		});
     	
     	modalInstance.result.then(function (url) {
-    		$window.location.href = url;
+    		console.log(url);
+    		/*$location.path("/public/" + url);
+    		console.log($location.absurl());*/
+    		$window.location.href = url;	
 		}, function () {
 			console.log('Modal dismissed at: ' + new Date());
 		});
@@ -172,9 +175,10 @@ Laboratory.controller('seeLinkController', ['$scope', '$http', '$uibModalInstanc
 	
 	var protocol = $location.protocol();
 	var host = $location.host();
-
+	
 	$scope.url = (protocol + '://' + host + ':8888/#/public/' + id);
-	console.log($scope.url);
+	//$scope.url = id;
+	
 	
 	$scope.goPublicReport = function(){
 		$uibModalInstance.close($scope.url);

@@ -25,6 +25,7 @@ public class PublicReportServlet extends HttpServlet{
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException{
 		String idString = req.getParameter("id");
+		
 		if(idString != null && idString != ""){
 			try{
 				ReportDAO dao = ReportDAOImpl.getInstance();
@@ -57,6 +58,10 @@ public class PublicReportServlet extends HttpServlet{
 					for(ReportId repo : reportsInProject){
 						if(repo.getId().equals(idReportString)){
 							repo.setIsPublic();
+							ReportDAO daoReport = ReportDAOImpl.getInstance();
+							Report reportSelected = daoReport.selectById(idReportString);
+							reportSelected.setIsPublic();
+							daoReport.updateReport(reportSelected);
 							break;
 						}
 					}
