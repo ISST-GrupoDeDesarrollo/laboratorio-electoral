@@ -46,7 +46,7 @@
 				 <div class="panel panel-primary">
 				      <div class="panel-heading">{{message.title}}</div>
 				      <div class="panel-body">
-				      	<p>{{message.body}}</p>
+				      	<p ng-bind-html="message.body"></p>
 				      	<p class="text-right">Sent by: {{message.creator.completeName}} <br>
 				Created on: {{message.postDate}}</p>
 				      </div>
