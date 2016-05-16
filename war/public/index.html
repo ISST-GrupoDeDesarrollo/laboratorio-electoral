@@ -1,10 +1,50 @@
 
-<div id="container" ng-controller="resultController as Map">
-	 <div >
-        <highchart config="config"></highchart>
-    </div>
+<div id="container" ng-controller="publicController as Map">
+	 <h1 class="center-text page-header">{{result.name}}</h1>
 
-    <div>
+  <div class="row">
+    	<highchart class="big_chart col-centered" config="graphicGlobalCongress"></highchart>
+  </div>
+  <div class="row">	
+    <div class="col-md-6">
+      <highchart config="config"></highchart>
+    </div>
+      <div class="col-md-6">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Total Voters</th>
+            <th>Total Population</th>
+            <th>Participation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>{{result.globalCongress.localVoters}}</th>
+            <th>{{result.globalCongress.localPopulation}}</th>
+            <th>{{participation}}%</th>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Parties</th>
+            <th>Percentaje</th>
+            <th>Total Deputies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in result.globalCongress.parlamentaryGroup">
+            <th>{{data.name}}</th>
+            <th>{{((data.deputies/globalDeputies)*100).toFixed(2)}}%</th>
+            <th>{{data.deputies}}</th>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  </div>
+    <div class="col-md-6">
     	<highchart config="graphicCongress"></highchart>
    	</div>
 </div>

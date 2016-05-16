@@ -2,7 +2,6 @@ package es.upm.dit.isst.test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -48,21 +47,17 @@ public class DashboardDAOImplTest {
 		DashboardMessage devuelto = dao.createDashboard(message);
 		assertNotNull(devuelto);
 	}
-
-	@Test
-	public void testGetDashboards() {
-		DashboardDAO dao = DashboardDAOImpl.getInstance();
-		dao.createDashboard(message);
-		List<DashboardMessage> devueltos = new ArrayList<>(dao.getDashboards());
-		assertEquals(1,devueltos.size());
-	}
-
+	
+	
+	// FALLA PORQUE LA BASE DE DATOS DE GOOGLE APP ENGINE NO PERSISTE DE MANERA INMEDIATA, LUEGO EL BORRADO DEL DASHBOARD
+	// NO SE REALIZA Y AL HACER EL GET NOS DEVUELVE UN OBJETO NO NULL
 	@Test
 	public void testDeleteDashboard() {
 		DashboardDAO dao = DashboardDAOImpl.getInstance();
-		dao.createDashboard(message);
-		dao.deleteDashboard(message);
-		assertNull(dao.getDashboardMessage(message.getId()));
+		DashboardMessage created = dao.createDashboard(message);
+		assertNotNull(dao.getDashboardMessage(created.getId()));
+		dao.deleteDashboard(created); // NO SE REALIZA DE MANERA INMEDIATA EN GOOGLE APP ENGINE
+		assertNull(dao.getDashboardMessage(created.getId()));
 	}
 
 	@Test
