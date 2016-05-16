@@ -9,6 +9,7 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 	var reloadProject = function(){
 		$http.get("/api/projects",{params: {id: $routeParams.projectId}}).success(function(data,status){
 			$scope.cleanObjectFromDatabase(data);
+			console.log(data);
 			$scope.project = data;
 			getActualWorkgroup();
 		});
@@ -94,7 +95,7 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
     	$http({
         	method: 'PUT',
        		url: '/api/publicReport',
-        	params: {id: reportId} 
+        	params: {idReport: reportId, idProject: $scope.project.id} 
         }).success(function(data){
         	reloadProject();
         }).error(function(){
@@ -115,7 +116,7 @@ Laboratory.controller('projectController', ['$scope', '$http','$routeParams', '$
 		});
     	
     	modalInstance.result.then(function (url) {
-    		$window.location.href = url;
+    		$window.location.href = url;	
 		}, function () {
 			console.log('Modal dismissed at: ' + new Date());
 		});
@@ -171,9 +172,9 @@ Laboratory.controller('seeLinkController', ['$scope', '$http', '$uibModalInstanc
 	
 	var protocol = $location.protocol();
 	var host = $location.host();
-
-	$scope.url = (protocol + '://' + host + ':8888/#/public/' + id);
-	console.log($scope.url);
+	var port = $location.port();
+	
+	$scope.url = (protocol + '://' + host + ':' + port + '/#/public/' + id);
 	
 	$scope.goPublicReport = function(){
 		$uibModalInstance.close($scope.url);

@@ -1,4 +1,4 @@
-var Laboratory = angular.module('Laboratory', ['ui.bootstrap','ngRoute','highcharts-ng','ui.multiselect']); //Instaciamos la app y le pasamos un array con los nombres de las dependencias. Estos nombres vienen dados por las librerías
+var Laboratory = angular.module('Laboratory', ['ui.bootstrap','ngRoute','highcharts-ng','ui.multiselect','ngSanitize']); //Instaciamos la app y le pasamos un array con los nombres de las dependencias. Estos nombres vienen dados por las librerías
 
 Laboratory.config(['$routeProvider',function ($routeProvider) { //Configuro el proveedor de rutas de la app. Sacado de la documentación de ngRoute
     $routeProvider.when("/", {

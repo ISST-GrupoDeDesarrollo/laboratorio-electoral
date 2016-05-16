@@ -46,9 +46,8 @@
 								<p ng-show="appUser.username===selectedWorkgroup.creator">Permissions:</p>
 								<multiselect
 									ng-show="appUser.username===selectedWorkgroup.creator"
-									ng-bind-html="usernameM = user.username"
 									ng-change="newPermission(user)"    
-    								ng-model="permissionsSelected[usernameM]" 
+    								ng-model="permissionsSelected[user.username]" 
     								options="c for c in permissionsOptions"
     								data-multiple="true">
     							</multiselect>

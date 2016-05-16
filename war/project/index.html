@@ -46,7 +46,7 @@
 				 <div class="panel panel-primary">
 				      <div class="panel-heading">{{message.title}}</div>
 				      <div class="panel-body">
-				      	<p>{{message.body}}</p>
+				      	<p ng-bind-html="message.body"></p>
 				      	<p class="text-right">Sent by: {{message.creator.completeName}} <br>
 				Created on: {{message.postDate}}</p>
 				      </div>
@@ -173,7 +173,7 @@
         </div>
 
         <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="goPublicReport()">Go</button>
+            <button class="btn btn-primary" type="button" ng-click="goPublicReport()">Go</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
     

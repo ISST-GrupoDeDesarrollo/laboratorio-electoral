@@ -3,17 +3,17 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 	$scope.result = {};
 	
 	var getResult = function(){
-		var reportId = $location.path();
-		http({
+		var reportId = $routeParams.publicReportId;
+		$http({
 			method: 'GET',
 			url: '/api/publicReport',
-			{params: {id: reportId} }
+			params: {id: reportId} 
 		}).success(function(data){
 			$scope.cleanObjectFromDatabase(data);
 			$scope.result = data;
 			console.log(data);
 			updateConfigScope();
-		}).eror(function(){
+		}).error(function(){
 			
 		});
 	}
