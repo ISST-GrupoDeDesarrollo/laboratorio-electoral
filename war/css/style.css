@@ -15,12 +15,13 @@ html{
 	margin:0 auto;
 }
 
-#campos {
-  clear: both;
+.big_chart{
+    height:600px;
+    width:1200px;
 }
 
-#boton {
-
+#campos {
+  clear: both;
 }
 
 #re {

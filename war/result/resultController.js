@@ -14,7 +14,7 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 	/*
 	*	Merge GEOJson and create labels and colors properly
 	*/
-	var createInfoStructure = function(){
+	var localInfoStructure = function(){
 		var congresses = $scope.result.congress;
 		$scope.dataForMap = [];
 		$scope.formed_json = {"type": "FeatureCollection","features":[]};
@@ -37,6 +37,11 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 				"parties_data": party_represntation_char_data
 			});
 		}
+		$scope.globalDeputies = 0;
+		for (var n = 0; n<$scope.result.globalCongress.parlamentaryGroup.length;n++){
+			$scope.globalDeputies += $scope.result.globalCongress.parlamentaryGroup[n].deputies;
+		}
+		$scope.participation = (($scope.result.globalCongress.localVoters/$scope.result.globalCongress.localPopulation)*100).toFixed(2);
 		//console.log($scope.dataForMap);
 	};
 
@@ -56,6 +61,7 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 		for(var n = 0; n < array.length; n++){
 			party_data.push([array[n].name, array[n].deputies])
 		}
+		console.log(party_data);
 		return party_data;
 	};
 
@@ -63,9 +69,9 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 	*	Auxiliar method to update scope when downloading map
 	*/
 	var updateConfigScope = function(){
-		$scope.config.title.text = $scope.result.name;
-		createInfoStructure();
-		console.log($scope.formed_json);
+		$scope.config.title.text = "";
+		localInfoStructure();
+		console.log($scope.result);
 		$scope.config.series = [{
 			animation: {
             	duration: 1000
@@ -97,16 +103,24 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 
             }
 		}];
-		
+	};
 
+	var updateGlobalConfigScope = function(){
+		var congressSeries = [];
+		for (var n = 0; n<$scope.result.globalCongress.parlamentaryGroup.length;n++){
+			congressSeries.push([$scope.result.globalCongress.parlamentaryGroup[n].name,$scope.result.globalCongress.parlamentaryGroup[n].deputies]);
+		}
+
+		$scope.graphicGlobalCongress.series[0].data = congressSeries; 
 	};
 
 	var reloadResult = function(){
 		$http.get("/api/reports",{params:{id:$routeParams.resultId}}).success(function(data,status){
 			$scope.cleanObjectFromDatabase(data);
 			$scope.result = data;
-			console.log(data);
+			//console.log(data);
 			updateConfigScope();
+			updateGlobalConfigScope();
 			
 			
 		});
@@ -174,4 +188,53 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
         }]
     };
     
+
+    $scope.graphicGlobalCongress =  {
+       chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,
+            plotShadow: false,
+            margin: [0, 0, 0, 0],
+            spacingTop: 0,
+            spacingBottom: 0,
+            spacingLeft: 0,
+            spacingRight: 0
+        },
+        title: {
+            text: '',
+            align: 'center',
+            verticalAlign: 'middle',
+            y: 40
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        options:{
+        plotOptions: {
+            pie: {
+            	size:"100%",
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white',
+                        textShadow: '0px 1px 2px black'
+                    }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%']
+            }
+        }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Parliament',
+            innerSize: '50%',
+            data: []
+        }]
+    };
+
+
 }]);
