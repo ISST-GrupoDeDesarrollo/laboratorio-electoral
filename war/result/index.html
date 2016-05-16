@@ -35,10 +35,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="data in result.globalCongress.parlamentaryGroup">
+          <tr ng-repeat="data in WorldCongress">
             <th>{{data.name}}</th>
-            <th>{{((data.deputies/globalDeputies)*100).toFixed(2)}}%</th>
-            <th>{{data.deputies}}</th>
+            <th>{{((data.y/globalDeputies)*100).toFixed(2)}}%</th>
+            <th>{{data.y}}</th>
           </tr>
         </tbody>
       </table>

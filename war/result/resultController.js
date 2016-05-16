@@ -168,8 +168,10 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 	var updateGlobalConfigScope = function(){
 		var congressSeries = [];
 		for (var n = 0; n<$scope.result.globalCongress.parlamentaryGroup.length;n++){
-			congressSeries.push({ name: $scope.result.globalCongress.parlamentaryGroup[n].name,y: $scope.result.globalCongress.parlamentaryGroup[n].deputies,color:getmycolor($scope.result.globalCongress.parlamentaryGroup[n].name)});
-		}
+            if($scope.result.globalCongress.parlamentaryGroup[n].deputies >0){
+			     congressSeries.push({ name: $scope.result.globalCongress.parlamentaryGroup[n].name,y: $scope.result.globalCongress.parlamentaryGroup[n].deputies,color:getmycolor($scope.result.globalCongress.parlamentaryGroup[n].name)});
+            }
+        }
 
          congressSeries.sort(function (a,b) {
                 console.log(a +  b)
@@ -180,8 +182,9 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
             }
                 return 0;
             });
-        
+
 		$scope.graphicGlobalCongress.series[0].data = congressSeries; 
+        $scope.WorldCongress = congressSeries;
 	};
 
 	var reloadResult = function(){
