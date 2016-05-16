@@ -76,8 +76,20 @@ public class WorkgroupDAOImplTest {
 	public void testDeleteWorkgroup() {
 		WorkgroupDAO dao = WorkgroupDAOImpl.getInstance();
 		dao.createWorkgroup(workgroup);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertNotNull(dao.getWorkgroup(workgroup.getId()));
 		dao.deleteWorkgroup(workgroup.getId());
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertNull(dao.getWorkgroup(workgroup.getId()));
 	}
 

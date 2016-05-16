@@ -2,6 +2,7 @@ package es.upm.dit.isst.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -52,8 +53,8 @@ public class DashboardDAOImplTest {
 	public void testGetDashboards() {
 		DashboardDAO dao = DashboardDAOImpl.getInstance();
 		dao.createDashboard(message);
-		List<DashboardMessage> devueltos = dao.getDashboards();
-		assertEquals(devueltos.size(),1);
+		List<DashboardMessage> devueltos = new ArrayList<>(dao.getDashboards());
+		assertEquals(1,devueltos.size());
 	}
 
 	@Test
