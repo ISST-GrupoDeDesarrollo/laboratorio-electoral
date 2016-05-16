@@ -46,21 +46,22 @@ public class ProjectDAOImplTest {
 	@Test
 	public void testCreateProject() {
 		ProjectDAO dao = ProjectDAOImpl.getInstance();
-		Project devuelto = dao.createProject(project);
-		assertNotNull(devuelto);
+		Project created = dao.createProject(project);
+		assertNotNull(created);
 	}
 
 	@Test
 	public void testGetProject() {
 		ProjectDAO dao = ProjectDAOImpl.getInstance();
-		dao.createProject(project);
-		Project devuelto = dao.getProject(project.getId());
-		assertEquals(devuelto.getId(),project.getId());
-		assertEquals(devuelto.getName(),project.getName());
-		assertEquals(devuelto.getDashboard().size(),project.getDashboard().size());
-		assertEquals(devuelto.getDescription(),project.getDescription());
-		assertEquals(devuelto.getReports().size(),project.getReports().size());
-		assertEquals(devuelto.getSimulations().size(),project.getSimulations().size());
+		Project created = dao.createProject(project);
+		Project devuelto = dao.getProject(created.getId());
+		assertNotNull(devuelto);
+		assertEquals(devuelto.getId(),created.getId());
+		assertEquals(devuelto.getName(),created.getName());
+		assertEquals(devuelto.getDashboard().size(),created.getDashboard().size());
+		assertEquals(devuelto.getDescription(),created.getDescription());
+		assertEquals(devuelto.getReports().size(),created.getReports().size());
+		assertEquals(devuelto.getSimulations().size(),created.getSimulations().size());
 		long idPrueba = -1;
 		assertNull(dao.getProject(idPrueba));
 	}
@@ -68,12 +69,13 @@ public class ProjectDAOImplTest {
 	@Test
 	public void testUpdateProject() {
 		ProjectDAO dao = ProjectDAOImpl.getInstance();
+		Project created = dao.createProject(project);
 		Date datePrueba = new Date();
 		datePrueba.setTime(10000);
-		project.setDate(datePrueba);
-		Project devuelto = dao.updateProject(project);
+		created.setDate(datePrueba);
+		Project devuelto = dao.updateProject(created);
 		assertNotNull(devuelto);
-		assertEquals(devuelto.getCreationDate(),1000);
+		assertEquals(devuelto.getCreationDate(),new Date(10000));
 	}
 
 	@Test

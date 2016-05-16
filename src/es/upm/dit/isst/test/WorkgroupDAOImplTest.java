@@ -56,6 +56,7 @@ public class WorkgroupDAOImplTest {
 		WorkgroupDAO dao = WorkgroupDAOImpl.getInstance();
 		dao.createWorkgroup(workgroup);
 		Workgroup devuelto = dao.getWorkgroup(workgroup.getId());
+		assertNotNull(devuelto);
 		assertEquals(workgroup.getId(),devuelto.getId());
 		assertEquals(workgroup.getCreator(),devuelto.getCreator());
 		assertEquals(workgroup.getMembers().size(),devuelto.getMembers().size());

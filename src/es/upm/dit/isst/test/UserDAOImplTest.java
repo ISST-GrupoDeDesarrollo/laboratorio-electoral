@@ -34,59 +34,65 @@ public class UserDAOImplTest {
 	@Test
 	public void testCreateUser() {
 		UserDAO dao = UserDAOImpl.getInstance();
-		User devuelto = dao.createUser(user);
-		assertEquals(devuelto.getUsername(),user.getUsername());
-		assertEquals(devuelto.getWorkgroupIds().size(),user.getWorkgroupIds().size());
-		assertEquals(devuelto.getWorkgroups().size(),user.getWorkgroups().size());
-		assertEquals(devuelto.getRole(),user.getRole());
+		User created = dao.createUser(user);
+		assertEquals(created.getUsername(),user.getUsername());
+		assertEquals(created.getWorkgroupIds().size(),user.getWorkgroupIds().size());
+		assertEquals(created.getWorkgroups().size(),user.getWorkgroups().size());
+		assertEquals(created.getRole(),user.getRole());
 	}
 
 	@Test
 	public void testGetUserStringBoolean() {
 		UserDAO dao = UserDAOImpl.getInstance();
-		dao.createUser(user);
-		User devuelto = dao.getUser(user.getUsername(), true);
-		assertEquals(user.getUsername(),devuelto.getUsername());
-		assertEquals(user.getRole(),devuelto.getRole());
-		assertEquals(user.getWorkgroupIds().size(),devuelto.getWorkgroupIds().size());
-		assertEquals(user.getWorkgroups().size(),devuelto.getWorkgroups().size());
+		User created = dao.createUser(user);
+		User devuelto = dao.getUser(created.getUsername(), false);
+		assertEquals(created.getUsername(),devuelto.getUsername());
+		assertEquals(created.getRole(),devuelto.getRole());
+		assertEquals(created.getWorkgroupIds().size(),devuelto.getWorkgroupIds().size());
+		assertEquals(created.getWorkgroups().size(),devuelto.getWorkgroups().size());
 	}
 
 	@Test
 	public void testGetUserString() {
 		UserDAO dao = UserDAOImpl.getInstance();
-		dao.createUser(user);
-		User devuelto = dao.getUser(user.getUsername());
-		assertEquals(user.getUsername(),devuelto.getUsername());
-		assertEquals(user.getRole(),devuelto.getRole());
-		assertEquals(user.getWorkgroupIds().size(),devuelto.getWorkgroupIds().size());
-		assertEquals(user.getWorkgroups().size(),devuelto.getWorkgroups().size());
+		User created = dao.createUser(user);
+		User devuelto = dao.getUser(created.getUsername());
+		assertNotNull(devuelto);
+		assertEquals(created.getUsername(),devuelto.getUsername());
+		assertEquals(created.getRole(),devuelto.getRole());
+		assertEquals(created.getWorkgroupIds().size(),devuelto.getWorkgroupIds().size());
+		assertEquals(created.getWorkgroups().size(),devuelto.getWorkgroups().size());
 	}
 
 	@Test
 	public void testValidateUser() {
 		UserDAO dao = UserDAOImpl.getInstance();
-		dao.createUser(user);
-		assertTrue(dao.validateUser(user.getUsername(),user.getHashedPassword()));
-		assertFalse(dao.validateUser(user.getUsername(),"sdfsf"));
+		User created = dao.createUser(user);
+		assertTrue(dao.validateUser(created.getUsername(),created.getHashedPassword()));
+		assertFalse(dao.validateUser(created.getUsername(),"sdfsf"));
 	}
 
 	@Test
 	public void testUpdateUser() {
 		UserDAO dao = UserDAOImpl.getInstance();
-		dao.createUser(user);
-		assertEquals(user.getRole(),"role");
-		user.setRole("role2");
+		User created = dao.createUser(user);
+		assertEquals(created.getRole(),"role");
+		created.setRole("role2");
 		dao.updateUser(user);
-		assertEquals(user.getRole(),"role2");
+		assertEquals(created.getRole(),"role2");
 	}
+	
+	
+	// FALLA PORQUE LA BASE DE DATOS DE GOOGLE APP ENGINE NO PERSISTE DE MANERA INMEDIATA, LUEGO EL BORRADO DEL USER
 
+	// FALLA PORQUE LA BASE DE DATOS DE GOOGLE APP ENGINE NO PERSISTE DE MANERA INMEDIATA, LUEGO EL BORRADO DEL USER
+	// NO SE REALIZA Y AL HACER EL GET NOS DEVUELVE UN OBJETO NO NULL
 	@Test
 	public void testDeleteUser() {
 		UserDAO dao = UserDAOImpl.getInstance();
-		dao.createUser(user);
-		dao.deleteUser(user.getUsername());
-		assertNull(dao.getUser(user.getUsername()));
+		User created = dao.createUser(user);
+		dao.deleteUser(created.getUsername()); // NO SE REALIZA DE MANERA INMEDIATA EN GOOGLE APP ENGINE
+		assertNull(dao.getUser(created.getUsername()));
 	}
 
 }

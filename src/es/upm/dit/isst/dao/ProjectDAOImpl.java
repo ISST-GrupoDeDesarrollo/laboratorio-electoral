@@ -36,7 +36,6 @@ public class ProjectDAOImpl implements ProjectDAO {
 		q.setParameter("id", id);
 		Project project = null;
 		List<Project> projects = q.getResultList();
-		System.out.println(projects.size());
 		if (projects.size() > 0)
 			project = (Project)(projects.get(0));
 		if(project!=null){
