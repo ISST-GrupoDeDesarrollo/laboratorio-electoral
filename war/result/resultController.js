@@ -27,14 +27,15 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 
 			var party_representation_string = partyRepresentationString(congresses[n].parlamentaryGroup);
 			var party_represntation_char_data = partyRepresentationCharData(congresses[n].parlamentaryGroup);
-
+            var check_color = check_color_parties(congresses[n].parlamentaryGroup);
 
 			$scope.dataForMap.push({
 				"name": name,
 				"localPopulation": congresses[n].localPopulation,
 				"localVoters": congresses[n].localVoters,
 				"parties": party_representation_string,
-				"parties_data": party_represntation_char_data
+				"parties_data": party_represntation_char_data,
+                "color": check_color
 			});
 		}
 		$scope.globalDeputies = 0;
@@ -55,6 +56,36 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 		}
 		return string;
 	};
+
+    var check_color_parties = function(array){
+        var string = "";
+        var number = 0;
+        var color = "blue";
+        for(var n = 0; n < array.length; n++){
+            if (array[n].deputies > number){
+                number= array[n].deputies;
+                string= array[n].name;
+            }
+        }
+
+        if(string.toLowerCase() == "pp" || string.toLowerCase() == "partido popular"){
+            color = "blue";
+        }
+        if(string.toLowerCase() == "podemos"){
+            color = "#68228B";
+        }
+        if(string.toLowerCase() == "ciudadanos"){
+            color = "orange";
+        }
+        if(string.toLowerCase() == "psoe" || string.toLowerCase() == "partido socialista" || string.toLowerCase() == "partido socialista obrero espanol"){
+            color = "red";
+        }
+         if(string.toLowerCase() == "iu" || string.toLowerCase() == "izquierda unida"){
+            color = "green";
+        }
+
+        return color;
+    };
 
 	var partyRepresentationCharData = function(array){
 		var party_data = [];
@@ -132,6 +163,13 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 	reloadResult();
 	
 	$scope.config = {
+            fills: {
+                PP: 'blue',
+                PSOE: 'red',
+                PODEMOS: 'purple',
+                CIUDADANOS: 'orange',
+                defaultFill: 'green'
+            },
             options: {
                 legend: {
                     enabled: false
@@ -151,7 +189,8 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
        chart: {
             plotBackgroundColor: null,
             plotBorderWidth: 0,
-            plotShadow: false
+            plotShadow: false,
+            marginBottom: 100
         },
         title: {
             text: 'Parliament<br>structure',
