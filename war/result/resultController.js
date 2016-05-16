@@ -92,7 +92,7 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
 
     var getmycolor = function(string){
 
-        var color = "pinkl";
+        var color = "pink";
         if(string.toLowerCase() == "pp" || string.toLowerCase() == "partido popular"){
             color = "blue";
         }
@@ -105,8 +105,14 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
         if(string.toLowerCase() == "psoe" || string.toLowerCase() == "partido socialista" || string.toLowerCase() == "partido socialista obrero espanol"){
             color = "red";
         }
-         if(string.toLowerCase() == "iu" || string.toLowerCase() == "izquierda unida"){
+        if(string.toLowerCase() == "iu" || string.toLowerCase() == "izquierda unida" || string.toLowerCase() == "pnv"){
             color = "green";
+        }
+        if(string.toLowerCase() == "erc" ){
+            color = "yellow";
+        }
+        if(string.toLowerCase() == "dl" ){
+            color = "black";
         }
         return color;
     }
@@ -228,7 +234,7 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
             marginBottom: 100
         },
         title: {
-            text: 'Parliament<br>structure',
+            text: 'Local<br>Parliament',
             align: 'center',
             verticalAlign: 'middle',
             y: 40
@@ -278,7 +284,7 @@ Laboratory.controller('resultController', ['$scope', '$http','$routeParams', '$l
             spacingRight: 0
         },
         title: {
-            text: '',
+            text: 'Parliament<br>structure',
             align: 'center',
             verticalAlign: 'middle',
             y: 40
