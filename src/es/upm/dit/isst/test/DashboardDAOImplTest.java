@@ -47,16 +47,7 @@ public class DashboardDAOImplTest {
 		DashboardMessage devuelto = dao.createDashboard(message);
 		assertNotNull(devuelto);
 	}
-	//
-	@Test
-	public void testGetDashboards() {
-		DashboardDAO dao = DashboardDAOImpl.getInstance();
-		DashboardMessage created = dao.createDashboard(message);
-		assertNotNull(created);
-		List<DashboardMessage> devueltos = dao.getDashboards();
-		assertTrue(devueltos.size()>=1);
-	}
-
+	
 	
 	// FALLA PORQUE LA BASE DE DATOS DE GOOGLE APP ENGINE NO PERSISTE DE MANERA INMEDIATA, LUEGO EL BORRADO DEL DASHBOARD
 	// NO SE REALIZA Y AL HACER EL GET NOS DEVUELVE UN OBJETO NO NULL
