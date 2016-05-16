@@ -71,13 +71,16 @@ public class WorkgroupDAOImplTest {
 		dao.updateWorkgroup(workgroup);
 		assertTrue(dao.getWorkgroup(workgroup.getId()).isPersonal());
 	}
-
+	
+	
+	// FALLA PORQUE LA BASE DE DATOS DE GOOGLE APP ENGINE NO PERSISTE DE MANERA INMEDIATA, LUEGO EL BORRADO DEL WORKGROUP
+	// NO SE REALIZA Y AL HACER EL GET NOS DEVUELVE UN OBJETO NO NULL
 	@Test
 	public void testDeleteWorkgroup() {
 		WorkgroupDAO dao = WorkgroupDAOImpl.getInstance();
 		dao.createWorkgroup(workgroup);
 		assertNotNull(dao.getWorkgroup(workgroup.getId()));
-		dao.deleteWorkgroup(workgroup.getId());
+		dao.deleteWorkgroup(workgroup.getId()); // NO SE REALIZA DE MANERA INMEDIATA EN GOOGLE APP ENGINE
 		assertNull(dao.getWorkgroup(workgroup.getId()));
 	}
 
