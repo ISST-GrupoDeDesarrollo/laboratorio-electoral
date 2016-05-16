@@ -1,22 +1,6 @@
 Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
 	
-	$scope.result = {};
-	
-	var getResult = function(){
-		var reportId = $routeParams.publicReportId;
-		$http({
-			method: 'GET',
-			url: '/api/publicReport',
-			params: {id: reportId} 
-		}).success(function(data){
-			$scope.cleanObjectFromDatabase(data);
-			$scope.result = data;
-			updateConfigScope();
-		}).error(function(){
-			
-		});
-	}
-	getResult();	
+		
 	
 	//Mostrar el mapa como en resultController
 	//MAP LOGIC
@@ -27,7 +11,7 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 			Report:[]
 	};
 
-	//$scope.result = {};
+	$scope.result = {};
 
 	/*
 	*	Merge GEOJson and create labels and colors properly
@@ -89,8 +73,6 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 	var updateConfigScope = function(){
 		$scope.config.title.text = "";
 		localInfoStructure();
-		console.log("En updateConfigScope:");
-		console.log($scope.result);
 		$scope.config.series = [{
 			animation: {
             	duration: 1000
@@ -132,23 +114,28 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 
 		$scope.graphicGlobalCongress.series[0].data = congressSeries; 
 	};
-
-	var reloadResult = function(){
-		$http.get("/api/reports",{params:{id:$routeParams.resultId}}).success(function(data,status){
+	
+	var getResult = function(){
+		var reportId = $routeParams.publicReportId;
+		$http({
+			method: 'GET',
+			url: '/api/publicReport',
+			params: {id: reportId} 
+		}).success(function(data){
 			$scope.cleanObjectFromDatabase(data);
 			$scope.result = data;
-			//console.log(data);
 			updateConfigScope();
 			updateGlobalConfigScope();
-			
+		}).error(function(){
 			
 		});
-	};
+	}
+	getResult();
 
 	/*
 	* Map Initializer
 	*/
-	reloadResult();
+	
 	
 	$scope.config = {
             options: {
