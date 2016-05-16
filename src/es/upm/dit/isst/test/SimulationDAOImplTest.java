@@ -60,7 +60,7 @@ public class SimulationDAOImplTest {
 		simuls.add(created);
 		assertSame(created,simulation);
 		Simulation devuelto = dao.getSimulation(created.getId());
-		assertEquals(created.getId(),devuelto.getId());
+		assertEquals(created.getId().replaceAll("\r", ""),devuelto.getId());
 		assertEquals(created.getName(),devuelto.getName());
 	}
 
