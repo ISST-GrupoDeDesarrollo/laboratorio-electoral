@@ -5,12 +5,12 @@
   <div class="row">
     	<highchart class="big_chart col-centered" config="graphicGlobalCongress"></highchart>
   </div>
-  <div class="row">	
+
     <div class="col-md-6">
       <highchart config="config"></highchart>
     </div>
       <div class="col-md-6">
-      <table class="table">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>Total Voters</th>
@@ -25,8 +25,7 @@
             <th>{{participation}}%</th>
           </tr>
         </tbody>
-      </table>
-      <table class="table">
+
         <thead>
           <tr>
             <th>Parties</th>
@@ -35,16 +34,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="data in result.globalCongress.parlamentaryGroup">
+          <tr ng-repeat="data in WorldCongress">
             <th>{{data.name}}</th>
-            <th>{{((data.deputies/globalDeputies)*100).toFixed(2)}}%</th>
-            <th>{{data.deputies}}</th>
+            <th>{{((data.y/globalDeputies)*100).toFixed(2)}}%</th>
+            <th>{{data.y}}</th>
           </tr>
         </tbody>
       </table>
   </div>
-  </div>
+
     <div class="col-md-6">
     	<highchart config="graphicCongress"></highchart>
    	</div>
+   <div class="clearfix"> </div>
 </div>
+
+
+
+<!-- http://jsfiddle.net/gh/get/jquery/1.11.0/highslide-software/highcharts.com/tree/master/samples/mapdata/countries/es/es-all -->

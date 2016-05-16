@@ -1,10 +1,6 @@
 Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$location', function($scope,$http,$routeParams,$location){
 	
-		
-	
-	//Mostrar el mapa como en resultController
-	//MAP LOGIC
-
+  //MAP LOGIC
 
 	$scope.simulation={
 			id:$routeParams.reportId,
@@ -29,6 +25,20 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 
 			var party_representation_string = partyRepresentationString(congresses[n].parlamentaryGroup);
 			var party_represntation_char_data = partyRepresentationCharData(congresses[n].parlamentaryGroup);
+            var voted_color = most_voted_color(congresses[n].parlamentaryGroup);
+
+
+            //order local data
+            party_represntation_char_data.sort(function (a,b) {
+                console.log(a +  b)
+            if(a.y < b.y) {
+                return 1;
+            } else if (a.y > b.y) {
+                return -1;
+            }
+                return 0;
+            });
+
 
 
 			$scope.dataForMap.push({
@@ -36,13 +46,17 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 				"localPopulation": congresses[n].localPopulation,
 				"localVoters": congresses[n].localVoters,
 				"parties": party_representation_string,
-				"parties_data": party_represntation_char_data
+				"parties_data": party_represntation_char_data,
+                "color": voted_color
 			});
 		}
 		$scope.globalDeputies = 0;
 		for (var n = 0; n<$scope.result.globalCongress.parlamentaryGroup.length;n++){
-			$scope.globalDeputies += $scope.result.globalCongress.parlamentaryGroup[n].deputies;
-		}
+            if( $scope.result.globalCongress.parlamentaryGroup[n].deputies > 0){
+			 $scope.globalDeputies += $scope.result.globalCongress.parlamentaryGroup[n].deputies;
+            }
+        }
+
 		$scope.participation = (($scope.result.globalCongress.localVoters/$scope.result.globalCongress.localPopulation)*100).toFixed(2);
 		//console.log($scope.dataForMap);
 	};
@@ -58,14 +72,60 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 		return string;
 	};
 
+    var most_voted_color = function(array){
+        var string = "";
+        var number = 0;
+        var color = "blue";
+        for(var n = 0; n < array.length; n++){
+            if (array[n].deputies > number){
+                number= array[n].deputies;
+                string= array[n].name;
+            }
+        }
+
+        color = getmycolor(string);
+
+        return color;
+    };
+
+    var getmycolor = function(string){
+
+        var color = "pink";
+        if(string.toLowerCase() == "pp" || string.toLowerCase() == "partido popular"){
+            color = "blue";
+        }
+        if(string.toLowerCase() == "podemos"){
+            color = "#68228B";
+        }
+        if(string.toLowerCase() == "ciudadanos"){
+            color = "orange";
+        }
+        if(string.toLowerCase() == "psoe" || string.toLowerCase() == "partido socialista" || string.toLowerCase() == "partido socialista obrero espanol"){
+            color = "red";
+        }
+        if(string.toLowerCase() == "iu" || string.toLowerCase() == "izquierda unida" || string.toLowerCase() == "pnv"){
+            color = "green";
+        }
+        if(string.toLowerCase() == "erc" ){
+            color = "yellow";
+        }
+        if(string.toLowerCase() == "dl" ){
+            color = "black";
+        }
+        return color;
+    }
+
 	var partyRepresentationCharData = function(array){
 		var party_data = [];
 		for(var n = 0; n < array.length; n++){
-			party_data.push([array[n].name, array[n].deputies])
-		}
+            if(array[n].deputies > 0 ){
+			party_data.push({name: array[n].name, y: array[n].deputies,color:getmycolor(array[n].name)})
+		  }
+        }
 		console.log(party_data);
 		return party_data;
 	};
+
 
 	/*
 	*	Auxiliar method to update scope when downloading map
@@ -73,6 +133,7 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 	var updateConfigScope = function(){
 		$scope.config.title.text = "";
 		localInfoStructure();
+		console.log($scope.result);
 		$scope.config.series = [{
 			animation: {
             	duration: 1000
@@ -84,8 +145,10 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
                     	click: function(){
                     				$scope.graphicCongress.series[0].data = [];
                     				$scope.graphicCongress.series[0].animation = {};
+
                     				$scope.$apply();
 
+                                    $scope.graphicCongress.series[0].color =['red','green','blue','yellow','orange'];
 		                    		$scope.graphicCongress.series[0].data = this.parties_data;
 		                    		$scope.graphicCongress.series[0].animation = {duration: 500};
 									$scope.$apply();
@@ -109,12 +172,25 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 	var updateGlobalConfigScope = function(){
 		var congressSeries = [];
 		for (var n = 0; n<$scope.result.globalCongress.parlamentaryGroup.length;n++){
-			congressSeries.push([$scope.result.globalCongress.parlamentaryGroup[n].name,$scope.result.globalCongress.parlamentaryGroup[n].deputies]);
-		}
+            if($scope.result.globalCongress.parlamentaryGroup[n].deputies >0){
+			     congressSeries.push({ name: $scope.result.globalCongress.parlamentaryGroup[n].name,y: $scope.result.globalCongress.parlamentaryGroup[n].deputies,color:getmycolor($scope.result.globalCongress.parlamentaryGroup[n].name)});
+            }
+        }
+
+         congressSeries.sort(function (a,b) {
+                console.log(a +  b)
+            if(a.y < b.y) {
+                return 1;
+            } else if (a.y > b.y) {
+                return -1;
+            }
+                return 0;
+            });
 
 		$scope.graphicGlobalCongress.series[0].data = congressSeries; 
+        $scope.WorldCongress = congressSeries;
 	};
-	
+
 	var getResult = function(){
 		var reportId = $routeParams.publicReportId;
 		$http({
@@ -136,7 +212,6 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 	* Map Initializer
 	*/
 	
-	
 	$scope.config = {
             options: {
                 legend: {
@@ -157,10 +232,11 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
        chart: {
             plotBackgroundColor: null,
             plotBorderWidth: 0,
-            plotShadow: false
+            plotShadow: false,
+            marginBottom: 100
         },
         title: {
-            text: 'Parliament<br>structure',
+            text: 'Local<br>Parliament',
             align: 'center',
             verticalAlign: 'middle',
             y: 40
@@ -170,6 +246,9 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
         },
         options:{
         plotOptions: {
+            series: {
+             colorByPoint: true
+            },
             pie: {
                 dataLabels: {
                     enabled: true,
@@ -207,7 +286,7 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
             spacingRight: 0
         },
         title: {
-            text: '',
+            text: 'Parliament<br>structure',
             align: 'center',
             verticalAlign: 'middle',
             y: 40
