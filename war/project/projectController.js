@@ -172,9 +172,9 @@ Laboratory.controller('seeLinkController', ['$scope', '$http', '$uibModalInstanc
 	
 	var protocol = $location.protocol();
 	var host = $location.host();
+	var port = $location.port();
 	
-	$scope.url = (protocol + '://' + host + ':8888/#/public/' + id);
-	
+	$scope.url = (protocol + '://' + host + ':' + port + '/#/public/' + id);
 	
 	$scope.goPublicReport = function(){
 		$uibModalInstance.close($scope.url);

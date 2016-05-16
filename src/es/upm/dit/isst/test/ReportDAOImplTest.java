@@ -17,6 +17,7 @@ import es.upm.dit.isst.dao.ReportDAOImpl;
 import es.upm.dit.isst.models.Report;
 import es.upm.dit.isst.models.Simulation;
 
+
 public class ReportDAOImplTest {
 
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(100));
@@ -67,9 +68,11 @@ public class ReportDAOImplTest {
 		ReportDAO dao = ReportDAOImpl.getInstance();
 		Report created = dao.createReport(report);
 		reports.add(created);
+		int reportsFirst = dao.selectAll().size();
 		dao.deleteReport(created.getId());
+		int reportSecond = dao.selectAll().size();
 		assertNull(dao.selectById(created.getId()));
-		assertEquals(dao.selectAll().size(),0);
+		assertEquals(reportsFirst,reportSecond+1);
 	}
 
 	@Test
@@ -87,7 +90,7 @@ public class ReportDAOImplTest {
 		Report created = dao.createReport(report);
 		reports.add(created);
 		List<Report> devueltos = dao.selectAll();
-		assertEquals(devueltos.size(),1);
+		assertTrue(devueltos.size()>=1);
 	}
 
 }
