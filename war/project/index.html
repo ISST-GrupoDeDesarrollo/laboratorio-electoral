@@ -25,7 +25,6 @@
 				      <div class="panel-body">
 				      	<p>Creator: {{simulation.creator}}</p>
 				      	<p>Creation date: {{simulation.createDate}}</p>
-				      	<p>Circumscriptions: {{simulation.Circunscriptions?simulation.Circunscriptions.length:0}}</p>
 				      </div>
 				       <div class="panel-footer" ng-show="simulation.creator===appUser.username || actualWorkgroup.permissions[appUser.username].deleteSimulations">
 				       	<button class="btn btn-danger pull-right" ng-click="deleteSimulation(simulation)">Delete</button>
