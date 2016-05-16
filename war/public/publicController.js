@@ -4,18 +4,19 @@ Laboratory.controller('publicController', ['$scope', '$http','$routeParams', '$l
 	
 	var getResult = function(){
 		console.log("entra en getResult");
-		var reportId = $location.path();
+		var reportId = $routeParams.publicReportId;
+		console.log($routeParams.publicReportId);
 		console.log("El id del report es:" + reportId);
-		http({
+		$http({
 			method: 'GET',
 			url: '/api/publicReport',
-			{params: {id: reportId} }
+			params: {id: reportId} 
 		}).success(function(data){
 			$scope.cleanObjectFromDatabase(data);
 			$scope.result = data;
 			console.log(data);
 			updateConfigScope();
-		}).eror(function(){
+		}).error(function(){
 			
 		});
 	}
